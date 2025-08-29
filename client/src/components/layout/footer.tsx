@@ -1,0 +1,170 @@
+import { Link } from "wouter";
+import { Facebook, Twitter, Linkedin, Instagram, MapPin, Phone, Mail } from "lucide-react";
+import primeLogoPath from "@assets/Prime Group_Final (1)_1756488511870.png";
+
+export default function Footer() {
+  return (
+    <footer className="bg-secondary text-secondary-foreground">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid md:grid-cols-4 gap-8">
+          {/* Company Info */}
+          <div className="space-y-4">
+            <Link href="/" className="flex items-center space-x-3" data-testid="link-footer-logo">
+              <img 
+                src={primeLogoPath} 
+                alt="Prime Trans Group" 
+                className="h-8 w-auto brightness-0 invert"
+              />
+            </Link>
+            <p className="text-sm text-secondary-foreground/80 max-w-xs">
+              Canada's premier workforce solutions provider, connecting talent with opportunity since 2016.
+            </p>
+            <div className="flex space-x-4">
+              <a 
+                href="#" 
+                className="text-secondary-foreground/60 hover:text-primary transition-colors"
+                data-testid="link-social-facebook"
+              >
+                <Facebook className="h-5 w-5" />
+              </a>
+              <a 
+                href="#" 
+                className="text-secondary-foreground/60 hover:text-primary transition-colors"
+                data-testid="link-social-twitter"
+              >
+                <Twitter className="h-5 w-5" />
+              </a>
+              <a 
+                href="#" 
+                className="text-secondary-foreground/60 hover:text-primary transition-colors"
+                data-testid="link-social-linkedin"
+              >
+                <Linkedin className="h-5 w-5" />
+              </a>
+              <a 
+                href="#" 
+                className="text-secondary-foreground/60 hover:text-primary transition-colors"
+                data-testid="link-social-instagram"
+              >
+                <Instagram className="h-5 w-5" />
+              </a>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Quick Links</h3>
+            <div className="space-y-2">
+              <Link 
+                href="/jobs" 
+                className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors"
+                data-testid="link-footer-browse-jobs"
+              >
+                Browse Jobs
+              </Link>
+              <a 
+                href="#" 
+                className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors"
+                data-testid="link-footer-post-job"
+              >
+                Post a Job
+              </a>
+              <a 
+                href="#services" 
+                className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors"
+                data-testid="link-footer-services"
+              >
+                Our Services
+              </a>
+              <a 
+                href="#about" 
+                className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors"
+                data-testid="link-footer-about"
+              >
+                About Us
+              </a>
+              <a 
+                href="#contact" 
+                className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors"
+                data-testid="link-footer-contact"
+              >
+                Contact
+              </a>
+            </div>
+          </div>
+
+          {/* Job Categories */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Popular Categories</h3>
+            <div className="space-y-2">
+              <Link 
+                href="/jobs?category=Transportation" 
+                className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors"
+                data-testid="link-category-transportation"
+              >
+                Transportation
+              </Link>
+              <Link 
+                href="/jobs?category=Manufacturing" 
+                className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors"
+                data-testid="link-category-manufacturing"
+              >
+                Manufacturing
+              </Link>
+              <Link 
+                href="/jobs?category=Customer Service" 
+                className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors"
+                data-testid="link-category-customer-service"
+              >
+                Customer Service
+              </Link>
+              <Link 
+                href="/jobs?category=Administrative" 
+                className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors"
+                data-testid="link-category-administrative"
+              >
+                Administrative
+              </Link>
+              <Link 
+                href="/jobs?category=Warehouse" 
+                className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors"
+                data-testid="link-category-warehouse"
+              >
+                Warehouse
+              </Link>
+            </div>
+          </div>
+
+          {/* Contact Info */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Contact Info</h3>
+            <div className="space-y-3">
+              <div className="flex items-start space-x-3">
+                <MapPin className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
+                <div className="text-sm text-secondary-foreground/80">
+                  123 Business Drive<br />
+                  Toronto, ON M1B 2C3<br />
+                  Canada
+                </div>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Phone className="h-5 w-5 text-primary flex-shrink-0" />
+                <div className="text-sm text-secondary-foreground/80">+1 (416) 555-0123</div>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Mail className="h-5 w-5 text-primary flex-shrink-0" />
+                <div className="text-sm text-secondary-foreground/80">info@primetransgroup.ca</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="border-t border-secondary-foreground/20 mt-12 pt-8 text-center">
+          <p className="text-sm text-secondary-foreground/60">
+            © 2024 Prime Trans Group. All rights reserved. | Privacy Policy | Terms of Service
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+}
