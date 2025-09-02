@@ -25,15 +25,15 @@ export default function Hero() {
   ];
 
   return (
-    <section className="relative bg-background hero-pattern overflow-hidden">
+    <section className="relative bg-background hero-3d hero-pattern overflow-hidden container-3d">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Hero Content */}
-          <div className="space-y-8">
+          <div className="space-y-8 section-3d">
             <div className="space-y-4">
-              <h1 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight">
+              <h1 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight text-3d">
                 Find Your Next Great{" "}
-                <span className="text-primary">Hire</span>{" "}
+                <span className="text-gradient-3d">Hire</span>{" "}
                 in Half the Time.
               </h1>
               <p className="text-lg lg:text-xl text-muted-foreground max-w-2xl">
@@ -59,15 +59,15 @@ export default function Hero() {
             </div>
 
             {/* Job Search */}
-            <div className="bg-card border border-border rounded-lg p-6 shadow-lg">
-              <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3">
+            <div className="bg-card border border-border rounded-lg p-6 shadow-lg card-hover professional-shadow">
+              <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3 form-3d">
                 <div className="flex-1">
                   <Input
                     type="text"
                     placeholder="Job title, keywords, or company"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full"
+                    className="w-full input-3d"
                     data-testid="input-search-query"
                   />
                 </div>
@@ -77,11 +77,11 @@ export default function Hero() {
                     placeholder="Location"
                     value={searchLocation}
                     onChange={(e) => setSearchLocation(e.target.value)}
-                    className="w-full"
+                    className="w-full input-3d"
                     data-testid="input-search-location"
                   />
                 </div>
-                <Button type="submit" className="px-8" data-testid="button-search-jobs">
+                <Button type="submit" className="px-8 button-3d glow-3d" data-testid="button-search-jobs">
                   <Search className="h-4 w-4 mr-2" />
                   Search Jobs
                 </Button>
@@ -94,7 +94,7 @@ export default function Hero() {
             <img
               src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600"
               alt="Professional team collaboration in modern office"
-              className="rounded-xl shadow-2xl w-full h-auto"
+              className="rounded-xl shadow-2xl w-full h-auto image-3d"
               data-testid="img-hero"
             />
           </div>

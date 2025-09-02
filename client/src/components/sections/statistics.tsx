@@ -53,13 +53,13 @@ export default function Statistics() {
   }, [stats]);
 
   return (
-    <section className="py-16 bg-muted">
+    <section className="py-16 bg-muted container-3d">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           {animatedStats.map((stat, index) => (
-            <div key={stat.label} className="space-y-2 animate-counter">
+            <div key={stat.label} className="space-y-2 animate-counter stat-3d">
               <div 
-                className="text-4xl lg:text-5xl font-bold text-primary"
+                className="text-4xl lg:text-5xl font-bold text-primary text-3d"
                 data-testid={`stat-value-${stat.label.toLowerCase()}`}
               >
                 {stat.value.toLocaleString()}+

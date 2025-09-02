@@ -20,7 +20,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+    <header className="sticky top-0 z-50 header-3d">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
@@ -33,12 +33,12 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-8 nav-3d">
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 href={item.path}
-                className={`text-foreground hover:text-primary transition-colors font-medium ${
+                className={`nav-item-3d text-foreground hover:text-primary transition-colors font-medium ${
                   isActive(item.path) ? "text-primary" : ""
                 }`}
                 data-testid={`link-nav-${item.label.toLowerCase()}`}
@@ -53,12 +53,12 @@ export default function Header() {
             <Button
               variant="outline"
               size="sm"
-              className="hidden sm:block"
+              className="hidden sm:block button-3d"
               data-testid="button-sign-in"
             >
               Sign In
             </Button>
-            <Button size="sm" data-testid="button-post-job">
+            <Button size="sm" className="button-3d glow-3d" data-testid="button-post-job">
               Post Job
             </Button>
             

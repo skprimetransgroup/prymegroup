@@ -17,11 +17,11 @@ export default function Testimonials() {
   });
 
   return (
-    <section className="py-16 lg:py-24 bg-muted">
+    <section className="py-16 lg:py-24 bg-muted container-3d">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 section-3d">
           <div className="text-sm font-semibold text-primary mb-2">Testimonials</div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">Our Trusted Clients</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4 text-3d">Our Trusted Clients</h2>
         </div>
 
         {/* Testimonials Grid */}
@@ -57,7 +57,7 @@ export default function Testimonials() {
           {clientLogos.map((logo) => (
             <div 
               key={logo} 
-              className="bg-white px-6 py-4 rounded-lg shadow-sm"
+              className="bg-white px-6 py-4 rounded-lg shadow-sm card-hover image-3d"
               data-testid={`client-logo-${logo.toLowerCase().replace(/\s+/g, '-')}`}
             >
               <div className={`text-sm lg:text-base font-bold ${

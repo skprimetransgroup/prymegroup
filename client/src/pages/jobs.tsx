@@ -37,7 +37,8 @@ export default function Jobs() {
   });
 
   const handleFilterChange = (key: keyof SearchFilters, value: string) => {
-    setFilters(prev => ({ ...prev, [key]: value }));
+    const filterValue = value === "all" ? "" : value;
+    setFilters(prev => ({ ...prev, [key]: filterValue }));
   };
 
   const handleSearch = (e: React.FormEvent) => {
@@ -93,7 +94,7 @@ export default function Jobs() {
                     <SelectValue placeholder="Job Type" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Types</SelectItem>
+                    <SelectItem value="all">All Types</SelectItem>
                     {jobTypes.map((type) => (
                       <SelectItem key={type} value={type}>
                         {type}
@@ -109,7 +110,7 @@ export default function Jobs() {
                     <SelectValue placeholder="Category" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Categories</SelectItem>
+                    <SelectItem value="all">All Categories</SelectItem>
                     {jobCategories.map((category) => (
                       <SelectItem key={category} value={category}>
                         {category}

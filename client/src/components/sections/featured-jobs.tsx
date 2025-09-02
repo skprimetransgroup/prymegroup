@@ -72,11 +72,11 @@ export default function FeaturedJobs() {
   };
 
   return (
-    <section id="jobs" className="py-16 lg:py-24 bg-muted">
+    <section id="jobs" className="py-16 lg:py-24 bg-muted container-3d">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 section-3d">
           <div className="text-sm font-semibold text-primary mb-2">Employers Offering Job</div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">Our Featured Job Categories</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4 text-3d">Our Featured Job Categories</h2>
         </div>
 
         {/* Job Categories */}
@@ -87,13 +87,13 @@ export default function FeaturedJobs() {
               <Link
                 key={category.name}
                 href={`/jobs?category=${encodeURIComponent(category.name)}`}
-                className="bg-card border border-border rounded-lg p-6 text-center card-hover block"
+                className="bg-card border border-border rounded-lg p-6 text-center card-hover glow-3d professional-shadow block"
                 data-testid={`category-card-${category.name.toLowerCase().replace(/\s+/g, '-')}`}
               >
                 <div className={`w-12 h-12 mx-auto bg-${category.color}-100 rounded-lg flex items-center justify-center mb-4`}>
                   <Icon className={`h-6 w-6 text-${category.color}-600`} />
                 </div>
-                <h3 className="font-semibold text-foreground mb-1">{category.name}</h3>
+                <h3 className="font-semibold text-foreground mb-1 text-3d">{category.name}</h3>
                 <p className="text-sm text-muted-foreground">{category.count} Jobs</p>
               </Link>
             );

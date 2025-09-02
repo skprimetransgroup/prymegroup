@@ -4,7 +4,7 @@ import primeLogoPath from "@assets/Prime Group_Final (1)_1756488511870.png";
 
 export default function Footer() {
   return (
-    <footer className="bg-secondary text-secondary-foreground">
+    <footer className="bg-secondary text-secondary-foreground footer-3d">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -22,28 +22,28 @@ export default function Footer() {
             <div className="flex space-x-4">
               <a 
                 href="#" 
-                className="text-secondary-foreground/60 hover:text-primary transition-colors"
+                className="text-secondary-foreground/60 hover:text-primary transition-colors nav-item-3d"
                 data-testid="link-social-facebook"
               >
                 <Facebook className="h-5 w-5" />
               </a>
               <a 
                 href="#" 
-                className="text-secondary-foreground/60 hover:text-primary transition-colors"
+                className="text-secondary-foreground/60 hover:text-primary transition-colors nav-item-3d"
                 data-testid="link-social-twitter"
               >
                 <Twitter className="h-5 w-5" />
               </a>
               <a 
                 href="#" 
-                className="text-secondary-foreground/60 hover:text-primary transition-colors"
+                className="text-secondary-foreground/60 hover:text-primary transition-colors nav-item-3d"
                 data-testid="link-social-linkedin"
               >
                 <Linkedin className="h-5 w-5" />
               </a>
               <a 
                 href="#" 
-                className="text-secondary-foreground/60 hover:text-primary transition-colors"
+                className="text-secondary-foreground/60 hover:text-primary transition-colors nav-item-3d"
                 data-testid="link-social-instagram"
               >
                 <Instagram className="h-5 w-5" />
@@ -53,7 +53,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Quick Links</h3>
+            <h3 className="text-lg font-semibold text-3d">Quick Links</h3>
             <div className="space-y-2">
               <Link 
                 href="/jobs" 
@@ -95,7 +95,7 @@ export default function Footer() {
 
           {/* Job Categories */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Popular Categories</h3>
+            <h3 className="text-lg font-semibold text-3d">Popular Categories</h3>
             <div className="space-y-2">
               <Link 
                 href="/jobs?category=Transportation" 
@@ -137,7 +137,7 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Contact Info</h3>
+            <h3 className="text-lg font-semibold text-3d">Contact Info</h3>
             <div className="space-y-3">
               <div className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
