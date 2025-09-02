@@ -3,7 +3,6 @@ import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-import heroVideoPath from "@assets/Keep_it_original_202508291252_e5v3t_1756846516242.mp4";
 
 export default function Hero() {
   const [, setLocation] = useLocation();
@@ -27,21 +26,7 @@ export default function Hero() {
 
   return (
     <section className="relative bg-background hero-pattern overflow-hidden">
-      {/* Hero Video Background */}
-      <div className="absolute inset-0 w-full h-full">
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          className="w-full h-full object-cover opacity-20"
-          data-testid="hero-video"
-        >
-          <source src={heroVideoPath} type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-background/60"></div>
-      </div>
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Hero Content */}
           <div className="space-y-8">

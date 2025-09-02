@@ -1,5 +1,6 @@
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import VideoHero from "@/components/sections/video-hero";
 import Hero from "@/components/sections/hero";
 import Statistics from "@/components/sections/statistics";
 import HowItWorks from "@/components/sections/how-it-works";
@@ -21,6 +22,7 @@ export default function Home() {
       <Dramatic3D />
       <Header />
       <main className="relative z-10">
+        <VideoHero />
         <Hero />
         <Statistics />
         <HowItWorks />
