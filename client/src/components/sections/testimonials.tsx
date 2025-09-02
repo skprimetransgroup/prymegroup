@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import TestimonialCard from "@/components/ui/testimonial-card";
+import Carousel3D from "@/components/effects/carousel-3d";
 import type { Testimonial } from "@shared/schema";
 
 const clientLogos = [
@@ -24,31 +25,22 @@ export default function Testimonials() {
           <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4 text-3d">Our Trusted Clients</h2>
         </div>
 
-        {/* Testimonials Grid */}
+        {/* 3D Testimonials Carousel */}
         {isLoading ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="bg-card border border-border rounded-lg p-6 animate-pulse">
-                <div className="flex items-start space-x-3 mb-4">
-                  <div className="w-12 h-12 bg-muted rounded-full"></div>
-                  <div className="flex-1">
-                    <div className="h-4 bg-muted rounded w-20 mb-2"></div>
-                  </div>
-                </div>
-                <div className="space-y-2 mb-4">
-                  <div className="h-3 bg-muted rounded"></div>
-                  <div className="h-3 bg-muted rounded"></div>
-                  <div className="h-3 bg-muted rounded w-3/4"></div>
-                </div>
-                <div className="h-4 bg-muted rounded w-1/2"></div>
-              </div>
-            ))}
+          <div className="h-96 mb-16 flex items-center justify-center">
+            <div className="loading-3d w-16 h-16 border-4 border-primary border-t-transparent rounded-full"></div>
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16" data-testid="testimonials-grid">
-            {testimonials.map((testimonial) => (
-              <TestimonialCard key={testimonial.id} testimonial={testimonial} />
-            ))}
+          <div className="h-96 mb-16" data-testid="testimonials-carousel">
+            <Carousel3D>
+              {testimonials.map((testimonial) => (
+                <div key={testimonial.id} className="w-full max-w-4xl mx-auto px-8">
+                  <div className="card-stack-3d">
+                    <TestimonialCard testimonial={testimonial} />
+                  </div>
+                </div>
+              ))}
+            </Carousel3D>
           </div>
         )}
 

@@ -9,21 +9,43 @@ import FeaturedJobs from "@/components/sections/featured-jobs";
 import CTA from "@/components/sections/cta";
 import Testimonials from "@/components/sections/testimonials";
 import Blog from "@/components/sections/blog";
+import FloatingObjects from "@/components/effects/floating-objects";
+import WorkingObjects from "@/components/effects/working-objects";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <FloatingObjects />
+      <WorkingObjects />
       <Header />
-      <main>
-        <Hero />
-        <Statistics />
-        <HowItWorks />
-        <WhyChooseUs />
-        <Services />
-        <FeaturedJobs />
-        <CTA />
-        <Testimonials />
-        <Blog />
+      <main className="relative z-10">
+        <div className="parallax-layer parallax-slow">
+          <Hero />
+        </div>
+        <div className="parallax-layer">
+          <Statistics />
+        </div>
+        <div className="parallax-layer parallax-fast">
+          <HowItWorks />
+        </div>
+        <div className="parallax-layer">
+          <WhyChooseUs />
+        </div>
+        <div className="parallax-layer parallax-slow">
+          <Services />
+        </div>
+        <div className="parallax-layer">
+          <FeaturedJobs />
+        </div>
+        <div className="parallax-layer parallax-fast">
+          <CTA />
+        </div>
+        <div className="parallax-layer">
+          <Testimonials />
+        </div>
+        <div className="parallax-layer parallax-slow">
+          <Blog />
+        </div>
       </main>
       <Footer />
     </div>

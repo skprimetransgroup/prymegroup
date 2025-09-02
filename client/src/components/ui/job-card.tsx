@@ -33,7 +33,7 @@ export default function JobCard({ job }: JobCardProps) {
 
   return (
     <div 
-      className="bg-card border border-border rounded-lg p-6 card-hover glow-3d professional-shadow"
+      className="bg-card border border-border rounded-lg p-6 card-hover glow-3d professional-shadow card-stack-3d pulse-glow"
       data-testid={`job-card-${job.id}`}
     >
       <div className="flex justify-between items-start mb-4">
@@ -68,7 +68,7 @@ export default function JobCard({ job }: JobCardProps) {
       </div>
       <Link href={`/jobs/${job.id}`}>
         <Button 
-          className="w-full button-3d"
+          className="w-full button-3d pulse-glow working-clock"
           data-testid={`button-apply-${job.id}`}
         >
           Apply Now

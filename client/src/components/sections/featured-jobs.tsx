@@ -87,7 +87,7 @@ export default function FeaturedJobs() {
               <Link
                 key={category.name}
                 href={`/jobs?category=${encodeURIComponent(category.name)}`}
-                className="bg-card border border-border rounded-lg p-6 text-center card-hover glow-3d professional-shadow block"
+                className="bg-card border border-border rounded-lg p-6 text-center card-hover glow-3d professional-shadow card-stack-3d pulse-glow block"
                 data-testid={`category-card-${category.name.toLowerCase().replace(/\s+/g, '-')}`}
               >
                 <div className={`w-12 h-12 mx-auto bg-${category.color}-100 rounded-lg flex items-center justify-center mb-4`}>
@@ -108,9 +108,9 @@ export default function FeaturedJobs() {
                 <button
                   key={filter.value}
                   onClick={() => setActiveFilter(filter.value)}
-                  className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
+                  className={`px-4 py-2 text-sm font-medium rounded-md transition-colors button-3d ${
                     activeFilter === filter.value
-                      ? "bg-primary text-primary-foreground"
+                      ? "bg-primary text-primary-foreground pulse-glow"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                   data-testid={`filter-tab-${filter.value}`}
