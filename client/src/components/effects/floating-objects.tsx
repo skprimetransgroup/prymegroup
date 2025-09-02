@@ -59,7 +59,9 @@ export default function FloatingObjects() {
             className="floating-object"
             style={obj.style}
           >
-            <IconComponent className="w-8 h-8 text-primary" />
+            <div className="bg-primary/20 rounded-full p-4 card-hover glow-3d">
+              <IconComponent className="w-8 h-8 text-primary" />
+            </div>
           </div>
         );
       })}
@@ -77,30 +79,30 @@ export default function FloatingObjects() {
       <div 
         className="morphing-blob"
         style={{
-          width: '200px',
-          height: '200px',
-          top: '20%',
-          left: '10%',
+          width: '300px',
+          height: '300px',
+          top: '10%',
+          left: '5%',
           animationDelay: '0s',
         }}
       />
       <div 
         className="morphing-blob"
         style={{
-          width: '150px',
-          height: '150px',
-          top: '60%',
-          right: '15%',
+          width: '250px',
+          height: '250px',
+          top: '50%',
+          right: '10%',
           animationDelay: '4s',
         }}
       />
       <div 
         className="morphing-blob"
         style={{
-          width: '100px',
-          height: '100px',
-          top: '80%',
-          left: '50%',
+          width: '200px',
+          height: '200px',
+          top: '75%',
+          left: '40%',
           animationDelay: '2s',
         }}
       />

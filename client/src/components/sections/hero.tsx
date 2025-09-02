@@ -3,6 +3,7 @@ import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
+import heroVideoPath from "@assets/Keep_it_original_202508291252_e5v3t_1756846516242.mp4";
 
 export default function Hero() {
   const [, setLocation] = useLocation();
@@ -35,7 +36,7 @@ export default function Hero() {
           className="w-full h-full object-cover opacity-20"
           data-testid="hero-video"
         >
-          <source src="@assets/Keep_it_original_202508291252_e5v3t_1756846516242.mp4" type="video/mp4" />
+          <source src={heroVideoPath} type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-background/60"></div>
       </div>
@@ -62,7 +63,7 @@ export default function Hero() {
                 {trendingKeywords.map((keyword) => (
                   <span 
                     key={keyword}
-                    className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium cursor-pointer hover:bg-primary/20 transition-colors"
+                    className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium cursor-pointer hover:bg-primary/20 transition-colors button-3d"
                     onClick={() => setSearchQuery(keyword)}
                     data-testid={`keyword-${keyword.toLowerCase().replace(/\s+/g, '-')}`}
                   >
