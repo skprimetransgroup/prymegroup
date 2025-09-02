@@ -25,11 +25,25 @@ export default function Hero() {
   ];
 
   return (
-    <section className="relative bg-background hero-3d hero-pattern overflow-hidden container-3d">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+    <section className="relative bg-background hero-pattern overflow-hidden">
+      {/* Hero Video Background */}
+      <div className="absolute inset-0 w-full h-full">
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          className="w-full h-full object-cover opacity-20"
+          data-testid="hero-video"
+        >
+          <source src="@assets/Keep_it_original_202508291252_e5v3t_1756846516242.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-background/60"></div>
+      </div>
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Hero Content */}
-          <div className="space-y-8 section-3d">
+          <div className="space-y-8">
             <div className="space-y-4">
               <h1 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight text-3d">
                 Find Your Next Great{" "}
@@ -89,14 +103,24 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Hero Image */}
+          {/* Hero Image with 3D Effect */}
           <div className="relative">
-            <img
-              src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600"
-              alt="Professional team collaboration in modern office"
-              className="rounded-xl shadow-2xl w-full h-auto image-3d"
-              data-testid="img-hero"
-            />
+            <div className="bg-card/80 backdrop-blur-md border border-border rounded-xl p-6 card-hover glow-3d professional-shadow">
+              <img
+                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600"
+                alt="Professional team collaboration in modern office"
+                className="rounded-lg shadow-2xl w-full h-auto image-3d"
+                data-testid="img-hero"
+              />
+              
+              {/* Floating Stats with 3D Effects */}
+              <div className="absolute -top-3 -right-3 bg-primary text-primary-foreground px-3 py-2 rounded-lg shadow-lg card-hover pulse-glow">
+                <div className="text-xs font-semibold">740+ Jobs</div>
+              </div>
+              <div className="absolute -bottom-3 -left-3 bg-card border border-border px-3 py-2 rounded-lg shadow-lg card-hover glow-3d">
+                <div className="text-xs font-semibold text-foreground">1,485 Hires</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

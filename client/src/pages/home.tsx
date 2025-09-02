@@ -19,33 +19,15 @@ export default function Home() {
       <WorkingObjects />
       <Header />
       <main className="relative z-10">
-        <div className="parallax-layer parallax-slow">
-          <Hero />
-        </div>
-        <div className="parallax-layer">
-          <Statistics />
-        </div>
-        <div className="parallax-layer parallax-fast">
-          <HowItWorks />
-        </div>
-        <div className="parallax-layer">
-          <WhyChooseUs />
-        </div>
-        <div className="parallax-layer parallax-slow">
-          <Services />
-        </div>
-        <div className="parallax-layer">
-          <FeaturedJobs />
-        </div>
-        <div className="parallax-layer parallax-fast">
-          <CTA />
-        </div>
-        <div className="parallax-layer">
-          <Testimonials />
-        </div>
-        <div className="parallax-layer parallax-slow">
-          <Blog />
-        </div>
+        <Hero />
+        <Statistics />
+        <HowItWorks />
+        <WhyChooseUs />
+        <Services />
+        <FeaturedJobs />
+        <CTA />
+        <Testimonials />
+        <Blog />
       </main>
       <Footer />
     </div>

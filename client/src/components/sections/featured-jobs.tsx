@@ -72,9 +72,9 @@ export default function FeaturedJobs() {
   };
 
   return (
-    <section id="jobs" className="py-16 lg:py-24 bg-muted container-3d">
+    <section id="jobs" className="py-16 lg:py-24 bg-muted">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 section-3d">
+        <div className="text-center mb-16">
           <div className="text-sm font-semibold text-primary mb-2">Employers Offering Job</div>
           <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4 text-3d">Our Featured Job Categories</h2>
         </div>
