@@ -57,9 +57,9 @@ export default function Statistics() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           {animatedStats.map((stat, index) => (
-            <div key={stat.label} className="space-y-2 animate-counter stat-3d bg-card/50 backdrop-blur-md border border-border rounded-lg p-6 card-hover glow-3d">
+            <div key={stat.label} className="space-y-2 text-center">
               <div 
-                className="text-4xl lg:text-5xl font-bold text-primary text-3d pulse-glow"
+                className="text-4xl lg:text-5xl font-bold text-primary"
                 data-testid={`stat-value-${stat.label.toLowerCase()}`}
               >
                 {stat.value.toLocaleString()}+

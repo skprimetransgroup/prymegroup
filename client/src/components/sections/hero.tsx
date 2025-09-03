@@ -48,7 +48,7 @@ export default function Hero() {
                 {trendingKeywords.map((keyword) => (
                   <span 
                     key={keyword}
-                    className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium cursor-pointer hover:bg-primary/20 transition-colors button-3d"
+                    className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium cursor-pointer hover:bg-primary/20 transition-colors"
                     onClick={() => setSearchQuery(keyword)}
                     data-testid={`keyword-${keyword.toLowerCase().replace(/\s+/g, '-')}`}
                   >

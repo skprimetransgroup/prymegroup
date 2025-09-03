@@ -10,16 +10,10 @@ import FeaturedJobs from "@/components/sections/featured-jobs";
 import CTA from "@/components/sections/cta";
 import Testimonials from "@/components/sections/testimonials";
 import Blog from "@/components/sections/blog";
-import FloatingObjects from "@/components/effects/floating-objects";
-import WorkingObjects from "@/components/effects/working-objects";
-import Dramatic3D from "@/components/effects/dramatic-3d";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-background relative">
-      <FloatingObjects />
-      <WorkingObjects />
-      <Dramatic3D />
       <Header />
       <main className="relative z-10">
         <VideoHero />

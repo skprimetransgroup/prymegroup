@@ -33,7 +33,7 @@ export default function VideoHero() {
               </div>
               
               {/* Central Rocket Icon */}
-              <div className="relative bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full p-8 w-32 h-32 flex items-center justify-center shadow-2xl glow-3d pulse-glow">
+              <div className="relative bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full p-8 w-32 h-32 flex items-center justify-center shadow-2xl">
                 <Rocket className="w-16 h-16 text-white transform rotate-45" />
                 
                 {/* Exhaust Effect */}
@@ -70,7 +70,7 @@ export default function VideoHero() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
                   size="lg" 
-                  className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold px-8 py-4 text-lg button-3d pulse-glow"
+                  className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold px-8 py-4 text-lg"
                   data-testid="button-contact-us"
                 >
                   Contact Us
@@ -78,7 +78,7 @@ export default function VideoHero() {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-white text-white hover:bg-white hover:text-black px-8 py-4 text-lg button-3d"
+                  className="border-white text-white hover:bg-white hover:text-black px-8 py-4 text-lg"
                   data-testid="button-learn-more"
                 >
                   Learn More

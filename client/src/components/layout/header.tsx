@@ -53,13 +53,13 @@ export default function Header() {
             <Button
               variant="outline"
               size="sm"
-              className="hidden sm:block button-3d pulse-glow"
+              className="hidden sm:block"
               data-testid="button-sign-in"
             >
               Sign In
             </Button>
-            <Button size="sm" className="button-3d glow-3d pulse-glow" data-testid="button-post-job">
-              🚀 Post Job
+            <Button size="sm" data-testid="button-post-job">
+              Post Job
             </Button>
             
             {/* Mobile Menu Button */}

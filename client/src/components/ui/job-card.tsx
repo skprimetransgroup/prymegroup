@@ -33,7 +33,7 @@ export default function JobCard({ job }: JobCardProps) {
 
   return (
     <div 
-      className="bg-card border border-border rounded-lg p-6 card-hover glow-3d professional-shadow card-stack-3d"
+      className="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-shadow"
       data-testid={`job-card-${job.id}`}
     >
       <div className="flex justify-between items-start mb-4">
