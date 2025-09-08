@@ -8,6 +8,7 @@ import { ScrollRestoration } from "@/hooks/use-scroll-restoration";
 import Home from "@/pages/home";
 import Jobs from "@/pages/jobs";
 import JobDetail from "@/pages/job-detail";
+import Services from "@/pages/services";
 import AdminDashboard from "@/pages/admin/dashboard";
 import AdminJobs from "@/pages/admin/jobs";
 import AdminLogin from "@/pages/admin/login";
@@ -25,6 +26,7 @@ function Router() {
         <Route path="/" component={Home} />
         <Route path="/jobs" component={Jobs} />
         <Route path="/jobs/:id" component={JobDetail} />
+        <Route path="/services" component={Services} />
         <Route path="/post-job" component={PostJob} />
         <Route path="/terms-conditions" component={TermsConditions} />
         <Route path="/privacy-policy" component={PrivacyPolicy} />
