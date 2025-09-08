@@ -70,16 +70,16 @@ export default function BlogDetail() {
     <div className="min-h-screen bg-background">
       <Header />
       
-      {/* Breadcrumb */}
-      <div className="bg-muted/20 py-4">
+      {/* Enhanced Breadcrumb with Brand Colors */}
+      <div className="bg-gradient-to-r from-primary/5 to-secondary/5 border-b border-primary/10 py-6">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <nav className="flex items-center space-x-2 text-sm text-muted-foreground">
-              <Link href="/" className="hover:text-primary transition-colors">Home</Link>
-              <ChevronRight className="w-4 h-4" />
-              <Link href="/blog" className="hover:text-primary transition-colors">Blog</Link>
-              <ChevronRight className="w-4 h-4" />
-              <span className="text-foreground">{post.title}</span>
+            <nav className="flex items-center space-x-2 text-sm">
+              <Link href="/" className="text-secondary hover:text-primary transition-colors font-medium">Home</Link>
+              <ChevronRight className="w-4 h-4 text-primary" />
+              <Link href="/blog" className="text-secondary hover:text-primary transition-colors font-medium">Blog</Link>
+              <ChevronRight className="w-4 h-4 text-primary" />
+              <span className="text-primary font-semibold">{post.title}</span>
             </nav>
           </div>
         </div>
@@ -89,84 +89,102 @@ export default function BlogDetail() {
       <article className="container mx-auto px-4 py-16">
         <div className="max-w-4xl mx-auto">
           
-          {/* Article Header */}
+          {/* Enhanced Article Header with Brand Colors */}
           <header className="mb-12">
-            <div className="flex items-center gap-2 mb-6">
-              <Badge variant="secondary" className="text-sm">
-                <Calendar className="w-4 h-4 mr-1" />
+            <div className="flex items-center gap-3 mb-8">
+              <Badge className="bg-primary text-white border-0 text-sm font-semibold px-4 py-2">
+                <Calendar className="w-4 h-4 mr-2" />
                 {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('en-CA', { 
                   year: 'numeric', 
                   month: 'long', 
                   day: 'numeric' 
                 }) : 'Published'}
               </Badge>
-              <Badge variant="outline" className="text-sm">
-                <Clock className="w-4 h-4 mr-1" />
+              <Badge className="bg-secondary text-white border-0 text-sm font-semibold px-4 py-2">
+                <Clock className="w-4 h-4 mr-2" />
                 5 min read
               </Badge>
             </div>
             
-            <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
-              {post.title}
+            <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
+              <span className="bg-gradient-to-r from-secondary via-primary to-secondary bg-clip-text text-transparent">
+                {post.title}
+              </span>
             </h1>
             
-            <p className="text-xl text-muted-foreground leading-relaxed mb-8">
+            <p className="text-xl text-secondary/80 leading-relaxed mb-10 font-medium">
               {post.excerpt}
             </p>
 
-            {/* Share Buttons */}
-            <div className="flex items-center gap-4 pb-8 border-b border-border">
-              <span className="text-sm font-medium text-muted-foreground">Share:</span>
-              <div className="flex items-center gap-2">
-                <Button variant="ghost" size="sm" className="text-blue-600 hover:bg-blue-50" data-testid="share-facebook">
-                  <Facebook className="w-4 h-4" />
+            {/* Enhanced Share Buttons with Brand Colors */}
+            <div className="flex items-center gap-6 pb-10 border-b-2 border-primary/20">
+              <span className="text-base font-bold text-secondary">Share Article:</span>
+              <div className="flex items-center gap-3">
+                <Button size="sm" className="bg-primary hover:bg-primary/90 text-white border-0 font-semibold" data-testid="share-facebook">
+                  <Facebook className="w-4 h-4 mr-2" />
+                  Facebook
                 </Button>
-                <Button variant="ghost" size="sm" className="text-blue-400 hover:bg-blue-50" data-testid="share-twitter">
-                  <Twitter className="w-4 h-4" />
+                <Button size="sm" className="bg-secondary hover:bg-secondary/90 text-white border-0 font-semibold" data-testid="share-twitter">
+                  <Twitter className="w-4 h-4 mr-2" />
+                  Twitter
                 </Button>
-                <Button variant="ghost" size="sm" className="text-blue-700 hover:bg-blue-50" data-testid="share-linkedin">
-                  <Linkedin className="w-4 h-4" />
+                <Button size="sm" className="bg-primary hover:bg-primary/90 text-white border-0 font-semibold" data-testid="share-linkedin">
+                  <Linkedin className="w-4 h-4 mr-2" />
+                  LinkedIn
                 </Button>
-                <Button variant="ghost" size="sm" data-testid="share-link">
-                  <Share2 className="w-4 h-4" />
+                <Button variant="outline" size="sm" className="border-secondary text-secondary hover:bg-secondary hover:text-white font-semibold" data-testid="share-link">
+                  <Share2 className="w-4 h-4 mr-2" />
+                  Copy Link
                 </Button>
               </div>
             </div>
           </header>
 
-          {/* Featured Image */}
+          {/* Enhanced Featured Image with Brand Border */}
           {post.imageUrl && (
-            <div className="aspect-video overflow-hidden rounded-lg mb-12">
-              <img
-                src={post.imageUrl}
-                alt={post.title}
-                className="w-full h-full object-cover"
-              />
+            <div className="relative mb-16">
+              <div className="aspect-video overflow-hidden rounded-2xl border-4 border-gradient-to-r from-primary to-secondary p-1 bg-gradient-to-r from-primary to-secondary">
+                <div className="w-full h-full rounded-xl overflow-hidden">
+                  <img
+                    src={post.imageUrl}
+                    alt={post.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+              {/* Decorative elements */}
+              <div className="absolute -top-2 -left-2 w-6 h-6 bg-primary rounded-full"></div>
+              <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-secondary rounded-full"></div>
             </div>
           )}
 
-          {/* Article Body */}
+          {/* Enhanced Article Body with Brand Typography */}
           <div className="prose prose-lg max-w-none">
             <div 
-              className="text-foreground leading-relaxed space-y-6"
+              className="text-secondary leading-relaxed space-y-8 text-lg [&>p]:mb-6 [&>h2]:text-2xl [&>h2]:font-bold [&>h2]:text-primary [&>h2]:mt-12 [&>h2]:mb-6 [&>h3]:text-xl [&>h3]:font-semibold [&>h3]:text-secondary [&>h3]:mt-8 [&>h3]:mb-4 [&>strong]:text-primary [&>strong]:font-bold [&>ul]:space-y-3 [&>li]:text-secondary/90 [&>li]:leading-relaxed"
               dangerouslySetInnerHTML={{ 
-                __html: post.content.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') 
+                __html: post.content
+                  .replace(/\n\n/g, '</p><p>')
+                  .replace(/\n/g, '<br>')
+                  .replace(/\*\*(.*?)\*\*/g, '<strong class="text-primary font-bold">$1</strong>')
+                  .replace(/### (.*?)(?=\n|$)/g, '<h3 class="text-xl font-semibold text-secondary mt-8 mb-4">$1</h3>')
+                  .replace(/## (.*?)(?=\n|$)/g, '<h2 class="text-2xl font-bold text-primary mt-12 mb-6">$1</h2>')
               }}
             />
           </div>
 
-          {/* Article Footer */}
-          <footer className="mt-16 pt-8 border-t border-border">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          {/* Enhanced Article Footer with Brand Colors */}
+          <footer className="mt-20 pt-10 border-t-2 border-primary/20">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8 bg-gradient-to-r from-primary/5 to-secondary/5 p-8 rounded-2xl">
               <div>
-                <p className="text-sm text-muted-foreground mb-2">Published by</p>
-                <p className="font-semibold text-foreground">Prime Trans Group</p>
-                <p className="text-sm text-muted-foreground">Canada's Leading Workforce Solutions Provider</p>
+                <p className="text-sm text-secondary/70 mb-2 font-medium">Published by</p>
+                <p className="font-bold text-2xl text-secondary mb-1">Prime Trans Group</p>
+                <p className="text-base text-primary font-semibold">Canada's Leading Workforce Solutions Provider</p>
               </div>
               
               <Link href="/blog">
-                <Button variant="outline">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
+                <Button className="bg-primary hover:bg-primary/90 text-white border-0 font-semibold px-8 py-3 text-base">
+                  <ArrowLeft className="w-5 h-5 mr-3" />
                   Back to Blog
                 </Button>
               </Link>
@@ -175,14 +193,19 @@ export default function BlogDetail() {
         </div>
       </article>
 
-      {/* Related Posts */}
+      {/* Enhanced Related Posts with Brand Colors */}
       {otherPosts.length > 0 && (
-        <section className="bg-muted/20 py-16">
+        <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/10 py-20">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold text-foreground mb-8 text-center">
-                Related Articles
-              </h2>
+              <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold mb-4">
+                  <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    Related Articles
+                  </span>
+                </h2>
+                <p className="text-lg text-secondary/80">Continue your career journey with these insights</p>
+              </div>
               
               <div className="grid md:grid-cols-3 gap-8">
                 {otherPosts.map((relatedPost) => (

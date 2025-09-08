@@ -31,17 +31,17 @@ export default function BlogCard({ post }: BlogCardProps) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         
-        {/* Floating Date Badge */}
+        {/* Enhanced Floating Date Badge with Brand Colors */}
         <div className="absolute top-4 left-4">
-          <Badge className="bg-white/90 text-gray-800 backdrop-blur-sm border-0 shadow-lg">
+          <Badge className="bg-primary text-white backdrop-blur-sm border-0 shadow-lg font-semibold">
             <Calendar className="w-3 h-3 mr-1" />
             {formatDate(post.publishedAt)}
           </Badge>
         </div>
         
-        {/* Read Time Badge */}
+        {/* Enhanced Read Time Badge with Brand Colors */}
         <div className="absolute top-4 right-4">
-          <Badge variant="secondary" className="bg-primary/90 text-white backdrop-blur-sm border-0 shadow-lg">
+          <Badge className="bg-secondary text-white backdrop-blur-sm border-0 shadow-lg font-semibold">
             <Clock className="w-3 h-3 mr-1" />
             5 min read
           </Badge>
@@ -53,23 +53,23 @@ export default function BlogCard({ post }: BlogCardProps) {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-b-xl"></div>
         
         <div className="relative z-10">
-          {/* Author info */}
-          <div className="flex items-center mb-3 text-xs text-muted-foreground">
-            <div className="flex items-center">
-              <User className="w-3 h-3 mr-1" />
+          {/* Enhanced Author info with Brand Colors */}
+          <div className="flex items-center mb-4 text-sm">
+            <div className="flex items-center bg-primary/10 text-primary px-3 py-1 rounded-full font-semibold">
+              <User className="w-3 h-3 mr-2" />
               <span>Prime Trans Group</span>
             </div>
           </div>
           
           <h3 
-            className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300 line-clamp-2 leading-tight"
+            className="text-xl font-bold text-secondary mb-4 group-hover:text-primary transition-colors duration-300 line-clamp-2 leading-tight"
             data-testid={`blog-title-${post.id}`}
           >
             {post.title}
           </h3>
           
           <p 
-            className="text-muted-foreground mb-6 line-clamp-3 leading-relaxed"
+            className="text-secondary/80 mb-6 line-clamp-3 leading-relaxed"
             data-testid={`blog-excerpt-${post.id}`}
           >
             {post.excerpt}
@@ -77,11 +77,11 @@ export default function BlogCard({ post }: BlogCardProps) {
           
           <Link href={`/blog/${post.slug}`}>
             <div 
-              className="inline-flex items-center text-primary font-semibold hover:text-primary/80 transition-all duration-300 group/link cursor-pointer"
+              className="inline-flex items-center bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold hover:from-primary/80 hover:to-secondary/80 transition-all duration-300 group/link cursor-pointer text-base"
               data-testid={`blog-link-${post.id}`}
             >
               <span>Read Full Article</span>
-              <ArrowRight className="w-4 h-4 ml-2 group-hover/link:translate-x-1 transition-transform duration-300" />
+              <ArrowRight className="w-4 h-4 ml-2 text-primary group-hover/link:translate-x-1 transition-transform duration-300" />
             </div>
           </Link>
         </div>
