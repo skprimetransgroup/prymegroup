@@ -62,13 +62,13 @@ export default function Footer() {
               >
                 Browse Jobs
               </Link>
-              <a 
-                href="#" 
+              <Link 
+                href="/post-job" 
                 className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors"
                 data-testid="link-footer-post-job"
               >
                 Post a Job
-              </a>
+              </Link>
               <a 
                 href="#services" 
                 className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors"
@@ -161,7 +161,7 @@ export default function Footer() {
 
         <div className="border-t border-secondary-foreground/20 mt-12 pt-8 text-center">
           <p className="text-sm text-secondary-foreground/60">
-            © 2024 Prime Trans Group. All rights reserved. | Privacy Policy | Terms of Service
+            © 2024 Prime Trans Group. All rights reserved. | Privacy Policy | <Link href="/terms-conditions" className="hover:text-primary transition-colors" data-testid="link-footer-terms">Terms of Service</Link>
           </p>
         </div>
       </div>
