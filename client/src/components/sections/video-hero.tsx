@@ -4,23 +4,23 @@ import heroVideoPath from "@assets/Keep_it_original_202508291252_e5v3t_175684651
 
 export default function VideoHero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Video Background */}
-      <div className="absolute inset-0 w-full h-full">
+    <section className="relative overflow-hidden">
+      {/* Video on Top */}
+      <div className="w-full">
         <video 
           autoPlay 
           loop 
           muted 
-          className="w-full h-full object-cover"
+          className="w-full h-[60vh] lg:h-[70vh] object-cover"
           data-testid="hero-video"
         >
           <source src={heroVideoPath} type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-black/50"></div>
       </div>
 
-      {/* Content */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      {/* Content Below Video */}
+      <div className="bg-black text-white py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
           {/* Left Side - 3D Rocket/Graphics */}
           <div className="flex items-center justify-center">
@@ -86,6 +86,7 @@ export default function VideoHero() {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
 
