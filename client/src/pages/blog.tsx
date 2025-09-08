@@ -4,7 +4,7 @@ import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock, ArrowRight } from "lucide-react";
+import { Calendar, Clock, ArrowRight, BookOpen } from "lucide-react";
 import type { BlogPost } from "@shared/schema";
 
 export default function Blog() {
@@ -16,16 +16,43 @@ export default function Blog() {
     <div className="min-h-screen bg-background">
       <Header />
       
-      {/* Hero Section */}
-      <div className="bg-gradient-to-br from-background via-background to-muted py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6">
+      {/* Enhanced Hero Section */}
+      <div className="relative py-24 lg:py-32 overflow-hidden">
+        {/* Enhanced Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-muted/30 to-background"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-secondary/10"></div>
+        
+        {/* Floating Elements */}
+        <div className="absolute top-10 left-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-5xl mx-auto text-center">
+            <div className="inline-flex items-center bg-primary/10 text-primary px-6 py-3 rounded-full text-sm font-semibold mb-8 backdrop-blur-sm border border-primary/20">
+              <BookOpen className="w-4 h-4 mr-2" />
+              Career Resources & Industry Insights
+            </div>
+            
+            <h1 className="text-5xl lg:text-7xl font-bold mb-8 bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent leading-tight">
               Blog & Resources
             </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Expert insights, career advice, and industry updates to help you succeed in Canada's job market.
+            
+            <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed mb-12">
+              Expert insights, career advice, and industry updates to help you succeed in Canada's dynamic job market. 
+              Stay informed with the latest trends and opportunities.
             </p>
+            
+            {/* Search Bar */}
+            <div className="max-w-2xl mx-auto mb-8">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search articles, career tips, industry insights..."
+                  className="w-full px-6 py-4 pl-12 text-lg rounded-2xl border border-border bg-background/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent shadow-lg"
+                />
+                <BookOpen className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
