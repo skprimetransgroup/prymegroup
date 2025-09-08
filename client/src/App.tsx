@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AdminAuthProvider } from "@/hooks/use-admin-auth";
 import { ScrollRestoration } from "@/hooks/use-scroll-restoration";
+import MobileBottomNav from "@/components/layout/mobile-bottom-nav";
 import Home from "@/pages/home";
 import Jobs from "@/pages/jobs";
 import JobDetail from "@/pages/job-detail";
@@ -42,6 +43,7 @@ function Router() {
         <Route path="/admin/jobs" component={AdminJobs} />
         <Route component={NotFound} />
       </Switch>
+      <MobileBottomNav />
     </>
   );
 }
