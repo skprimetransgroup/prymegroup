@@ -3,6 +3,7 @@ import Footer from "@/components/layout/footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Users, Target, CheckCircle, Building2 } from "lucide-react";
+import primeLogoPath from "@assets/Prime Group_Final (1)_1756488511870.png";
 
 export default function About() {
   return (
@@ -45,8 +46,12 @@ export default function About() {
               </div>
               
               <div className="bg-primary/5 p-8 rounded-lg">
-                <div className="flex items-center justify-center w-20 h-20 bg-primary/10 rounded-full mb-6 mx-auto">
-                  <Building2 className="h-10 w-10 text-primary" />
+                <div className="flex items-center justify-center w-20 h-20 bg-white rounded-full mb-6 mx-auto shadow-lg border-2 border-primary/20">
+                  <img 
+                    src={primeLogoPath} 
+                    alt="Prime Trans Group Logo" 
+                    className="h-12 w-auto"
+                  />
                 </div>
                 <h3 className="text-xl font-semibold text-center mb-4">Prime Trans Group Toronto</h3>
                 <p className="text-muted-foreground text-center">
