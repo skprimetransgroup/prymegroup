@@ -54,22 +54,22 @@ export default function VideoHero() {
           <div className="text-center lg:text-left space-y-8">
             <div className="space-y-6">
               <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight">
-                Unrivaled <span className="text-gradient-3d">Speed</span>
+                Canada's <span className="text-gradient-3d">Leading</span>
                 <br />
-                Of Fulfillment
+                Workforce Solutions
               </h1>
               
               <div className="space-y-3 text-xl lg:text-2xl text-gray-200">
-                <p className="font-medium">Powered by Passion.</p>
-                <p className="font-medium">Driven by Talent.</p>
-                <p className="font-medium">Revolutionize the way you hire.</p>
+                <p className="font-medium">Expert Recruitment & Staffing</p>
+                <p className="font-medium">Proven Industry Experience</p>
+                <p className="font-medium">Connecting Talent with Opportunity</p>
               </div>
             </div>
 
             <div className="space-y-4">
               <p className="text-lg text-gray-300 max-w-lg">
-                Canada's premier workforce solutions provider. We connect businesses with top-tier talent 
-                across transportation, manufacturing, and logistics industries.
+                Trusted by leading companies across Canada, we deliver comprehensive staffing solutions 
+                for transportation, manufacturing, warehousing, and administrative roles.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
@@ -78,7 +78,7 @@ export default function VideoHero() {
                   className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-8 py-4 text-lg"
                   data-testid="button-contact-us"
                 >
-                  Contact Us
+                  Get Started Today
                 </Button>
                 <Button 
                   variant="outline" 
@@ -86,7 +86,7 @@ export default function VideoHero() {
                   className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-4 text-lg font-bold"
                   data-testid="button-learn-more"
                 >
-                  Learn More
+                  Our Services
                 </Button>
               </div>
             </div>
