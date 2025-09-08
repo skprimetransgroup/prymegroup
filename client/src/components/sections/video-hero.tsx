@@ -75,7 +75,7 @@ export default function VideoHero() {
                 <img
                   src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400"
                   alt="Professional team collaboration"
-                  className="w-64 h-64 rounded-2xl object-cover shadow-2xl border-3 border-white/20 group-hover:scale-105 transition-transform duration-500"
+                  className="w-96 h-96 rounded-2xl object-cover shadow-2xl border-3 border-white/20 group-hover:scale-105 transition-transform duration-500"
                 />
                 
                 {/* Single Success Badge */}
