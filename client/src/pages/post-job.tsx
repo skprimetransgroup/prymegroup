@@ -128,11 +128,11 @@ export default function PostJobPage() {
       <div className="bg-gradient-to-br from-background via-background to-muted py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="w-24 h-24 mx-auto mb-6 flex items-center justify-center">
+            <div className="mx-auto mb-6 flex items-center justify-center">
               <img 
                 src={primeLogoPath} 
                 alt="Prime Trans Group" 
-                className="h-20 w-auto"
+                className="h-16 w-auto max-w-[200px]"
               />
             </div>
             <h1 className="text-4xl font-bold text-foreground mb-4">
