@@ -161,7 +161,7 @@ export default function Footer() {
 
         <div className="border-t border-secondary-foreground/20 mt-12 pt-8 text-center">
           <p className="text-sm text-secondary-foreground/60">
-            © 2024 Prime Trans Group. All rights reserved. | Privacy Policy | <Link href="/terms-conditions" className="hover:text-primary transition-colors" data-testid="link-footer-terms">Terms of Service</Link>
+            © 2024 Prime Trans Group. All rights reserved. | <Link href="/privacy-policy" className="hover:text-primary transition-colors" data-testid="link-footer-privacy">Privacy Policy</Link> | <Link href="/terms-conditions" className="hover:text-primary transition-colors" data-testid="link-footer-terms">Terms of Service</Link>
           </p>
         </div>
       </div>
