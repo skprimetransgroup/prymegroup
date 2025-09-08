@@ -32,19 +32,19 @@ export default function VideoHero() {
             <div className="relative">
               {/* Geometric Background Shapes */}
               <div className="absolute -inset-20">
-                <div className="w-40 h-40 border-4 border-yellow-400 transform rotate-45 absolute top-0 left-0 opacity-30"></div>
-                <div className="w-32 h-32 border-4 border-blue-400 transform -rotate-12 absolute bottom-0 right-0 opacity-30"></div>
+                <div className="w-40 h-40 border-4 border-primary/40 transform rotate-45 absolute top-0 left-0 opacity-30"></div>
+                <div className="w-32 h-32 border-4 border-secondary/40 transform -rotate-12 absolute bottom-0 right-0 opacity-30"></div>
                 <div className="w-24 h-24 bg-primary/20 transform rotate-12 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
               </div>
               
               {/* Central Rocket Icon */}
-              <div className="relative bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full p-8 w-32 h-32 flex items-center justify-center shadow-2xl">
+              <div className="relative bg-gradient-to-br from-primary to-secondary rounded-full p-8 w-32 h-32 flex items-center justify-center shadow-2xl">
                 <Rocket className="w-16 h-16 text-white transform rotate-45" />
                 
                 {/* Exhaust Effect */}
                 <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
-                  <div className="w-2 h-16 bg-gradient-to-b from-orange-400 to-transparent rounded-full opacity-80 animate-pulse"></div>
-                  <div className="w-1 h-20 bg-gradient-to-b from-yellow-300 to-transparent rounded-full absolute left-1/2 transform -translate-x-1/2 top-2 animate-pulse"></div>
+                  <div className="w-2 h-16 bg-gradient-to-b from-primary/60 to-transparent rounded-full opacity-80 animate-pulse"></div>
+                  <div className="w-1 h-20 bg-gradient-to-b from-secondary/60 to-transparent rounded-full absolute left-1/2 transform -translate-x-1/2 top-2 animate-pulse"></div>
                 </div>
               </div>
             </div>
@@ -54,7 +54,7 @@ export default function VideoHero() {
           <div className="text-center lg:text-left space-y-8">
             <div className="space-y-6">
               <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight">
-                Unrivaled <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">Speed</span>
+                Unrivaled <span className="text-gradient-3d">Speed</span>
                 <br />
                 Of Fulfillment
               </h1>
@@ -75,7 +75,7 @@ export default function VideoHero() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
                   size="lg" 
-                  className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold px-8 py-4 text-lg"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-8 py-4 text-lg"
                   data-testid="button-contact-us"
                 >
                   Contact Us
@@ -83,7 +83,7 @@ export default function VideoHero() {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-2 border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black px-8 py-4 text-lg font-bold"
+                  className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-4 text-lg font-bold"
                   data-testid="button-learn-more"
                 >
                   Learn More
