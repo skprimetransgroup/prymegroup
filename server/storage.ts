@@ -173,23 +173,121 @@ export class MemStorage implements IStorage {
     const sampleBlogPosts: BlogPost[] = [
       {
         id: "blog-1",
-        title: "Job document checklist in Canada",
-        excerpt: "Job document checklist in Canada Prime Trans Group • December",
-        content: "Complete guide to preparing your job application documents for the Canadian job market...",
-        imageUrl: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?ixlib=rb-4.0.3",
+        title: "Job Document Checklist in Canada",
+        excerpt: "In order to find a job in Canada, there are specific documents required to submit to potential employers before you are considered for a particular position.",
+        content: `In order to find a job in Canada, there are specific documents required to submit to potential employers before you are considered for a particular position. The exact types of documents required will depend on several factors, such as the job you apply for and the program applied under. Before you set your sights on a job and start pounding the pavement in search of employment, be sure to have your arsenal of documentation ready to present.
+
+**Social Insurance Number (SIN)**
+
+One of the first pieces of documentation that you will need before you are eligible to retain employment in Canada is your Social Insurance Number, or "SIN" for short. Many parents apply for a SIN for their children shortly after they are born so that they will already have this important piece of information when they are of age to seek out work.
+
+A SIN is a nine-digit number that's unique to each Canadian and is required to work in Canada, as well as to gain access to various government benefits and programs. In order to apply for your SIN, you will need to show various pieces of original documents that prove your identity (no photocopies allowed), such as:
+
+• Certificate of birth or birth certificate
+• Certificate of Canadian Citizenship
+• Certificate of Registration of Birth Abroad
+
+These documents apply to Canadian citizens. For permanent residents of Canada (those who have permanent resident status in Canada but are not Canadian citizens), an original copy of one of the following is required as proof of identity to apply for a SIN:
+
+• Permanent resident card
+• Confirmation of Permanent Residence
+• Record of Landing
+• Verification of Landing
+• Status Verification or Verification of Status
+
+These documents must then be taken to a Service Canada office when applying for a SIN. This number is highly confidential and should only be given out to verified employers when requested.
+
+**Work Permit**
+
+Over 300,000 foreign employees come to Canada to work on temporary work permits every year. If you are foreign to Canada and wish to seek employment, you will require a work permit to get a job. In addition, an offer of employment will be required from a Canadian employer prior to being given a temporary work permit. Sometimes a Temporary Resident Visa will also be required, depending on your country of citizenship.
+
+**Labour Market Impact Assessment (LMIA)**
+
+While you aren't necessarily responsible for obtaining a Labour Market Impact Assessment (LMIA) as a foreign worker, prospective employers will require one when hiring foreign employees. A LMIA is a document required by employers in Canada who hire foreign employees. A positive LMIA essentially shows that a need exists to hire foreign workers to fill jobs and that there are currently no Canadian workers available to fill them.
+
+**Resume**
+
+Before applying for a job, it's typically necessary to submit a resume along with any application being filled out. Your resume basically outlines your previous work and educational experience that a potential employer would want to know about before deciding whether or not to hire you for a specific job.
+
+Your resume should contain a few key elements in order for it to impress employers, including the following:
+
+• An engaging summary of your qualifications
+• Core competencies and proof of relative expertise
+• Relevant work and volunteer experience
+• Educational certificates, diplomas or degrees
+
+Your resume should:
+• Be honest
+• Have a proper format
+• Be well-organized and free of any spelling or grammatical errors
+• Feature relevant keywords that are related to the job position you're applying for
+• Be up-to-date
+
+The purpose of your resume is to essentially describe what you bring to the table and what you can do for the company.
+
+**Cover Letter**
+
+Accompanying your resume or job application should be a cover letter, which essentially introduces your resume and yourself to the employer. It will outline the reasons why you are applying for the job and why you would make a perfect fit for the position. Your cover letter should be professional but still personable at the same time while highlighting specific aspects of your application.
+
+Your cover letter should:
+• Address the person your application is intended for
+• Showcase why and how your skills are perfect for the job at hand
+• Highlight previous achievements that are relative to the job being applied for
+• Include your contact information
+
+**Educational Documentation**
+
+If a specific job requires any type of formal educational training, you may be required to submit proof of such education in the form of a diploma, certificate, degree, or even a transcript. Depending on the position, your prospective employer may do a background check on you to find out whether or not you have the educational training required to be considered for the position you're applying for.
+
+**References**
+
+Your prospective employer may want to get in touch with some of your previous employers to verify the type of employee you were and could be if hired for the job you're applying for. As such, you may be asked to submit a list of references of previous employers, along with their contact information.`,
+        imageUrl: "@assets/kelly-sikkema-1_RZL8BGBM-unsplash_1757368986355.jpg",
         slug: "job-document-checklist-canada",
         published: true,
-        publishedAt: new Date("2022-12-27"),
+        publishedAt: new Date("2024-01-15"),
       },
       {
         id: "blog-2",
-        title: "Does cover letter matter",
-        excerpt: "Across any industry and level of work, there's one step to the process that's bound to slow down even the most qualified candidate.",
-        content: "Understanding the importance of cover letters in today's job market...",
-        imageUrl: "https://images.unsplash.com/photo-1455390582262-044cdead277a?ixlib=rb-4.0.3",
-        slug: "does-cover-letter-matter",
+        title: "Why Cover Letters Still Matter in Today's Job Market",
+        excerpt: "Searching for a new job is a time-consuming endeavor. By some estimates, the typical worker takes about six weeks to apply for, interview and finally land a new job offer.",
+        content: `Searching for a new job is a time-consuming endeavor. By some estimates, the typical worker takes about six weeks to apply for, interview and finally land a new job offer. And across any industry and level of work, there's one step to the process that's bound to slow down even the most qualified and enthusiastic candidate: the cover letter.
+
+But findings from one new report offer some motivation to draft a good elevator pitch, even in a time when cover letters are becoming increasingly optional.
+
+According to a survey of 200 hiring managers from ResumeLab, a resume advice site, 83% of HR professionals agreed with the statement "a great cover letter can make me decide to interview a candidate, even if I don't think their resume is good enough."
+
+That means, out of every 10 resumes where the applicant might not have the right work history, set of skills or management experience, eight job seekers are likely to advance, as long as they can make up for it in their cover letters.
+
+A majority of hiring managers said cover letters were crucial to their hiring decisions, and 77% give preference to candidates who submit one, even if they're deemed optional on the application form. A similar share always expect the document, even if they're not required in order to apply.
+
+**Cover letters only matter if job seekers do this:**
+
+While cover letters can give candidates a leg up on the competition, they come with a major caveat.
+
+Companies are increasingly relying on applicant tracking systems, often shortened to ATS, and artificial intelligence software to review resumes. These algorithms scan resumes for specific words and phrases around work history, responsibilities, skills and accomplishments to identify candidates who match well with the job description.
+
+Ian Siegel, CEO of jobs marketplace ZipRecruiter, estimates more than 70% of resumes are now reviewed by robots before they reach a human reader.
+
+That means resumes, and how they're written, matter first and foremost.
+
+To be sure, the ResumeLab survey was designed to measure the impact of a cover letter only after a resume passed an ATS scan and made it to a human reviewer, explains Maciej Duszynski, career expert and researcher behind the study.
+
+Siegel offers three recommendations for a resume to make it past the bots:
+
+**Use standard file types** — no more trying to stand out by putting your resume into Photoshop," he tells CNBC Make It. Instead, "Use Microsoft Word or Google Docs to give something the parser can parse.
+
+**Check your grammar and spelling.** It seems obvious, yet a surprising number of job seekers don't do it.
+
+**Clearly list your skills** and make it easy for the parser to understand your years of experience," Siegel says.
+
+If possible, Siegel says to demonstrate mastery of each skill by listing your years of experience learning or using each one in your work history.
+
+*Source: CNBC*`,
+        imageUrl: "@assets/glenn-carstens-peters-npxXWgQ33ZQ-unsplash_1757369012389.jpg",
+        slug: "why-cover-letters-still-matter",
         published: true,
-        publishedAt: new Date("2022-12-27"),
+        publishedAt: new Date("2024-01-10"),
       },
       {
         id: "blog-3",
