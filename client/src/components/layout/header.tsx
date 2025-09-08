@@ -58,9 +58,11 @@ export default function Header() {
             >
               Sign In
             </Button>
-            <Button size="sm" data-testid="button-post-job">
-              Post Job
-            </Button>
+            <Link href="/admin/jobs">
+              <Button size="sm" data-testid="button-post-job">
+                Post Job
+              </Button>
+            </Link>
             
             {/* Mobile Menu Button */}
             <Button
