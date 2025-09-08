@@ -11,6 +11,7 @@ import JobDetail from "@/pages/job-detail";
 import Services from "@/pages/services";
 import Blog from "@/pages/blog";
 import BlogDetail from "@/pages/blog-detail";
+import Contact from "@/pages/contact";
 import AdminDashboard from "@/pages/admin/dashboard";
 import AdminJobs from "@/pages/admin/jobs";
 import AdminLogin from "@/pages/admin/login";
@@ -31,6 +32,7 @@ function Router() {
         <Route path="/services" component={Services} />
         <Route path="/blog" component={Blog} />
         <Route path="/blog/:slug" component={BlogDetail} />
+        <Route path="/contact" component={Contact} />
         <Route path="/post-job" component={PostJob} />
         <Route path="/terms-conditions" component={TermsConditions} />
         <Route path="/privacy-policy" component={PrivacyPolicy} />
