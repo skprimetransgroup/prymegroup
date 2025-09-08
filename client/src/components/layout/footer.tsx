@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Facebook, Twitter, Linkedin, Instagram, MapPin, Phone, Mail } from "lucide-react";
+import { Facebook, Twitter, Linkedin, Instagram, MapPin, Phone, Mail, Clock } from "lucide-react";
 import primeLogoPath from "@assets/Prime Group_Final (1)_1756488511870.png";
 
 export default function Footer() {
@@ -142,18 +142,25 @@ export default function Footer() {
               <div className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
                 <div className="text-sm text-secondary-foreground/80">
-                  123 Business Drive<br />
-                  Toronto, ON M1B 2C3<br />
+                  7050 Bramalea Rd Unit 14A<br />
+                  Mississauga, ON L5S 1T1<br />
                   Canada
                 </div>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-primary flex-shrink-0" />
-                <div className="text-sm text-secondary-foreground/80">+1 (416) 555-0123</div>
+                <div className="text-sm text-secondary-foreground/80">249-444-0004</div>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-primary flex-shrink-0" />
-                <div className="text-sm text-secondary-foreground/80">info@primetransgroup.ca</div>
+                <div className="text-sm text-secondary-foreground/80">jobs@primetransgroup.ca</div>
+              </div>
+              <div className="flex items-start space-x-3">
+                <Clock className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
+                <div className="text-sm text-secondary-foreground/80">
+                  Mon – Friday: 9 am – 5 pm<br />
+                  Sat & Sun: CLOSED
+                </div>
               </div>
             </div>
           </div>
