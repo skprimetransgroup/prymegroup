@@ -13,11 +13,11 @@ export default function VideoHero() {
           muted 
           playsInline
           controls={false}
-          className="w-full h-[30vh] sm:h-[40vh] md:h-[50vh] lg:h-[60vh] object-cover block"
+          className="w-full h-[25vh] sm:h-[35vh] md:h-[45vh] lg:h-[55vh] object-cover block"
           data-testid="hero-video"
         >
           <source src={heroVideoPath} type="video/mp4" />
-          <div className="w-full h-[30vh] sm:h-[40vh] md:h-[50vh] lg:h-[60vh] bg-gray-300 flex items-center justify-center">
+          <div className="w-full h-[25vh] sm:h-[35vh] md:h-[45vh] lg:h-[55vh] bg-gray-300 flex items-center justify-center">
             <p className="text-gray-600">Video loading...</p>
           </div>
         </video>
