@@ -33,6 +33,9 @@ export const jobs = pgTable("jobs", {
   requirements: text("requirements"),
   salary: text("salary"),
   featured: boolean("featured").default(false),
+  status: text("status").default("pending"), // pending, approved, denied
+  contactEmail: text("contact_email"),
+  contactPhone: text("contact_phone"),
   postedAt: timestamp("posted_at").defaultNow(),
   expiresAt: timestamp("expires_at"),
 });
@@ -87,6 +90,13 @@ export const insertJobSchema = createInsertSchema(jobs).pick({
   category: true,
   requirements: true,
   salary: true,
+  contactEmail: true,
+  contactPhone: true,
+});
+
+export const publicJobSchema = insertJobSchema.extend({
+  contactEmail: z.string().email("Please enter a valid email address"),
+  contactPhone: z.string().min(10, "Please enter a valid phone number"),
 });
 
 export const insertJobApplicationSchema = createInsertSchema(jobApplications).pick({

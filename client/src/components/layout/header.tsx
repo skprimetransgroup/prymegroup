@@ -50,15 +50,17 @@ export default function Header() {
 
           {/* Action Buttons */}
           <div className="flex items-center space-x-2 lg:space-x-4">
-            <Button
-              variant="outline"
-              size="sm"
-              className="hidden sm:block"
-              data-testid="button-sign-in"
-            >
-              Sign In
-            </Button>
-            <Link href="/admin/jobs">
+            <Link href="/jobs">
+              <Button
+                variant="outline"
+                size="sm"
+                className="hidden sm:block"
+                data-testid="button-find-job"
+              >
+                Find Job
+              </Button>
+            </Link>
+            <Link href="/post-job">
               <Button size="sm" data-testid="button-post-job">
                 Post Job
               </Button>
@@ -94,14 +96,25 @@ export default function Header() {
                   {item.label}
                 </Link>
               ))}
-              <Button
-                variant="outline"
-                size="sm"
-                className="w-full mt-4"
-                data-testid="button-mobile-sign-in"
-              >
-                Sign In
-              </Button>
+              <Link href="/jobs">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full mt-4"
+                  data-testid="button-mobile-find-job"
+                >
+                  Find Job
+                </Button>
+              </Link>
+              <Link href="/post-job">
+                <Button
+                  size="sm"
+                  className="w-full mt-2"
+                  data-testid="button-mobile-post-job"
+                >
+                  Post Job
+                </Button>
+              </Link>
             </div>
           </div>
         )}
