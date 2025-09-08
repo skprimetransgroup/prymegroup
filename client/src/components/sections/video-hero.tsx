@@ -6,15 +6,20 @@ export default function VideoHero() {
   return (
     <section className="relative overflow-hidden">
       {/* Video on Top */}
-      <div className="w-full">
+      <div className="w-full bg-gray-200">
         <video 
           autoPlay 
           loop 
           muted 
-          className="w-full h-[60vh] lg:h-[70vh] object-cover"
+          playsInline
+          controls={false}
+          className="w-full h-[60vh] lg:h-[70vh] object-cover block"
           data-testid="hero-video"
         >
           <source src={heroVideoPath} type="video/mp4" />
+          <div className="w-full h-[60vh] lg:h-[70vh] bg-gray-300 flex items-center justify-center">
+            <p className="text-gray-600">Video loading...</p>
+          </div>
         </video>
       </div>
 
@@ -78,7 +83,7 @@ export default function VideoHero() {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-white text-white hover:bg-white hover:text-black px-8 py-4 text-lg"
+                  className="border-2 border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black px-8 py-4 text-lg font-bold"
                   data-testid="button-learn-more"
                 >
                   Learn More
