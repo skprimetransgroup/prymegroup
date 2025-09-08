@@ -15,12 +15,14 @@ export interface IStorage {
   updateAdminUserLastLogin(id: string): Promise<AdminUser | undefined>;
 
   // Jobs
-  getJobs(filters?: { type?: string; category?: string; location?: string; query?: string }): Promise<Job[]>;
+  getJobs(filters?: { type?: string; category?: string; location?: string; query?: string; status?: string }): Promise<Job[]>;
   getJob(id: string): Promise<Job | undefined>;
   getFeaturedJobs(): Promise<Job[]>;
   getJobsByCategory(): Promise<{ category: string; count: number }[]>;
+  getPendingJobs(): Promise<Job[]>;
   createJob(job: InsertJob): Promise<Job>;
   updateJob(id: string, job: Partial<Job>): Promise<Job | undefined>;
+  updateJobStatus(id: string, status: string): Promise<Job | undefined>;
   deleteJob(id: string): Promise<boolean>;
 
   // Job Applications
@@ -72,6 +74,9 @@ export class MemStorage implements IStorage {
         requirements: "High school diploma, mechanical aptitude, 2+ years experience",
         salary: "$45,000 - $55,000",
         featured: true,
+        status: "approved",
+        contactEmail: "hr@primemanufacturing.com",
+        contactPhone: "+1 (555) 123-4567",
         postedAt: new Date("2022-12-29"),
         expiresAt: null,
       },
@@ -86,6 +91,9 @@ export class MemStorage implements IStorage {
         requirements: "Physical fitness, reliability, willingness to learn",
         salary: "$35,000 - $40,000",
         featured: true,
+        status: "approved",
+        contactEmail: "jobs@logisticsplus.com",
+        contactPhone: "+1 (555) 234-5678",
         postedAt: new Date("2022-12-29"),
         expiresAt: null,
       },
@@ -100,6 +108,9 @@ export class MemStorage implements IStorage {
         requirements: "Valid G license, clean driving record, customer service skills",
         salary: "$40,000 - $50,000",
         featured: true,
+        status: "approved",
+        contactEmail: "careers@expressdelivery.com",
+        contactPhone: "+1 (555) 345-6789",
         postedAt: new Date("2022-12-29"),
         expiresAt: null,
       },
@@ -114,6 +125,9 @@ export class MemStorage implements IStorage {
         requirements: "Food handling certificate, early morning availability",
         salary: "$16 - $18/hour",
         featured: true,
+        status: "approved",
+        contactEmail: "hiring@freshbake.com",
+        contactPhone: "+1 (555) 456-7890",
         postedAt: new Date("2022-12-29"),
         expiresAt: null,
       },
@@ -128,6 +142,9 @@ export class MemStorage implements IStorage {
         requirements: "Bachelor's degree in Design, 3+ years UX/UI experience, portfolio required",
         salary: "$65,000 - $85,000",
         featured: true,
+        status: "approved",
+        contactEmail: "talent@techinnovations.com",
+        contactPhone: "+1 (555) 567-8901",
         postedAt: new Date("2022-12-27"),
         expiresAt: null,
       },
@@ -142,6 +159,9 @@ export class MemStorage implements IStorage {
         requirements: "Office suite proficiency, communication skills, attention to detail",
         salary: "$18 - $22/hour",
         featured: true,
+        status: "approved",
+        contactEmail: "admin@corpsolutions.com",
+        contactPhone: "+1 (555) 678-9012",
         postedAt: new Date("2022-12-26"),
         expiresAt: null,
       },
@@ -313,10 +333,18 @@ export class MemStorage implements IStorage {
   }
 
   // Job methods
-  async getJobs(filters?: { type?: string; category?: string; location?: string; query?: string }): Promise<Job[]> {
+  async getJobs(filters?: { type?: string; category?: string; location?: string; query?: string; status?: string }): Promise<Job[]> {
     let jobs = Array.from(this.jobs.values());
     
+    // Default to showing only approved jobs for public users
+    if (!filters?.status) {
+      jobs = jobs.filter(job => job.status === 'approved');
+    }
+    
     if (filters) {
+      if (filters.status) {
+        jobs = jobs.filter(job => job.status === filters.status);
+      }
       if (filters.type) {
         jobs = jobs.filter(job => job.type.toLowerCase() === filters.type?.toLowerCase());
       }
@@ -345,7 +373,13 @@ export class MemStorage implements IStorage {
 
   async getFeaturedJobs(): Promise<Job[]> {
     return Array.from(this.jobs.values())
-      .filter(job => job.featured)
+      .filter(job => job.featured && job.status === 'approved')
+      .sort((a, b) => (b.postedAt?.getTime() || 0) - (a.postedAt?.getTime() || 0));
+  }
+
+  async getPendingJobs(): Promise<Job[]> {
+    return Array.from(this.jobs.values())
+      .filter(job => job.status === 'pending')
       .sort((a, b) => (b.postedAt?.getTime() || 0) - (a.postedAt?.getTime() || 0));
   }
 
@@ -370,7 +404,10 @@ export class MemStorage implements IStorage {
       id,
       requirements: insertJob.requirements || null,
       salary: insertJob.salary || null,
+      contactEmail: insertJob.contactEmail || null,
+      contactPhone: insertJob.contactPhone || null,
       featured: false,
+      status: 'pending', // All new jobs start as pending
       postedAt: new Date(),
       expiresAt: null,
     };
@@ -383,6 +420,15 @@ export class MemStorage implements IStorage {
     if (!job) return undefined;
     
     const updatedJob = { ...job, ...updates };
+    this.jobs.set(id, updatedJob);
+    return updatedJob;
+  }
+
+  async updateJobStatus(id: string, status: string): Promise<Job | undefined> {
+    const job = this.jobs.get(id);
+    if (!job) return undefined;
+    
+    const updatedJob = { ...job, status };
     this.jobs.set(id, updatedJob);
     return updatedJob;
   }

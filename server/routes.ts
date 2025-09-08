@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertJobSchema, insertJobApplicationSchema, insertAdminUserSchema } from "@shared/schema";
+import { insertJobSchema, insertJobApplicationSchema, insertAdminUserSchema, publicJobSchema } from "@shared/schema";
 import { z } from "zod";
 
 // Extend Express session type
@@ -124,7 +124,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/jobs", async (req, res) => {
+  // Public job submission (for employers)
+  app.post("/api/jobs/submit", async (req, res) => {
+    try {
+      const jobData = publicJobSchema.parse(req.body);
+      const job = await storage.createJob(jobData);
+      res.status(201).json({ message: "Job submitted successfully and is under review", jobId: job.id });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid job data", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to submit job" });
+    }
+  });
+
+  // Admin job creation (for internal use)
+  app.post("/api/jobs", requireAdminAuth, async (req, res) => {
     try {
       const jobData = insertJobSchema.parse(req.body);
       const job = await storage.createJob(jobData);
@@ -134,6 +149,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "Invalid job data", errors: error.errors });
       }
       res.status(500).json({ message: "Failed to create job" });
+    }
+  });
+
+  // Get pending jobs (admin only)
+  app.get("/api/jobs/pending", requireAdminAuth, async (req, res) => {
+    try {
+      const jobs = await storage.getPendingJobs();
+      res.json(jobs);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch pending jobs" });
+    }
+  });
+
+  // Approve/Deny job (admin only)
+  app.patch("/api/jobs/:id/status", requireAdminAuth, async (req, res) => {
+    try {
+      const { status } = req.body;
+      if (!['approved', 'denied'].includes(status)) {
+        return res.status(400).json({ message: "Status must be 'approved' or 'denied'" });
+      }
+      
+      const job = await storage.updateJobStatus(req.params.id, status);
+      if (!job) {
+        return res.status(404).json({ message: "Job not found" });
+      }
+      
+      res.json({ message: `Job ${status} successfully`, job });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update job status" });
     }
   });
 
