@@ -67,7 +67,7 @@ export default function Hero() {
                     placeholder="Job title, keywords, or company"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full input-3d"
+                    className="w-full"
                     data-testid="input-search-query"
                   />
                 </div>
@@ -77,7 +77,7 @@ export default function Hero() {
                     placeholder="Location"
                     value={searchLocation}
                     onChange={(e) => setSearchLocation(e.target.value)}
-                    className="w-full input-3d"
+                    className="w-full"
                     data-testid="input-search-location"
                   />
                 </div>
