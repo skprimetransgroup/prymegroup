@@ -9,7 +9,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Building, Send, CheckCircle } from "lucide-react";
+import { Send, CheckCircle } from "lucide-react";
+import primeLogoPath from "@assets/Prime Group_Final (1)_1756488511870.png";
 import { publicJobSchema } from "@shared/schema";
 import type { z } from "zod";
 import Header from "@/components/layout/header";
@@ -127,8 +128,12 @@ export default function PostJobPage() {
       <div className="bg-gradient-to-br from-background via-background to-muted py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="bg-primary/10 p-4 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center">
-              <Building className="h-10 w-10 text-primary" />
+            <div className="w-24 h-24 mx-auto mb-6 flex items-center justify-center">
+              <img 
+                src={primeLogoPath} 
+                alt="Prime Trans Group" 
+                className="h-20 w-auto"
+              />
             </div>
             <h1 className="text-4xl font-bold text-foreground mb-4">
               Post a Job Opening

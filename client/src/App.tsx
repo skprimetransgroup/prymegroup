@@ -11,6 +11,7 @@ import AdminDashboard from "@/pages/admin/dashboard";
 import AdminJobs from "@/pages/admin/jobs";
 import AdminLogin from "@/pages/admin/login";
 import PostJob from "@/pages/post-job";
+import TermsConditions from "@/pages/terms-conditions";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -20,6 +21,7 @@ function Router() {
       <Route path="/jobs" component={Jobs} />
       <Route path="/jobs/:id" component={JobDetail} />
       <Route path="/post-job" component={PostJob} />
+      <Route path="/terms-conditions" component={TermsConditions} />
       <Route path="/admin/login" component={AdminLogin} />
       <Route path="/admin" component={AdminDashboard} />
       <Route path="/admin/jobs" component={AdminJobs} />
