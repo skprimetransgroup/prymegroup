@@ -1,4 +1,5 @@
 import { Link, useLocation } from "wouter";
+import { useAdminAuth } from "@/hooks/use-admin-auth";
 import { Button } from "@/components/ui/button";
 import { 
   LayoutDashboard, 
@@ -18,6 +19,11 @@ interface AdminLayoutProps {
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
   const [location] = useLocation();
+  const { adminUser, logout } = useAdminAuth();
+
+  const handleLogout = async () => {
+    await logout();
+  };
 
   const sidebarItems = [
     { icon: LayoutDashboard, label: "Dashboard", path: "/admin" },
@@ -42,7 +48,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
               alt="Prime Trans Group" 
               className="h-8 w-auto"
             />
-            <span className="ml-2 text-sm font-semibold text-muted-foreground">Admin</span>
+            <div className="ml-2">
+              <span className="text-sm font-semibold text-muted-foreground">Admin</span>
+              {adminUser && (
+                <p className="text-xs text-muted-foreground">{adminUser.username}</p>
+              )}
+            </div>
           </div>
 
           {/* Navigation */}
@@ -71,7 +82,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 Back to Site
               </Button>
             </Link>
-            <Button variant="ghost" className="w-full justify-start text-destructive hover:text-destructive">
+            <Button 
+              variant="ghost" 
+              className="w-full justify-start text-destructive hover:text-destructive"
+              onClick={handleLogout}
+            >
               <LogOut className="mr-3 h-4 w-4" />
               Logout
             </Button>
