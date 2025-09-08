@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Briefcase, FileText, MessageSquare, Users, TrendingUp, Eye } from "lucide-react";
 import AdminLayout from "@/components/layout/admin-layout";
+import { ProtectedAdminRoute } from "@/components/admin/protected-route";
 
 export default function AdminDashboard() {
   const { data: stats } = useQuery<{jobs: number; employers: number; hired: number}>({ 
@@ -47,7 +48,8 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <AdminLayout>
+    <ProtectedAdminRoute>
+      <AdminLayout>
       <div className="p-8">
         {/* Header */}
         <div className="mb-8">
@@ -155,6 +157,7 @@ export default function AdminDashboard() {
           </Card>
         </div>
       </div>
-    </AdminLayout>
+      </AdminLayout>
+    </ProtectedAdminRoute>
   );
 }

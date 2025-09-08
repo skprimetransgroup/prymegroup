@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Plus, Edit, Trash2, Eye, MapPin, Clock, Briefcase } from "lucide-react";
 import AdminLayout from "@/components/layout/admin-layout";
+import { ProtectedAdminRoute } from "@/components/admin/protected-route";
 import type { Job } from "@shared/schema";
 
 export default function AdminJobs() {
@@ -25,7 +26,8 @@ export default function AdminJobs() {
   };
 
   return (
-    <AdminLayout>
+    <ProtectedAdminRoute>
+      <AdminLayout>
       <div className="p-8">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
@@ -102,6 +104,7 @@ export default function AdminJobs() {
           </Card>
         )}
       </div>
-    </AdminLayout>
+      </AdminLayout>
+    </ProtectedAdminRoute>
   );
 }
