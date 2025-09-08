@@ -1,4 +1,4 @@
-import { type User, type InsertUser, type Job, type InsertJob, type JobApplication, type InsertJobApplication, type BlogPost, type Testimonial } from "@shared/schema";
+import { type User, type InsertUser, type Job, type InsertJob, type JobApplication, type InsertJobApplication, type BlogPost, type Testimonial, type AdminUser, type InsertAdminUser } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -7,6 +7,12 @@ export interface IStorage {
   getUserByUsername(username: string): Promise<User | undefined>;
   getUserByEmail(email: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
+
+  // Admin Users
+  getAdminUser(id: string): Promise<AdminUser | undefined>;
+  getAdminUserByUsername(username: string): Promise<AdminUser | undefined>;
+  createAdminUser(user: InsertAdminUser): Promise<AdminUser>;
+  updateAdminUserLastLogin(id: string): Promise<AdminUser | undefined>;
 
   // Jobs
   getJobs(filters?: { type?: string; category?: string; location?: string; query?: string }): Promise<Job[]>;
@@ -36,6 +42,7 @@ export interface IStorage {
 
 export class MemStorage implements IStorage {
   private users: Map<string, User>;
+  private adminUsers: Map<string, AdminUser>;
   private jobs: Map<string, Job>;
   private jobApplications: Map<string, JobApplication>;
   private blogPosts: Map<string, BlogPost>;
@@ -43,6 +50,7 @@ export class MemStorage implements IStorage {
 
   constructor() {
     this.users = new Map();
+    this.adminUsers = new Map();
     this.jobs = new Map();
     this.jobApplications = new Map();
     this.blogPosts = new Map();
@@ -222,6 +230,24 @@ export class MemStorage implements IStorage {
     ];
 
     sampleTestimonials.forEach(testimonial => this.testimonials.set(testimonial.id, testimonial));
+    
+    // Seed admin user with strong password
+    this.seedAdminUsers();
+  }
+
+  private async seedAdminUsers() {
+    const bcrypt = await import('bcryptjs');
+    const hashedPassword = await bcrypt.hash('PrimeAdmin2024!@#', 12);
+    
+    const adminUser: AdminUser = {
+      id: 'admin-1',
+      username: 'primeadmin',
+      password: hashedPassword,
+      createdAt: new Date(),
+      lastLoginAt: null,
+    };
+    
+    this.adminUsers.set('admin-1', adminUser);
   }
 
   // User methods
@@ -249,6 +275,41 @@ export class MemStorage implements IStorage {
     };
     this.users.set(id, user);
     return user;
+  }
+
+  // Admin User methods
+  async getAdminUser(id: string): Promise<AdminUser | undefined> {
+    return this.adminUsers.get(id);
+  }
+
+  async getAdminUserByUsername(username: string): Promise<AdminUser | undefined> {
+    return Array.from(this.adminUsers.values()).find(user => user.username === username);
+  }
+
+  async createAdminUser(insertAdminUser: InsertAdminUser): Promise<AdminUser> {
+    const bcrypt = await import('bcryptjs');
+    const hashedPassword = await bcrypt.hash(insertAdminUser.password, 12);
+    const id = randomUUID();
+    
+    const adminUser: AdminUser = { 
+      ...insertAdminUser,
+      id,
+      password: hashedPassword,
+      createdAt: new Date(),
+      lastLoginAt: null,
+    };
+    
+    this.adminUsers.set(id, adminUser);
+    return adminUser;
+  }
+
+  async updateAdminUserLastLogin(id: string): Promise<AdminUser | undefined> {
+    const adminUser = this.adminUsers.get(id);
+    if (!adminUser) return undefined;
+    
+    const updatedAdminUser = { ...adminUser, lastLoginAt: new Date() };
+    this.adminUsers.set(id, updatedAdminUser);
+    return updatedAdminUser;
   }
 
   // Job methods

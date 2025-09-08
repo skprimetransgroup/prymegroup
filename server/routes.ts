@@ -1,10 +1,81 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertJobSchema, insertJobApplicationSchema } from "@shared/schema";
+import { insertJobSchema, insertJobApplicationSchema, insertAdminUserSchema } from "@shared/schema";
 import { z } from "zod";
 
+// Extend Express session type
+declare module 'express-session' {
+  interface SessionData {
+    adminUser?: {
+      id: string;
+      username: string;
+    };
+  }
+}
+
+// Middleware to check admin authentication
+function requireAdminAuth(req: any, res: any, next: any) {
+  if (!req.session?.adminUser) {
+    return res.status(401).json({ message: 'Admin authentication required' });
+  }
+  next();
+}
+
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Admin Authentication API
+  app.post("/api/admin/login", async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      
+      if (!username || !password) {
+        return res.status(400).json({ message: 'Username and password are required' });
+      }
+
+      const adminUser = await storage.getAdminUserByUsername(username);
+      if (!adminUser) {
+        return res.status(401).json({ message: 'Invalid credentials' });
+      }
+
+      const bcrypt = await import('bcryptjs');
+      const isValidPassword = await bcrypt.compare(password, adminUser.password);
+      
+      if (!isValidPassword) {
+        return res.status(401).json({ message: 'Invalid credentials' });
+      }
+
+      // Update last login time
+      await storage.updateAdminUserLastLogin(adminUser.id);
+      
+      // Set session
+      req.session.adminUser = {
+        id: adminUser.id,
+        username: adminUser.username,
+      };
+      
+      res.json({
+        id: adminUser.id,
+        username: adminUser.username,
+        message: 'Login successful'
+      });
+    } catch (error) {
+      res.status(500).json({ message: 'Login failed' });
+    }
+  });
+
+  app.post("/api/admin/logout", (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ message: 'Logout failed' });
+      }
+      res.json({ message: 'Logout successful' });
+    });
+  });
+
+  app.get("/api/admin/me", requireAdminAuth, (req, res) => {
+    res.json(req.session.adminUser);
+  });
+
   // Jobs API
   app.get("/api/jobs", async (req, res) => {
     try {
