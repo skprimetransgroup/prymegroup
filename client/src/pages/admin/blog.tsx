@@ -17,15 +17,8 @@ export default function AdminBlog() {
     queryKey: ["/api/blog"]
   });
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'published':
-        return 'bg-green-100 text-green-800';
-      case 'draft':
-        return 'bg-yellow-100 text-yellow-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
-    }
+  const getStatusColor = (published: boolean | null) => {
+    return published ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800';
   };
 
   const renderBlogCard = (post: BlogPost) => (
@@ -40,8 +33,8 @@ export default function AdminBlog() {
               {post.excerpt}
             </CardDescription>
           </div>
-          <Badge className={getStatusColor(post.status)}>
-            {post.status}
+          <Badge className={getStatusColor(post.published)}>
+            {post.published ? 'Published' : 'Draft'}
           </Badge>
         </div>
       </CardHeader>
@@ -50,15 +43,7 @@ export default function AdminBlog() {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1">
               <Calendar className="h-4 w-4" />
-              {new Date(post.publishedAt || post.createdAt).toLocaleDateString()}
-            </div>
-            <div className="flex items-center gap-1">
-              <FileText className="h-4 w-4" />
-              {post.category}
-            </div>
-            <div className="flex items-center gap-1">
-              <Users className="h-4 w-4" />
-              By {post.author}
+              {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString() : 'Not published'}
             </div>
           </div>
         </div>
@@ -80,8 +65,8 @@ export default function AdminBlog() {
     </Card>
   );
 
-  const publishedPosts = blogPosts.filter(post => post.status === 'published');
-  const draftPosts = blogPosts.filter(post => post.status === 'draft');
+  const publishedPosts = blogPosts.filter(post => post.published);
+  const draftPosts = blogPosts.filter(post => !post.published);
 
   return (
     <ProtectedAdminRoute>

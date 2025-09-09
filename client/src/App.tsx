@@ -15,6 +15,10 @@ import BlogDetail from "@/pages/blog-detail";
 import Contact from "@/pages/contact";
 import AdminDashboard from "@/pages/admin/dashboard";
 import AdminJobs from "@/pages/admin/jobs";
+import AdminBlog from "@/pages/admin/blog";
+import AdminTestimonials from "@/pages/admin/testimonials";
+import AdminApplications from "@/pages/admin/applications";
+import AdminSettings from "@/pages/admin/settings";
 import AdminLogin from "@/pages/admin/login";
 import PostJob from "@/pages/post-job";
 import TermsConditions from "@/pages/terms-conditions";
@@ -41,6 +45,10 @@ function Router() {
         <Route path="/admin/login" component={AdminLogin} />
         <Route path="/admin" component={AdminDashboard} />
         <Route path="/admin/jobs" component={AdminJobs} />
+        <Route path="/admin/blog" component={AdminBlog} />
+        <Route path="/admin/testimonials" component={AdminTestimonials} />
+        <Route path="/admin/applications" component={AdminApplications} />
+        <Route path="/admin/settings" component={AdminSettings} />
         <Route component={NotFound} />
       </Switch>
       <MobileBottomNav />

@@ -5,11 +5,20 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Eye, Download, Search, Filter, User, Briefcase, Calendar, Phone, Mail, FileText } from "lucide-react";
+import { Eye, Download, Search, Filter, User as UserIcon, Briefcase, Calendar, Phone, Mail, FileText } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import AdminLayout from "@/components/layout/admin-layout";
 import { ProtectedAdminRoute } from "@/components/admin/protected-route";
-import type { JobApplication } from "@shared/schema";
+import type { JobApplication, Job, User as UserType } from "@shared/schema";
+
+// Extended type for display purposes with joined data
+type JobApplicationWithDetails = JobApplication & {
+  jobTitle?: string;
+  applicantName?: string;
+  applicantEmail?: string;
+  applicantPhone?: string;
+  experience?: string;
+};
 import { useState } from "react";
 
 export default function AdminApplications() {
@@ -18,7 +27,7 @@ export default function AdminApplications() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   
-  const { data: applications = [] } = useQuery<JobApplication[]>({ 
+  const { data: applications = [] } = useQuery<JobApplicationWithDetails[]>({ 
     queryKey: ["/api/applications"]
   });
 
@@ -47,26 +56,26 @@ export default function AdminApplications() {
   };
 
   const filteredApplications = applications.filter(app => {
-    const matchesSearch = app.applicantName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         app.applicantEmail.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         app.jobTitle.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = (app.applicantName || 'Unknown').toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         (app.applicantEmail || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         (app.jobTitle || 'Unknown Job').toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = statusFilter === 'all' || app.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
 
-  const renderApplicationCard = (application: JobApplication) => (
+  const renderApplicationCard = (application: JobApplicationWithDetails) => (
     <Card key={application.id} className="hover:shadow-lg transition-shadow">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <CardTitle className="text-lg font-semibold mb-2">
-              {application.applicantName}
+              {application.applicantName || 'Unknown Applicant'}
             </CardTitle>
             <CardDescription className="text-sm mb-2">
-              Applied for: {application.jobTitle}
+              Applied for: {application.jobTitle || 'Unknown Job'}
             </CardDescription>
-            <Badge className={getStatusColor(application.status)}>
-              {getStatusLabel(application.status)}
+            <Badge className={getStatusColor(application.status || 'pending')}>
+              {getStatusLabel(application.status || 'pending')}
             </Badge>
           </div>
         </div>
@@ -75,19 +84,19 @@ export default function AdminApplications() {
         <div className="space-y-2 mb-4">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Mail className="h-4 w-4" />
-            {application.applicantEmail}
+            {application.applicantEmail || 'Not provided'}
           </div>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Phone className="h-4 w-4" />
-            {application.applicantPhone}
+            {application.applicantPhone || 'Not provided'}
           </div>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Calendar className="h-4 w-4" />
-            Applied: {new Date(application.appliedAt).toLocaleDateString()}
+            Applied: {application.appliedAt ? new Date(application.appliedAt).toLocaleDateString() : 'Unknown date'}
           </div>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Briefcase className="h-4 w-4" />
-            Experience: {application.experience}
+            Experience: {application.experience || 'Not specified'}
           </div>
         </div>
         
@@ -105,13 +114,13 @@ export default function AdminApplications() {
             <Eye className="h-4 w-4 mr-1" />
             View Details
           </Button>
-          {application.resumeUrl && (
+          {application.resume && (
             <Button size="sm" variant="outline" data-testid={`button-download-${application.id}`}>
               <Download className="h-4 w-4 mr-1" />
               Resume
             </Button>
           )}
-          <Select defaultValue={application.status} onValueChange={(value) => console.log('Status change:', value)}>
+          <Select defaultValue={application.status || 'pending'} onValueChange={(value) => console.log('Status change:', value)}>
             <SelectTrigger className="w-32">
               <SelectValue />
             </SelectTrigger>
@@ -169,7 +178,7 @@ export default function AdminApplications() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Accepted</CardTitle>
-                <User className="h-4 w-4 text-green-600" />
+                <UserIcon className="h-4 w-4 text-green-600" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-green-600" data-testid="stat-accepted">{acceptedApplications.length}</div>
@@ -184,7 +193,7 @@ export default function AdminApplications() {
               <CardContent>
                 <div className="text-2xl font-bold text-blue-600" data-testid="stat-new-today">
                   {applications.filter(app => 
-                    new Date(app.appliedAt).toDateString() === new Date().toDateString()
+                    app.appliedAt && new Date(app.appliedAt).toDateString() === new Date().toDateString()
                   ).length}
                 </div>
                 <p className="text-xs text-muted-foreground">Recent submissions</p>

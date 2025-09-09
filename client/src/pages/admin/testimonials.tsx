@@ -37,7 +37,7 @@ export default function AdminTestimonials() {
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
               <CardTitle className="text-lg font-semibold">
-                {testimonial.clientName}
+                {testimonial.name}
               </CardTitle>
               {testimonial.featured && (
                 <Badge className={getStatusColor(testimonial.featured)}>
@@ -47,17 +47,17 @@ export default function AdminTestimonials() {
             </div>
             <div className="flex items-center gap-2 mb-2">
               <Building className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm text-muted-foreground">{testimonial.companyName}</span>
+              <span className="text-sm text-muted-foreground">{testimonial.company}</span>
             </div>
             <div className="flex items-center gap-1 mb-3">
-              {renderStars(testimonial.rating)}
+              {testimonial.rating && renderStars(testimonial.rating)}
             </div>
           </div>
         </div>
       </CardHeader>
       <CardContent className="pt-0">
         <blockquote className="text-sm text-muted-foreground mb-4 italic border-l-4 border-muted pl-4">
-          "{testimonial.testimonial}"
+          "{testimonial.content}"
         </blockquote>
         <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
           <div className="flex items-center gap-1">
@@ -132,7 +132,7 @@ export default function AdminTestimonials() {
               <CardContent>
                 <div className="text-2xl font-bold text-green-600" data-testid="stat-average-rating">
                   {testimonials.length > 0 
-                    ? (testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length).toFixed(1)
+                    ? (testimonials.reduce((sum, t) => sum + (t.rating || 0), 0) / testimonials.length).toFixed(1)
                     : '0.0'
                   }
                 </div>
@@ -146,7 +146,7 @@ export default function AdminTestimonials() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-blue-600" data-testid="stat-unique-companies">
-                  {new Set(testimonials.map(t => t.companyName)).size}
+                  {new Set(testimonials.map(t => t.company)).size}
                 </div>
                 <p className="text-xs text-muted-foreground">Unique clients</p>
               </CardContent>
