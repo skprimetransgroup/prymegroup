@@ -112,6 +112,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Recent jobs for dashboard activity feed
+  app.get("/api/jobs/recent", async (req, res) => {
+    try {
+      const jobs = await storage.getJobs();
+      const recentJobs = jobs.slice(0, 5); // Get latest 5 jobs
+      res.json(recentJobs);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch recent jobs" });
+    }
+  });
+
+  // Get pending jobs (admin only) - MOVED BEFORE :id route
+  app.get("/api/jobs/pending", requireAdminAuth, async (req, res) => {
+    try {
+      const jobs = await storage.getPendingJobs();
+      res.json(jobs);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch pending jobs" });
+    }
+  });
+
   app.get("/api/jobs/:id", async (req, res) => {
     try {
       const job = await storage.getJob(req.params.id);
@@ -152,15 +173,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get pending jobs (admin only)
-  app.get("/api/jobs/pending", requireAdminAuth, async (req, res) => {
-    try {
-      const jobs = await storage.getPendingJobs();
-      res.json(jobs);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch pending jobs" });
-    }
-  });
 
   // Approve/Deny job (admin only)
   app.patch("/api/jobs/:id/status", requireAdminAuth, async (req, res) => {
@@ -209,6 +221,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(applications);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch applications" });
+    }
+  });
+
+  // Recent applications for dashboard activity feed
+  app.get("/api/applications/recent", async (req, res) => {
+    try {
+      const applications = await storage.getJobApplications();
+      const recentApplications = applications.slice(0, 5); // Get latest 5 applications
+      res.json(recentApplications);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch recent applications" });
     }
   });
 

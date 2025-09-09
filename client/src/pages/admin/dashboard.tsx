@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Briefcase, FileText, MessageSquare, Users, TrendingUp, Eye } from "lucide-react";
 import AdminLayout from "@/components/layout/admin-layout";
 import { ProtectedAdminRoute } from "@/components/admin/protected-route";
+import type { Job, JobApplication } from "@shared/schema";
 
 export default function AdminDashboard() {
   const { data: stats } = useQuery<{jobs: number; employers: number; hired: number}>({ 
@@ -40,12 +41,47 @@ export default function AdminDashboard() {
     }
   ];
 
+  // Fetch real recent activity
+  const { data: recentJobs = [] } = useQuery<Job[]>({
+    queryKey: ["/api/jobs/recent"],
+  });
+  
+  const { data: recentApplications = [] } = useQuery<JobApplication[]>({
+    queryKey: ["/api/applications/recent"],
+  });
+
+  // Generate recent activity from real data
   const recentActivity = [
-    { action: "New job application", item: "Senior Developer", time: "2 minutes ago" },
-    { action: "Job posted", item: "Marketing Manager", time: "1 hour ago" },
-    { action: "Blog post published", item: "Interview Tips Guide", time: "3 hours ago" },
-    { action: "New testimonial", item: "ABC Corporation", time: "5 hours ago" },
-  ];
+    ...recentJobs.slice(0, 3).map(job => ({
+      action: "Job posted",
+      item: job.title,
+      time: formatTimeAgo(job.postedAt),
+    })),
+    ...recentApplications.slice(0, 3).map(app => ({
+      action: "New application",
+      item: `Application for Job ID: ${app.jobId}`,
+      time: formatTimeAgo(app.appliedAt),
+    })),
+  ].sort((a, b) => {
+    // Sort by most recent first
+    const timeA = a.time.includes('minute') ? 1 : a.time.includes('hour') ? 60 : 1440;
+    const timeB = b.time.includes('minute') ? 1 : b.time.includes('hour') ? 60 : 1440;
+    return timeA - timeB;
+  }).slice(0, 4);
+
+  function formatTimeAgo(date: Date | string | undefined): string {
+    if (!date) return 'Unknown time';
+    const now = new Date();
+    const then = new Date(date);
+    const diffMs = now.getTime() - then.getTime();
+    const diffMins = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    if (diffMins < 60) return `${diffMins} minute${diffMins !== 1 ? 's' : ''} ago`;
+    if (diffHours < 24) return `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
+    return `${diffDays} day${diffDays !== 1 ? 's' : ''} ago`;
+  }
 
   return (
     <ProtectedAdminRoute>
