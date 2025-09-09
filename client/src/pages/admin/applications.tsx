@@ -295,7 +295,7 @@ export default function AdminApplications() {
                 {acceptedApplications.length === 0 ? (
                   <Card>
                     <CardContent className="flex flex-col items-center justify-center py-12">
-                      <User className="h-12 w-12 text-muted-foreground mb-4" />
+                      <UserIcon className="h-12 w-12 text-muted-foreground mb-4" />
                       <h3 className="text-lg font-semibold text-center mb-2">No accepted applications</h3>
                       <p className="text-muted-foreground text-center">Accepted candidates will appear here.</p>
                     </CardContent>
