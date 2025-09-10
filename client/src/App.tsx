@@ -21,6 +21,8 @@ import AdminApplications from "@/pages/admin/applications";
 import AdminSettings from "@/pages/admin/settings";
 import AdminLogin from "@/pages/admin/login";
 import PostJob from "@/pages/post-job";
+import Shop from "@/pages/shop";
+import Warehouse from "@/pages/warehouse";
 import TermsConditions from "@/pages/terms-conditions";
 import PrivacyPolicy from "@/pages/privacy-policy";
 import About from "@/pages/about";
@@ -39,6 +41,8 @@ function Router() {
         <Route path="/blog/:slug" component={BlogDetail} />
         <Route path="/contact" component={Contact} />
         <Route path="/post-job" component={PostJob} />
+        <Route path="/shop" component={Shop} />
+        <Route path="/warehouse" component={Warehouse} />
         <Route path="/terms-conditions" component={TermsConditions} />
         <Route path="/privacy-policy" component={PrivacyPolicy} />
         <Route path="/about" component={About} />

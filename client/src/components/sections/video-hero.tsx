@@ -95,7 +95,7 @@ export default function VideoHero() {
                   Canada's <span className="text-primary font-black">Leading</span>
                   <br />
                   <span className="relative">
-                    Workforce Solutions
+                    Business Solutions
                     {/* Clean Underline */}
                     <div className="absolute bottom-0 left-0 w-full h-0.5 sm:h-1 bg-gradient-to-r from-primary to-secondary mt-1 sm:mt-2"></div>
                   </span>
@@ -113,19 +113,19 @@ export default function VideoHero() {
                   <div className="w-6 h-6 sm:w-7 h-7 lg:w-8 lg:h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center flex-shrink-0">
                     <span className="text-white text-xs sm:text-sm font-bold">✓</span>
                   </div>
-                  <p className="font-semibold text-gray-100">Expert Recruitment & Staffing</p>
+                  <p className="font-semibold text-gray-100">Expert Staffing & Recruitment</p>
                 </div>
                 <div className="flex items-center gap-3 sm:gap-4 animate-slide-in-left" style={{animationDelay: '0.4s'}}>
                   <div className="w-6 h-6 sm:w-7 h-7 lg:w-8 lg:h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center flex-shrink-0">
                     <span className="text-white text-xs sm:text-sm font-bold">✓</span>
                   </div>
-                  <p className="font-semibold text-gray-100">Proven Industry Experience</p>
+                  <p className="font-semibold text-gray-100">E-commerce & Product Solutions</p>
                 </div>
                 <div className="flex items-center gap-3 sm:gap-4 animate-slide-in-left" style={{animationDelay: '0.6s'}}>
                   <div className="w-6 h-6 sm:w-7 h-7 lg:w-8 lg:h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center flex-shrink-0">
                     <span className="text-white text-xs sm:text-sm font-bold">✓</span>
                   </div>
-                  <p className="font-semibold text-gray-100">Connecting Talent with Opportunity</p>
+                  <p className="font-semibold text-gray-100">Warehouse Services & Logistics</p>
                 </div>
               </div>
             </div>
@@ -135,8 +135,8 @@ export default function VideoHero() {
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg blur-sm"></div>
                 <p className="relative text-sm sm:text-base md:text-lg lg:text-xl text-gray-200 max-w-lg p-4 sm:p-6 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
-                  Trusted by <span className="text-primary font-bold">leading companies</span> across Canada, we deliver comprehensive staffing solutions 
-                  for transportation, manufacturing, warehousing, and administrative roles.
+                  Trusted by <span className="text-primary font-bold">leading companies</span> across Canada, we deliver comprehensive business solutions 
+                  spanning staffing services, e-commerce, and warehouse logistics to drive your success.
                 </p>
               </div>
               
@@ -156,7 +156,7 @@ export default function VideoHero() {
                   className="border-2 sm:border-3 border-primary text-primary hover:bg-primary hover:text-white px-6 sm:px-8 lg:px-10 py-4 sm:py-5 text-base sm:text-lg lg:text-xl font-bold shadow-lg hover:shadow-primary/25 transition-all duration-300 hover:scale-105 bg-white/5 backdrop-blur-sm"
                   data-testid="button-learn-more"
                 >
-                  Our Services
+                  Explore Solutions
                 </Button>
               </div>
             </div>

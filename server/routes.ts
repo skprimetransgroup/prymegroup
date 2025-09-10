@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertJobSchema, insertJobApplicationSchema, insertAdminUserSchema, publicJobSchema } from "@shared/schema";
+import { insertJobSchema, insertJobApplicationSchema, insertAdminUserSchema, publicJobSchema, insertProductSchema, updateProductSchema, insertOrderSchema, updateOrderSchema, insertWarehouseRequestSchema, updateWarehouseRequestSchema, type OrderItem } from "@shared/schema";
 import { z } from "zod";
 
 // Extend Express session type
@@ -267,6 +267,251 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(testimonials);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch testimonials" });
+    }
+  });
+
+  // Products API
+  app.get("/api/products", async (req, res) => {
+    try {
+      const { category, featured, published } = req.query;
+      const filters = {
+        category: category as string,
+        featured: featured === "true" ? true : featured === "false" ? false : undefined,
+        published: published === "true" ? true : published === "false" ? false : undefined,
+      };
+      const products = await storage.getProducts(filters);
+      res.json(products);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch products" });
+    }
+  });
+
+  app.get("/api/products/featured", async (req, res) => {
+    try {
+      const products = await storage.getFeaturedProducts();
+      res.json(products);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch featured products" });
+    }
+  });
+
+  app.get("/api/products/categories", async (req, res) => {
+    try {
+      const categories = await storage.getProductsByCategory();
+      res.json(categories);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch product categories" });
+    }
+  });
+
+  app.get("/api/products/:id", async (req, res) => {
+    try {
+      const product = await storage.getProduct(req.params.id);
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      res.json(product);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch product" });
+    }
+  });
+
+  app.post("/api/products", requireAdminAuth, async (req, res) => {
+    try {
+      const productData = insertProductSchema.parse(req.body);
+      const product = await storage.createProduct(productData);
+      res.status(201).json(product);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid product data", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to create product" });
+    }
+  });
+
+  app.patch("/api/products/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const updateData = updateProductSchema.parse(req.body);
+      const product = await storage.updateProduct(req.params.id, updateData);
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      res.json(product);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid product data", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to update product" });
+    }
+  });
+
+  app.delete("/api/products/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const deleted = await storage.deleteProduct(req.params.id);
+      if (!deleted) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      res.json({ message: "Product deleted successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to delete product" });
+    }
+  });
+
+  // Orders API
+  app.get("/api/orders", requireAdminAuth, async (req, res) => {
+    try {
+      const { status } = req.query;
+      const filters = status ? { status: status as string } : undefined;
+      const orders = await storage.getOrders(filters);
+      res.json(orders);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch orders" });
+    }
+  });
+
+  app.get("/api/orders/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const order = await storage.getOrder(req.params.id);
+      if (!order) {
+        return res.status(404).json({ message: "Order not found" });
+      }
+      res.json(order);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch order" });
+    }
+  });
+
+  app.post("/api/orders", async (req, res) => {
+    try {
+      const orderData = insertOrderSchema.parse(req.body);
+      
+      // Server-side total calculation and validation
+      let calculatedTotal = 0;
+      const validatedItems: OrderItem[] = [];
+      
+      for (const item of orderData.items) {
+        // Verify product exists and get current price
+        const product = await storage.getProduct(item.productId);
+        if (!product) {
+          return res.status(400).json({ 
+            message: `Product with ID ${item.productId} not found` 
+          });
+        }
+        
+        // Check stock availability
+        const availableStock = product.stock ?? 0;
+        if (availableStock < item.quantity) {
+          return res.status(400).json({ 
+            message: `Insufficient stock for ${product.name}. Available: ${availableStock}, Requested: ${item.quantity}` 
+          });
+        }
+        
+        // Use server-side price for security
+        const serverPrice = parseFloat(product.price);
+        const itemTotal = serverPrice * item.quantity;
+        calculatedTotal += itemTotal;
+        
+        validatedItems.push({
+          productId: item.productId,
+          quantity: item.quantity,
+          price: product.price, // Use server price
+          name: product.name, // Use server name
+        });
+      }
+      
+      // Create order with server-calculated data
+      const finalOrderData = {
+        ...orderData,
+        items: validatedItems,
+        total: calculatedTotal.toFixed(2),
+      };
+      
+      const order = await storage.createOrder(finalOrderData);
+      res.status(201).json(order);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid order data", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to create order" });
+    }
+  });
+
+  app.patch("/api/orders/:id/status", requireAdminAuth, async (req, res) => {
+    try {
+      const updateData = updateOrderSchema.parse(req.body);
+      if (!updateData.status) {
+        return res.status(400).json({ message: "Status is required" });
+      }
+      
+      const order = await storage.updateOrderStatus(req.params.id, updateData.status);
+      if (!order) {
+        return res.status(404).json({ message: "Order not found" });
+      }
+      
+      res.json({ message: `Order status updated to ${updateData.status}`, order });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid status data", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to update order status" });
+    }
+  });
+
+  // Warehouse Requests API
+  app.get("/api/warehouse/requests", requireAdminAuth, async (req, res) => {
+    try {
+      const { status } = req.query;
+      const filters = status ? { status: status as string } : undefined;
+      const requests = await storage.getWarehouseRequests(filters);
+      res.json(requests);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch warehouse requests" });
+    }
+  });
+
+  app.get("/api/warehouse/requests/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const request = await storage.getWarehouseRequest(req.params.id);
+      if (!request) {
+        return res.status(404).json({ message: "Warehouse request not found" });
+      }
+      res.json(request);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch warehouse request" });
+    }
+  });
+
+  app.post("/api/warehouse/requests", async (req, res) => {
+    try {
+      const requestData = insertWarehouseRequestSchema.parse(req.body);
+      const request = await storage.createWarehouseRequest(requestData);
+      res.status(201).json({ message: "Warehouse request submitted successfully", requestId: request.id });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid request data", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to submit warehouse request" });
+    }
+  });
+
+  app.patch("/api/warehouse/requests/:id/status", requireAdminAuth, async (req, res) => {
+    try {
+      const updateData = updateWarehouseRequestSchema.parse(req.body);
+      if (!updateData.status) {
+        return res.status(400).json({ message: "Status is required" });
+      }
+      
+      const request = await storage.updateWarehouseRequestStatus(req.params.id, updateData.status);
+      if (!request) {
+        return res.status(404).json({ message: "Warehouse request not found" });
+      }
+      
+      res.json({ message: `Warehouse request ${updateData.status}`, request });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid status data", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to update warehouse request status" });
     }
   });
 

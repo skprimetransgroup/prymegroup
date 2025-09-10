@@ -1,4 +1,4 @@
-import { type User, type InsertUser, type Job, type InsertJob, type JobApplication, type InsertJobApplication, type BlogPost, type Testimonial, type AdminUser, type InsertAdminUser } from "@shared/schema";
+import { type User, type InsertUser, type Job, type InsertJob, type JobApplication, type InsertJobApplication, type BlogPost, type Testimonial, type AdminUser, type InsertAdminUser, type Product, type InsertProduct, type Order, type InsertOrder, type WarehouseRequest, type InsertWarehouseRequest, type OrderItem } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -38,6 +38,27 @@ export interface IStorage {
   // Testimonials
   getTestimonials(featured?: boolean): Promise<Testimonial[]>;
 
+  // Products
+  getProducts(filters?: { category?: string; featured?: boolean; published?: boolean }): Promise<Product[]>;
+  getProduct(id: string): Promise<Product | undefined>;
+  getFeaturedProducts(): Promise<Product[]>;
+  getProductsByCategory(): Promise<{ category: string; count: number }[]>;
+  createProduct(product: InsertProduct): Promise<Product>;
+  updateProduct(id: string, product: Partial<Product>): Promise<Product | undefined>;
+  deleteProduct(id: string): Promise<boolean>;
+
+  // Orders
+  getOrders(filters?: { status?: string }): Promise<Order[]>;
+  getOrder(id: string): Promise<Order | undefined>;
+  createOrder(order: InsertOrder): Promise<Order>;
+  updateOrderStatus(id: string, status: string): Promise<Order | undefined>;
+
+  // Warehouse Requests
+  getWarehouseRequests(filters?: { status?: string }): Promise<WarehouseRequest[]>;
+  getWarehouseRequest(id: string): Promise<WarehouseRequest | undefined>;
+  createWarehouseRequest(request: InsertWarehouseRequest): Promise<WarehouseRequest>;
+  updateWarehouseRequestStatus(id: string, status: string): Promise<WarehouseRequest | undefined>;
+
   // Statistics
   getStats(): Promise<{ jobs: number; employers: number; hired: number }>;
 }
@@ -49,6 +70,9 @@ export class MemStorage implements IStorage {
   private jobApplications: Map<string, JobApplication>;
   private blogPosts: Map<string, BlogPost>;
   private testimonials: Map<string, Testimonial>;
+  private products: Map<string, Product>;
+  private orders: Map<string, Order>;
+  private warehouseRequests: Map<string, WarehouseRequest>;
 
   constructor() {
     this.users = new Map();
@@ -57,6 +81,9 @@ export class MemStorage implements IStorage {
     this.jobApplications = new Map();
     this.blogPosts = new Map();
     this.testimonials = new Map();
+    this.products = new Map();
+    this.orders = new Map();
+    this.warehouseRequests = new Map();
     this.seedData();
   }
 
@@ -348,6 +375,120 @@ If possible, Siegel says to demonstrate mastery of each skill by listing your ye
     ];
 
     sampleTestimonials.forEach(testimonial => this.testimonials.set(testimonial.id, testimonial));
+
+    // Seed products
+    const sampleProducts: Product[] = [
+      {
+        id: "product-1",
+        name: "Safety Helmet",
+        description: "High-quality safety helmet for construction and industrial work. Meets all safety standards.",
+        price: "39.99",
+        imageUrl: "https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?ixlib=rb-4.0.3",
+        category: "Safety Equipment",
+        stock: 150,
+        featured: true,
+        published: true,
+        createdAt: new Date("2024-01-01"),
+      },
+      {
+        id: "product-2",
+        name: "Work Gloves",
+        description: "Durable work gloves with excellent grip and protection. Perfect for general labor.",
+        price: "19.99",
+        imageUrl: "https://images.unsplash.com/photo-1590736969955-71cc94901144?ixlib=rb-4.0.3",
+        category: "Safety Equipment",
+        stock: 200,
+        featured: true,
+        published: true,
+        createdAt: new Date("2024-01-02"),
+      },
+      {
+        id: "product-3",
+        name: "Tool Belt",
+        description: "Heavy-duty tool belt with multiple pockets and holsters for organizing tools.",
+        price: "59.99",
+        imageUrl: "https://images.unsplash.com/photo-1504148455328-c376907d081c?ixlib=rb-4.0.3",
+        category: "Tools & Accessories",
+        stock: 75,
+        featured: false,
+        published: true,
+        createdAt: new Date("2024-01-03"),
+      },
+      {
+        id: "product-4",
+        name: "Work Boots",
+        description: "Steel-toe work boots with slip-resistant soles. Available in multiple sizes.",
+        price: "129.99",
+        imageUrl: "https://images.unsplash.com/photo-1544966503-7cc5ac882d5a?ixlib=rb-4.0.3",
+        category: "Footwear",
+        stock: 100,
+        featured: true,
+        published: true,
+        createdAt: new Date("2024-01-04"),
+      },
+      {
+        id: "product-5",
+        name: "Hi-Vis Vest",
+        description: "High-visibility safety vest with reflective strips. Essential for workplace safety.",
+        price: "24.99",
+        imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3",
+        category: "Safety Equipment",
+        stock: 180,
+        featured: false,
+        published: true,
+        createdAt: new Date("2024-01-05"),
+      },
+    ];
+
+    sampleProducts.forEach(product => this.products.set(product.id, product));
+
+    // Seed warehouse requests
+    const sampleWarehouseRequests: WarehouseRequest[] = [
+      {
+        id: "warehouse-1",
+        company: "TechCorp Solutions",
+        contactName: "John Smith",
+        contactEmail: "john.smith@techcorp.com",
+        contactPhone: "+1 (647) 555-0123",
+        location: "Toronto, ON",
+        storageType: "dry",
+        storageSize: "large",
+        duration: "long-term",
+        requirements: "Climate-controlled environment for electronics storage",
+        status: "new",
+        createdAt: new Date("2024-01-15"),
+      },
+      {
+        id: "warehouse-2",
+        company: "Fresh Foods Inc.",
+        contactName: "Maria Garcia",
+        contactEmail: "maria@freshfoods.com",
+        contactPhone: "+1 (416) 555-0456",
+        location: "Mississauga, ON",
+        storageType: "cold",
+        storageSize: "medium",
+        duration: "short-term",
+        requirements: "Refrigerated storage for perishable goods",
+        status: "contacted",
+        createdAt: new Date("2024-01-20"),
+      },
+      {
+        id: "warehouse-3",
+        company: "AutoParts Direct",
+        contactName: "David Brown",
+        contactEmail: "david@autoparts.com",
+        contactPhone: "+1 (905) 555-0789",
+        location: "Brampton, ON",
+        storageType: "dry",
+        storageSize: "small",
+        duration: "long-term",
+        requirements: "Secure storage for automotive parts and accessories",
+        status: "new",
+        createdAt: new Date("2024-01-25"),
+      },
+    ];
+
+    sampleWarehouseRequests.forEach(request => this.warehouseRequests.set(request.id, request));
     
     // Seed admin user with strong password
     this.seedAdminUsers();
@@ -600,6 +741,202 @@ If possible, Siegel says to demonstrate mastery of each skill by listing your ye
     }
     
     return testimonials;
+  }
+
+  // Product methods
+  async getProducts(filters?: { category?: string; featured?: boolean; published?: boolean }): Promise<Product[]> {
+    let products = Array.from(this.products.values());
+    
+    if (filters) {
+      if (filters.category) {
+        products = products.filter(product => product.category.toLowerCase() === filters.category?.toLowerCase());
+      }
+      if (filters.featured !== undefined) {
+        products = products.filter(product => product.featured === filters.featured);
+      }
+      if (filters.published !== undefined) {
+        products = products.filter(product => product.published === filters.published);
+      }
+    }
+    
+    return products.sort((a, b) => (b.createdAt?.getTime() || 0) - (a.createdAt?.getTime() || 0));
+  }
+
+  async getProduct(id: string): Promise<Product | undefined> {
+    return this.products.get(id);
+  }
+
+  async getFeaturedProducts(): Promise<Product[]> {
+    return Array.from(this.products.values()).filter(product => product.featured && product.published);
+  }
+
+  async getProductsByCategory(): Promise<{ category: string; count: number }[]> {
+    const categoryMap = new Map<string, number>();
+    
+    Array.from(this.products.values())
+      .filter(product => product.published)
+      .forEach(product => {
+        const count = categoryMap.get(product.category) || 0;
+        categoryMap.set(product.category, count + 1);
+      });
+    
+    return Array.from(categoryMap.entries()).map(([category, count]) => ({ category, count }));
+  }
+
+  async createProduct(insertProduct: InsertProduct): Promise<Product> {
+    const id = randomUUID();
+    const product: Product = {
+      ...insertProduct,
+      id,
+      imageUrl: insertProduct.imageUrl || null,
+      stock: insertProduct.stock || 0,
+      featured: insertProduct.featured || false,
+      published: insertProduct.published || true,
+      createdAt: new Date(),
+    };
+    this.products.set(id, product);
+    return product;
+  }
+
+  async updateProduct(id: string, productUpdate: Partial<Product>): Promise<Product | undefined> {
+    const product = this.products.get(id);
+    if (!product) return undefined;
+    
+    // Protect immutable fields from being overwritten
+    const { id: _, createdAt: __, ...allowedUpdates } = productUpdate;
+    
+    const updatedProduct = { 
+      ...product, 
+      ...allowedUpdates,
+      // Ensure immutable fields are preserved
+      id: product.id,
+      createdAt: product.createdAt,
+    };
+    this.products.set(id, updatedProduct);
+    return updatedProduct;
+  }
+
+  async deleteProduct(id: string): Promise<boolean> {
+    return this.products.delete(id);
+  }
+
+  // Order methods
+  async getOrders(filters?: { status?: string }): Promise<Order[]> {
+    let orders = Array.from(this.orders.values());
+    
+    if (filters?.status) {
+      orders = orders.filter(order => order.status === filters.status);
+    }
+    
+    return orders.sort((a, b) => (b.createdAt?.getTime() || 0) - (a.createdAt?.getTime() || 0));
+  }
+
+  async getOrder(id: string): Promise<Order | undefined> {
+    return this.orders.get(id);
+  }
+
+  async createOrder(insertOrder: InsertOrder): Promise<Order> {
+    const id = randomUUID();
+    
+    // Validate order items, check stock, and calculate server-side prices
+    let serverCalculatedTotal = 0;
+    const validatedItems: OrderItem[] = [];
+    
+    for (const item of insertOrder.items) {
+      const product = this.products.get(item.productId);
+      if (!product) {
+        throw new Error(`Product with ID ${item.productId} not found`);
+      }
+      
+      const availableStock = product.stock ?? 0;
+      if (availableStock < item.quantity) {
+        throw new Error(`Insufficient stock for ${product.name}. Available: ${availableStock}, Requested: ${item.quantity}`);
+      }
+      
+      // Use server-side pricing for security - never trust client prices
+      const serverPrice = parseFloat(product.price);
+      const itemTotal = serverPrice * item.quantity;
+      serverCalculatedTotal += itemTotal;
+      
+      // Create validated item with server data
+      validatedItems.push({
+        productId: item.productId,
+        quantity: item.quantity,
+        price: product.price, // Use server price
+        name: product.name,   // Use server product name
+      });
+    }
+    
+    // Reduce stock levels for ordered items (atomic operation)
+    for (const item of insertOrder.items) {
+      const product = this.products.get(item.productId);
+      if (product) {
+        const currentStock = product.stock ?? 0;
+        const updatedProduct = {
+          ...product,
+          stock: currentStock - item.quantity,
+        };
+        this.products.set(item.productId, updatedProduct);
+      }
+    }
+    
+    const order: Order = {
+      ...insertOrder,
+      items: validatedItems, // Use validated items with server data
+      id,
+      customerPhone: insertOrder.customerPhone || null,
+      status: "pending",
+      createdAt: new Date(),
+      total: serverCalculatedTotal.toFixed(2), // Use server-calculated total
+    };
+    this.orders.set(id, order);
+    return order;
+  }
+
+  async updateOrderStatus(id: string, status: string): Promise<Order | undefined> {
+    const order = this.orders.get(id);
+    if (!order) return undefined;
+    
+    const updatedOrder = { ...order, status };
+    this.orders.set(id, updatedOrder);
+    return updatedOrder;
+  }
+
+  // Warehouse Request methods
+  async getWarehouseRequests(filters?: { status?: string }): Promise<WarehouseRequest[]> {
+    let requests = Array.from(this.warehouseRequests.values());
+    
+    if (filters?.status) {
+      requests = requests.filter(request => request.status === filters.status);
+    }
+    
+    return requests.sort((a, b) => (b.createdAt?.getTime() || 0) - (a.createdAt?.getTime() || 0));
+  }
+
+  async getWarehouseRequest(id: string): Promise<WarehouseRequest | undefined> {
+    return this.warehouseRequests.get(id);
+  }
+
+  async createWarehouseRequest(insertRequest: InsertWarehouseRequest): Promise<WarehouseRequest> {
+    const id = randomUUID();
+    const request: WarehouseRequest = {
+      ...insertRequest,
+      id,
+      requirements: insertRequest.requirements || null,
+      status: "pending",
+      createdAt: new Date(),
+    };
+    this.warehouseRequests.set(id, request);
+    return request;
+  }
+
+  async updateWarehouseRequestStatus(id: string, status: string): Promise<WarehouseRequest | undefined> {
+    const request = this.warehouseRequests.get(id);
+    if (!request) return undefined;
+    
+    const updatedRequest = { ...request, status };
+    this.warehouseRequests.set(id, updatedRequest);
+    return updatedRequest;
   }
 
   // Statistics

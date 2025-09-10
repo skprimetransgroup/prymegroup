@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, timestamp, integer, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, timestamp, integer, boolean, decimal, jsonb } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -72,6 +72,46 @@ export const testimonials = pgTable("testimonials", {
   featured: boolean("featured").default(false),
 });
 
+export const products = pgTable("products", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  description: text("description").notNull(),
+  price: decimal("price", { precision: 10, scale: 2 }).notNull(),
+  imageUrl: text("image_url"),
+  category: text("category").notNull(),
+  stock: integer("stock").default(0),
+  featured: boolean("featured").default(false),
+  published: boolean("published").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const orders = pgTable("orders", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  items: jsonb("items").notNull(), // Array of order items
+  total: decimal("total", { precision: 10, scale: 2 }).notNull(),
+  customerName: text("customer_name").notNull(),
+  customerEmail: text("customer_email").notNull(),
+  customerPhone: text("customer_phone"),
+  shippingAddress: text("shipping_address").notNull(),
+  status: text("status").default("pending"), // pending, paid, fulfilled, cancelled
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const warehouseRequests = pgTable("warehouse_requests", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  company: text("company").notNull(),
+  contactName: text("contact_name").notNull(),
+  contactEmail: text("contact_email").notNull(),
+  contactPhone: text("contact_phone").notNull(),
+  location: text("location").notNull(), // Added for mediation service
+  storageType: text("storage_type").notNull(), // dry, cold, hazardous
+  storageSize: text("storage_size").notNull(), // small, medium, large
+  duration: text("duration").notNull(), // short-term, long-term
+  requirements: text("requirements"), // Additional requirements
+  status: text("status").default("new"), // new, contacted, closed
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
   email: true,
@@ -128,6 +168,78 @@ export const insertAdminUserSchema = createInsertSchema(adminUsers).pick({
   password: true,
 });
 
+export const insertProductSchema = createInsertSchema(products).pick({
+  name: true,
+  description: true,
+  price: true,
+  imageUrl: true,
+  category: true,
+  stock: true,
+  featured: true,
+  published: true,
+});
+
+export const updateProductSchema = z.object({
+  name: z.string().min(1, "Product name is required").optional(),
+  description: z.string().min(1, "Product description is required").optional(),
+  price: z.string().regex(/^\d+(\.\d{1,2})?$/, "Price must be a valid decimal number").optional(),
+  imageUrl: z.string().url("Image URL must be valid").optional(),
+  category: z.string().min(1, "Category is required").optional(),
+  stock: z.number().min(0, "Stock cannot be negative").optional(),
+  featured: z.boolean().optional(),
+  published: z.boolean().optional(),
+}).partial();
+
+// Define OrderItem schema for proper validation
+export const orderItemSchema = z.object({
+  productId: z.string().min(1, "Product ID is required"),
+  quantity: z.number().min(1, "Quantity must be at least 1"),
+  price: z.string().regex(/^\d+(\.\d{1,2})?$/, "Invalid price format"),
+  name: z.string().min(1, "Product name is required"),
+});
+
+// Status enums for validation
+export const orderStatusEnum = z.enum(["pending", "paid", "fulfilled", "cancelled"]);
+export const warehouseStatusEnum = z.enum(["new", "contacted", "closed"]);
+export const storageTypeEnum = z.enum(["dry", "cold", "hazardous"]);
+export const storageSizeEnum = z.enum(["small", "medium", "large"]);
+export const durationEnum = z.enum(["short-term", "long-term"]);
+
+export const insertOrderSchema = z.object({
+  items: z.array(orderItemSchema).min(1, "Order must contain at least one item"),
+  customerName: z.string().min(1, "Customer name is required"),
+  customerEmail: z.string().email("Please enter a valid email address"),
+  customerPhone: z.string().optional(),
+  shippingAddress: z.string().min(1, "Shipping address is required"),
+});
+
+export const updateOrderSchema = z.object({
+  status: orderStatusEnum,
+}).partial();
+
+export const insertWarehouseRequestSchema = createInsertSchema(warehouseRequests).pick({
+  company: true,
+  contactName: true,
+  contactEmail: true,
+  contactPhone: true,
+  location: true,
+  storageType: true,
+  storageSize: true,
+  duration: true,
+  requirements: true,
+}).extend({
+  contactEmail: z.string().email("Please enter a valid email address"),
+  contactPhone: z.string().min(10, "Please enter a valid phone number"),
+  location: z.string().min(1, "Location is required"),
+  storageType: storageTypeEnum,
+  storageSize: storageSizeEnum,
+  duration: durationEnum,
+});
+
+export const updateWarehouseRequestSchema = z.object({
+  status: warehouseStatusEnum,
+}).partial();
+
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
 export type InsertAdminUser = z.infer<typeof insertAdminUserSchema>;
@@ -140,3 +252,13 @@ export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;
 export type BlogPost = typeof blogPosts.$inferSelect;
 export type InsertTestimonial = z.infer<typeof insertTestimonialSchema>;
 export type Testimonial = typeof testimonials.$inferSelect;
+export type InsertProduct = z.infer<typeof insertProductSchema>;
+export type UpdateProduct = z.infer<typeof updateProductSchema>;
+export type Product = typeof products.$inferSelect;
+export type InsertOrder = z.infer<typeof insertOrderSchema>;
+export type UpdateOrder = z.infer<typeof updateOrderSchema>;
+export type Order = typeof orders.$inferSelect;
+export type OrderItem = z.infer<typeof orderItemSchema>;
+export type InsertWarehouseRequest = z.infer<typeof insertWarehouseRequestSchema>;
+export type UpdateWarehouseRequest = z.infer<typeof updateWarehouseRequestSchema>;
+export type WarehouseRequest = typeof warehouseRequests.$inferSelect;

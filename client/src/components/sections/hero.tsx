@@ -18,10 +18,10 @@ export default function Hero() {
   };
 
   const trendingKeywords = [
-    "Office admin",
-    "AZ driver", 
-    "DZ drivers",
-    "Fork lift operators"
+    "Staffing Solutions",
+    "E-commerce Store", 
+    "Warehouse Services",
+    "Business Solutions"
   ];
 
   return (
@@ -32,12 +32,12 @@ export default function Hero() {
           <div className="space-y-8">
             <div className="space-y-4">
               <h1 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight text-3d">
-                Find Your Next Great{" "}
-                <span className="text-gradient-3d">Hire</span>{" "}
-                in Half the Time.
+                Discover Solutions for{" "}
+                <span className="text-gradient-3d">Every</span>{" "}
+                Business Need.
               </h1>
               <p className="text-lg lg:text-xl text-muted-foreground max-w-2xl">
-                Connect with top talent across Canada. Our workforce solutions help both job seekers and employers find the perfect match quickly and efficiently.
+                From staffing and recruitment to e-commerce and warehouse services, we deliver comprehensive business solutions that drive growth across Canada.
               </p>
             </div>
 
