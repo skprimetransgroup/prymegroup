@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import primeLogoPath from "@assets/Prime Group_Final (1)_1756488511870.png";
+import primeLogoPath from "@assets/GROUP (500 x 300 px) (500 x 200 px)_1757610842620.png";
 
 export default function Header() {
   const [location] = useLocation();
@@ -28,8 +28,8 @@ export default function Header() {
           <Link href="/" className="flex items-center space-x-3" data-testid="link-logo">
             <img 
               src={primeLogoPath} 
-              alt="Prime Trans Group" 
-              className="h-8 lg:h-10 w-auto"
+              alt="Group Workforce Solutions" 
+              className="h-12 lg:h-16 w-auto"
             />
           </Link>
 
