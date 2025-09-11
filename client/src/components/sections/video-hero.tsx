@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Users, Truck, Building2, Handshake, Star, Award, TrendingUp } from "lucide-react";
-import heroVideoPath from "@assets/Keep_it_original_202508291252_e5v3t_1756846516242.mp4";
+import heroVideoPath from "@assets/Keep_the_logo_202509111239_1757610372529.mp4";
 
 export default function VideoHero() {
   return (
