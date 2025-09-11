@@ -1,4 +1,4 @@
-import { Users, ShoppingCart, Warehouse } from "lucide-react";
+import { Users, ShoppingCart, Warehouse, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 
@@ -27,6 +27,14 @@ const businessDivisions = [
     link: "/warehouse",
     buttonText: "Get Quote"
   },
+  {
+    icon: Truck,
+    title: "Transportation Solutions",
+    description: "Premium transport facilitation connecting your freight with trusted carriers across Canada and North America for reliable, on-time delivery.",
+    features: ["FTL & LTL Matching", "Expedited Shipping", "Verified Carriers"],
+    link: "/transportation",
+    buttonText: "Get Quote"
+  },
 ];
 
 export default function Services() {
@@ -36,11 +44,11 @@ export default function Services() {
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">Our Business Divisions</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Three specialized divisions working together to deliver comprehensive business solutions across Canada
+            Four specialized divisions working together to deliver comprehensive business solutions across Canada
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {businessDivisions.map((division, index) => {
             const Icon = division.icon;
             return (
