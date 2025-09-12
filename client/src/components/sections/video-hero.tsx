@@ -4,49 +4,40 @@ import heroVideoPath from "@assets/Office_1757693294932.mp4";
 import { useState } from "react";
 
 export default function VideoHero() {
-  const [showFallback, setShowFallback] = useState(true);
+  const [showFallback, setShowFallback] = useState(false);
   return (
     <section className="relative overflow-hidden">
       {/* Video on Top - Mobile Optimized */}
       <div className="relative w-full bg-gray-900 min-h-[40vh] sm:min-h-[50vh] md:min-h-[60vh] flex items-center justify-center">
-        {!showFallback && (
-          <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline
-            controls={false}
-            preload="auto"
-            disablePictureInPicture
-            disableRemotePlayback
-            controlsList="nodownload nofullscreen noplaybackrate"
-            aria-hidden="true"
-            tabIndex={-1}
-            className="w-full h-full object-cover"
-            style={{ minHeight: '40vh' }}
-            data-testid="hero-video"
-            onError={() => {
-              console.log('Video failed to load');
-              setShowFallback(true);
-            }}
-            onLoadStart={() => console.log('Video loading started')}
-            onCanPlay={() => {
-              console.log('Video can play');
-              setShowFallback(false);
-            }}
-            onPlaying={() => {
-              console.log('Video is playing');
-              setShowFallback(false);
-            }}
-          >
-            <source src={heroVideoPath} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        )}
+        {/* Video element - always rendered */}
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          controls={false}
+          preload="auto"
+          disablePictureInPicture
+          disableRemotePlayback
+          controlsList="nodownload nofullscreen noplaybackrate"
+          aria-hidden="true"
+          tabIndex={-1}
+          className="w-full h-full object-cover"
+          style={{ minHeight: '40vh' }}
+          data-testid="hero-video"
+          onError={() => {
+            console.log('Video failed to load');
+            setShowFallback(true);
+          }}
+          onLoadStart={() => console.log('Video loading started')}
+        >
+          <source src={heroVideoPath} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
         
-        {/* Fallback content when video fails */}
+        {/* Fallback content when video fails - positioned above video */}
         {showFallback && (
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0b0d1e] via-gray-800 to-[#0b0d1e] flex items-center justify-center">
+          <div className="absolute inset-0 z-10 bg-gradient-to-br from-[#0b0d1e] via-gray-800 to-[#0b0d1e] flex items-center justify-center">
             <div className="text-center text-white p-8">
               <div className="w-16 h-16 mx-auto mb-4 bg-[#edc247] rounded-full flex items-center justify-center">
                 <Truck className="w-8 h-8 text-[#0b0d1e]" />
