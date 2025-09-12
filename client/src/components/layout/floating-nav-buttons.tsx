@@ -1,9 +1,22 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { Briefcase, Warehouse, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function FloatingNavButtons() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show buttons when user scrolls down more than 100px
+      setIsVisible(window.scrollY > 100);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  if (!isVisible) return null;
 
   const buttons = [
     {
@@ -27,28 +40,24 @@ export default function FloatingNavButtons() {
   ];
 
   return (
-    <div className="absolute top-1/2 right-2 md:right-4 transform -translate-y-1/2 z-40 space-y-3">
+    <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-40 flex gap-4 md:gap-6">
       {buttons.map((button) => {
         const Icon = button.icon;
         return (
           <Button
+            key={button.path}
             asChild
             size="lg"
-            className="group bg-[#0b0d1e] hover:bg-[#edc247] text-white hover:text-[#0b0d1e] shadow-xl border-2 border-[#edc247] hover:border-[#0b0d1e] transition-all duration-300 transform hover:scale-105 w-12 h-12 md:w-14 md:h-14 rounded-full relative"
+            className="group bg-[#0b0d1e] hover:bg-[#edc247] text-white hover:text-[#0b0d1e] shadow-xl border-2 border-[#edc247] hover:border-[#0b0d1e] transition-all duration-300 transform hover:scale-105 rounded-lg px-4 py-3 md:px-6 md:py-4"
           >
             <Link 
-              key={button.path} 
               href={button.path}
               data-testid={`floating-button-${button.label.toLowerCase()}`}
               aria-label={`${button.label} - ${button.description}`}
-              className="flex items-center justify-center"
+              className="flex items-center gap-2 md:gap-3"
             >
               <Icon className="h-5 w-5 md:h-6 md:w-6" />
-              <div className="absolute right-14 md:right-16 bg-[#0b0d1e] text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap shadow-lg hidden md:block">
-                <div className="font-semibold">{button.label}</div>
-                <div className="text-xs text-[#edc247]">{button.description}</div>
-                <div className="absolute right-[-6px] top-1/2 transform -translate-y-1/2 w-0 h-0 border-t-[6px] border-b-[6px] border-l-[6px] border-transparent border-l-[#0b0d1e]"></div>
-              </div>
+              <span className="font-semibold text-sm md:text-base">{button.label}</span>
             </Link>
           </Button>
         );
