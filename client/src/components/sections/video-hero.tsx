@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Users, Truck, Building2, Handshake, Star, Award, TrendingUp } from "lucide-react";
 import heroVideoPath from "@assets/Office_1757693294932.mp4";
+import FloatingNavButtons from "@/components/layout/floating-nav-buttons";
 
 export default function VideoHero() {
   return (
@@ -28,6 +29,9 @@ export default function VideoHero() {
           </div>
         </video>
       </div>
+
+      {/* Floating Navigation Buttons */}
+      <FloatingNavButtons />
 
       {/* Content Below Video - Mobile Optimized */}
       <div className="relative bg-gradient-to-br from-black via-gray-900 to-black text-white py-8 sm:py-12 lg:py-16 pb-20 md:pb-16 overflow-hidden">
