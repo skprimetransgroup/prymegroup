@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Users, Truck, Building2, Handshake, Star, Award, TrendingUp } from "lucide-react";
-import heroVideoPath from "@assets/Keep_the_logo_202509111239_1757610372529.mp4";
+import heroVideoPath from "@assets/Office_1757693294932.mp4";
 
 export default function VideoHero() {
   return (
@@ -13,6 +13,12 @@ export default function VideoHero() {
           muted 
           playsInline
           controls={false}
+          preload="metadata"
+          disablePictureInPicture
+          disableRemotePlayback
+          controlsList="nodownload nofullscreen noplaybackrate"
+          aria-hidden="true"
+          tabIndex={-1}
           className="w-full h-[25vh] sm:h-[35vh] md:h-[45vh] lg:h-[55vh] object-cover block"
           data-testid="hero-video"
         >
