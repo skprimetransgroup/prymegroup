@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Users, Truck, Building2, Handshake, Star, Award, TrendingUp } from "lucide-react";
 import heroVideoPath from "@assets/Office_1757693294932.mp4";
-import FloatingNavButtons from "@/components/layout/floating-nav-buttons";
 
 export default function VideoHero() {
   return (
@@ -28,9 +27,6 @@ export default function VideoHero() {
             <p className="text-gray-600">Video loading...</p>
           </div>
         </video>
-        
-        {/* Floating Navigation Buttons - Centered in Video */}
-        <FloatingNavButtons />
       </div>
 
       {/* Content Below Video - Mobile Optimized */}
