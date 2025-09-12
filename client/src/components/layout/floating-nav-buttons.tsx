@@ -27,7 +27,7 @@ export default function FloatingNavButtons() {
   ];
 
   return (
-    <div className="absolute top-4/5 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 hidden md:flex justify-center gap-4 max-w-[90vw] animate-fade-in-up">
+    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 hidden md:flex justify-center gap-4 max-w-[90vw] animate-fade-in-up">
       {buttons.map((button, index) => {
         const Icon = button.icon;
         const delayClass = index === 0 ? '' : index === 1 ? 'animation-delay-500' : 'animation-delay-700';

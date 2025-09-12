@@ -7,7 +7,7 @@ export default function VideoHero() {
   return (
     <section className="relative overflow-hidden">
       {/* Video on Top - Mobile Optimized */}
-      <div className="w-full bg-gray-200">
+      <div className="relative w-full bg-gray-200">
         <video 
           autoPlay 
           loop 
@@ -28,10 +28,10 @@ export default function VideoHero() {
             <p className="text-gray-600">Video loading...</p>
           </div>
         </video>
+        
+        {/* Floating Navigation Buttons - Centered in Video */}
+        <FloatingNavButtons />
       </div>
-
-      {/* Floating Navigation Buttons */}
-      <FloatingNavButtons />
 
       {/* Content Below Video - Mobile Optimized */}
       <div className="relative bg-gradient-to-br from-black via-gray-900 to-black text-white py-8 sm:py-12 lg:py-16 pb-20 md:pb-16 overflow-hidden">
