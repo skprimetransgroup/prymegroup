@@ -19,11 +19,11 @@ export default function VideoHero() {
           controlsList="nodownload nofullscreen noplaybackrate"
           aria-hidden="true"
           tabIndex={-1}
-          className="w-full h-[40vh] sm:h-[50vh] md:h-[60vh] lg:h-[70vh] object-cover block"
+          className="w-full h-auto object-contain block"
           data-testid="hero-video"
         >
           <source src={heroVideoPath} type="video/mp4" />
-          <div className="w-full h-[40vh] sm:h-[50vh] md:h-[60vh] lg:h-[70vh] bg-gray-300 flex items-center justify-center">
+          <div className="w-full h-auto min-h-[300px] bg-gray-300 flex items-center justify-center">
             <p className="text-gray-600">Video loading...</p>
           </div>
         </video>
