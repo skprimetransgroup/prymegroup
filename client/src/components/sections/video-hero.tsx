@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Users, Truck, Building2, Handshake, Star, Award, TrendingUp } from "lucide-react";
-import heroVideoPath from "@assets/Office_1757693294932.mp4";
 import { useState } from "react";
+
+// Object Storage video URL
+const heroVideoPath = "/api/public/Office_1757693294932.mp4";
 
 export default function VideoHero() {
   const [showFallback, setShowFallback] = useState(false);

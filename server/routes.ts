@@ -3,6 +3,13 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertJobSchema, insertJobApplicationSchema, insertAdminUserSchema, publicJobSchema, insertProductSchema, updateProductSchema, insertOrderSchema, updateOrderSchema, insertWarehouseRequestSchema, updateWarehouseRequestSchema, type OrderItem } from "@shared/schema";
 import { z } from "zod";
+import path from "path";
+import fs from "fs";
+import { fileURLToPath } from "url";
+
+// ES module equivalent of __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Extend Express session type
 declare module 'express-session' {
@@ -23,6 +30,26 @@ function requireAdminAuth(req: any, res: any, next: any) {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Object Storage route for serving public files
+  app.get("/api/public/*", (req, res) => {
+    // Extract the file path from the URL
+    const filePath = req.path.replace("/api/public/", "");
+    
+    // For development, serve from local assets
+    // In production, this will be handled by the deployed object storage
+    if (process.env.NODE_ENV === 'development') {
+      // Fallback to local assets in development
+      const localPath = path.join(__dirname, '../client/public/assets', filePath);
+      
+      if (fs.existsSync(localPath)) {
+        return res.sendFile(path.resolve(localPath));
+      }
+    }
+    
+    // In production or if local file doesn't exist, return 404
+    res.status(404).json({ message: 'File not found' });
+  });
+
   // Admin Authentication API
   app.post("/api/admin/login", async (req, res) => {
     try {
