@@ -1,45 +1,61 @@
 import { Button } from "@/components/ui/button";
 import { Users, Truck, Building2, Handshake, Star, Award, TrendingUp } from "lucide-react";
 import heroVideoPath from "@assets/Office_1757693294932.mp4";
+import { useState } from "react";
 
 export default function VideoHero() {
+  const [showFallback, setShowFallback] = useState(true);
   return (
     <section className="relative overflow-hidden">
       {/* Video on Top - Mobile Optimized */}
       <div className="relative w-full bg-gray-900 min-h-[40vh] sm:min-h-[50vh] md:min-h-[60vh] flex items-center justify-center">
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-          controls={false}
-          preload="auto"
-          disablePictureInPicture
-          disableRemotePlayback
-          controlsList="nodownload nofullscreen noplaybackrate"
-          aria-hidden="true"
-          tabIndex={-1}
-          className="w-full h-full object-cover"
-          style={{ minHeight: '40vh' }}
-          data-testid="hero-video"
-          onError={() => console.log('Video failed to load')}
-          onLoadStart={() => console.log('Video loading started')}
-          onCanPlay={() => console.log('Video can play')}
-        >
-          <source src={heroVideoPath} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        {!showFallback && (
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+            controls={false}
+            preload="auto"
+            disablePictureInPicture
+            disableRemotePlayback
+            controlsList="nodownload nofullscreen noplaybackrate"
+            aria-hidden="true"
+            tabIndex={-1}
+            className="w-full h-full object-cover"
+            style={{ minHeight: '40vh' }}
+            data-testid="hero-video"
+            onError={() => {
+              console.log('Video failed to load');
+              setShowFallback(true);
+            }}
+            onLoadStart={() => console.log('Video loading started')}
+            onCanPlay={() => {
+              console.log('Video can play');
+              setShowFallback(false);
+            }}
+            onPlaying={() => {
+              console.log('Video is playing');
+              setShowFallback(false);
+            }}
+          >
+            <source src={heroVideoPath} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        )}
         
         {/* Fallback content when video fails */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0b0d1e] via-gray-800 to-[#0b0d1e] flex items-center justify-center">
-          <div className="text-center text-white p-8">
-            <div className="w-16 h-16 mx-auto mb-4 bg-[#edc247] rounded-full flex items-center justify-center">
-              <Truck className="w-8 h-8 text-[#0b0d1e]" />
+        {showFallback && (
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0b0d1e] via-gray-800 to-[#0b0d1e] flex items-center justify-center">
+            <div className="text-center text-white p-8">
+              <div className="w-16 h-16 mx-auto mb-4 bg-[#edc247] rounded-full flex items-center justify-center">
+                <Truck className="w-8 h-8 text-[#0b0d1e]" />
+              </div>
+              <h2 className="text-2xl font-bold mb-2">Prime Trans Group</h2>
+              <p className="text-gray-300">Canada's Leading Business Solutions</p>
             </div>
-            <h2 className="text-2xl font-bold mb-2">Prime Trans Group</h2>
-            <p className="text-gray-300">Canada's Leading Business Solutions</p>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Content Below Video - Mobile Optimized */}
