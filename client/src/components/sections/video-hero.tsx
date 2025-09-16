@@ -3,7 +3,7 @@ import { Users, Truck, Building2, Handshake, Star, Award, TrendingUp } from "luc
 import { useState } from "react";
 
 // Object Storage video URL
-const heroVideoPath = "/api/public/Office_1757693294932.mp4";
+const heroVideoPath = "/api/public/0911(2)_1758034457846.mp4";
 
 export default function VideoHero() {
   const [showFallback, setShowFallback] = useState(false);
