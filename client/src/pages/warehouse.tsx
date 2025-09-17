@@ -114,23 +114,68 @@ export default function Warehouse() {
       <div className="min-h-screen bg-background">
         <Header />
         
-        {/* Hero Section */}
-        <div className="bg-gradient-to-br from-background via-background to-muted py-16">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Hero Section with Animated Background */}
+        <div className="relative py-20 lg:py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden">
+          {/* Animated GIF Background */}
+          <div className="absolute inset-0 w-full h-full">
+            <div 
+              className="w-full h-full bg-cover bg-center bg-no-repeat"
+              style={{
+                backgroundImage: 'url(/api/public/warehouse_hero.gif)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+              data-testid="warehouse-hero-background"
+            />
+            {/* Dark overlay for text readability */}
+            <div className="absolute inset-0 bg-black/60"></div>
+          </div>
+          
+          {/* Gradient overlay for enhanced text visibility */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/70"></div>
+          
+          {/* Content */}
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6" data-testid="page-title-warehouse">
-                Warehouse & Distribution Services
+              <Badge className="mb-6 bg-primary/20 text-primary border-primary/30" data-testid="badge-warehouse">
+                Premium Warehouse Solutions
+              </Badge>
+              
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" data-testid="page-title-warehouse">
+                Warehouse & 
+                <span className="text-primary"> Distribution</span>
+                <br />
+                <span className="text-2xl md:text-3xl lg:text-4xl text-gray-300 font-normal">
+                  Excellence in Every Operation
+                </span>
               </h1>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed" data-testid="page-description-warehouse">
+              
+              <p className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto" data-testid="page-description-warehouse">
                 Connect with trusted warehouse partners for comprehensive storage, distribution, 
-                and logistics solutions tailored to your specific business needs.
+                and logistics solutions. From inventory management to order fulfillment, 
+                we deliver operational excellence that scales with your business.
               </p>
-              <div className="mt-8 flex flex-wrap justify-center gap-4">
-                <Badge variant="secondary" className="px-4 py-2 text-lg">
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                <Button 
+                  size="lg" 
+                  className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-bold px-8 py-6 text-lg"
+                  data-testid="button-get-warehouse-quote"
+                  onClick={() => document.querySelector('form')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  Get Your Quote <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
+              
+              <div className="flex flex-wrap justify-center gap-4">
+                <Badge className="bg-white/10 text-white border-white/20 px-4 py-2 text-lg backdrop-blur-sm">
                   500+ Satisfied Clients
                 </Badge>
-                <Badge variant="secondary" className="px-4 py-2 text-lg">
+                <Badge className="bg-white/10 text-white border-white/20 px-4 py-2 text-lg backdrop-blur-sm">
                   10+ Partner Facilities
+                </Badge>
+                <Badge className="bg-white/10 text-white border-white/20 px-4 py-2 text-lg backdrop-blur-sm">
+                  99.9% Accuracy Rate
                 </Badge>
               </div>
             </div>
