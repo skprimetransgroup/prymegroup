@@ -31,12 +31,11 @@ function requireAdminAuth(req: any, res: any, next: any) {
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Object Storage route for serving public files
-  app.get("/api/public/*", (req, res) => {
+  app.get("/api/public/*", (req, res, next) => {
     // Extract the file path from the URL
     const filePath = req.path.replace("/api/public/", "");
     
     // For development, serve from local assets
-    // In production, this will be handled by the deployed object storage
     if (process.env.NODE_ENV === 'development') {
       // Fallback to local assets in development
       const localPath = path.join(__dirname, '../client/public/assets', filePath);
@@ -46,8 +45,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
     }
     
-    // In production or if local file doesn't exist, return 404
-    res.status(404).json({ message: 'File not found' });
+    // In production or if local file doesn't exist, let Object Storage handler take over
+    next();
   });
 
   // Admin Authentication API
