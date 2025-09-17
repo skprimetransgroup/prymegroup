@@ -342,13 +342,35 @@ export default function Transportation() {
     <div className="min-h-screen bg-background">
       <Header />
       
-      {/* Hero Section */}
+      {/* Hero Section with Video Background */}
       <section className="relative py-20 lg:py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-secondary/10"></div>
+        {/* Video Background */}
+        <div className="absolute inset-0 w-full h-full">
+          <video 
+            autoPlay 
+            muted 
+            loop 
+            playsInline
+            className="w-full h-full object-cover"
+            data-testid="video-transportation-hero"
+            onError={() => console.log('Transportation video failed to load')}
+            onLoadStart={() => console.log('Transportation video loading started')}
+          >
+            <source src="/api/public/transportation_hero.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          {/* Dark overlay to ensure text readability */}
+          <div className="absolute inset-0 bg-black/50"></div>
+        </div>
+        
+        {/* Gradient overlay for enhanced text visibility */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/70"></div>
+        
+        {/* Animated elements */}
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-1 h-1 bg-primary/30 rounded-full animate-pulse"></div>
-          <div className="absolute bottom-32 right-20 w-1 h-1 bg-white/40 rounded-full animate-ping"></div>
-          <div className="absolute top-1/2 right-10 w-1 h-1 bg-primary/20 rounded-full animate-pulse"></div>
+          <div className="absolute top-20 left-10 w-1 h-1 bg-primary/50 rounded-full animate-pulse"></div>
+          <div className="absolute bottom-32 right-20 w-1 h-1 bg-white/60 rounded-full animate-ping"></div>
+          <div className="absolute top-1/2 right-10 w-1 h-1 bg-primary/40 rounded-full animate-pulse"></div>
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
