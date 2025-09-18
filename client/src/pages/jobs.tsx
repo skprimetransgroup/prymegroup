@@ -10,7 +10,6 @@ import JobCard from "@/components/ui/job-card";
 import { Search, ArrowRight } from "lucide-react";
 import type { Job } from "@shared/schema";
 import type { SearchFilters } from "@/lib/types";
-import HiringAnimation3D from "@/components/staffing/hiring-animation-3d";
 import staffingVideo from "@assets/Staffing_1758231468220.mp4";
 
 export default function Jobs() {
@@ -181,8 +180,6 @@ export default function Jobs() {
             </div>
             
             <div className="relative">
-              <HiringAnimation3D className="mx-auto" />
-              
               {/* Interactive Stats Overlay */}
               <div className="absolute top-4 left-4 bg-background/80 backdrop-blur-sm rounded-lg p-4 border border-border shadow-lg">
                 <div className="text-2xl font-bold text-green-600">98%</div>
