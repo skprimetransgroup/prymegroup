@@ -11,6 +11,7 @@ import { Search, ArrowRight } from "lucide-react";
 import type { Job } from "@shared/schema";
 import type { SearchFilters } from "@/lib/types";
 import HiringAnimation3D from "@/components/staffing/hiring-animation-3d";
+import staffingVideo from "@assets/Staffing_1758231468220.mp4";
 
 export default function Jobs() {
   const [location] = useLocation();
@@ -93,7 +94,7 @@ export default function Jobs() {
             className="w-full h-full object-cover"
             data-testid="jobs-hero-video"
           >
-            <source src="/api/public/Staffing.mp4" type="video/mp4" />
+            <source src={staffingVideo} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
           {/* Dark overlay for better text readability */}
