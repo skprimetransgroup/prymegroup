@@ -22,7 +22,7 @@ import {
   Users,
   Target
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Forklift3D from "@/components/warehouse/forklift-3d";
 
 const warehouseServices = [
@@ -76,6 +76,10 @@ const warehouseFeatures = [
 ];
 
 export default function Warehouse() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const heroRef = useRef<HTMLDivElement>(null);
+  
   const [formData, setFormData] = useState({
     name: "",
     company: "",
@@ -85,6 +89,26 @@ export default function Warehouse() {
     storageNeeds: "",
     message: ""
   });
+
+  // Mobile and accessibility detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    const checkMotion = () => {
+      setPrefersReducedMotion(
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      );
+    };
+
+    checkMobile();
+    checkMotion();
+    
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleInputChange = (name: string, value: string) => {
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -115,19 +139,35 @@ export default function Warehouse() {
       <div className="min-h-screen bg-background">
         <Header />
         
-        {/* Hero Section with Animated Background */}
-        <div className="relative py-20 lg:py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden">
-          {/* Animated GIF Background */}
+        {/* Hero Section with Mobile-Optimized Background */}
+        <div 
+          ref={heroRef}
+          className="relative py-16 sm:py-20 lg:py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden"
+        >
+          {/* Conditionally Rendered Background */}
           <div className="absolute inset-0 w-full h-full">
-            <div 
-              className="w-full h-full bg-cover bg-center bg-no-repeat"
-              style={{
-                backgroundImage: 'url(/api/public/warehouse_hero.gif)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-              data-testid="warehouse-hero-background"
-            />
+            {/* Use static image on mobile or when motion is reduced */}
+            {isMobile || prefersReducedMotion ? (
+              <div 
+                className="w-full h-full bg-cover bg-center bg-no-repeat"
+                style={{
+                  backgroundImage: 'url(/api/public/Warehouse_element_1.png)',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+                data-testid="warehouse-hero-background-static"
+              />
+            ) : (
+              <div 
+                className="w-full h-full bg-cover bg-center bg-no-repeat"
+                style={{
+                  backgroundImage: 'url(/api/public/warehouse_hero.gif)',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+                data-testid="warehouse-hero-background-animated"
+              />
+            )}
             {/* Dark overlay for text readability */}
             <div className="absolute inset-0 bg-black/60"></div>
           </div>
