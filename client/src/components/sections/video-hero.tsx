@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Users, Truck, Building2, Handshake, Star, Award, TrendingUp } from "lucide-react";
 import { useState } from "react";
-import BusinessAnimation3D from "@/components/hero/business-animation-3d";
+import CinematicBusiness3D from "@/components/hero/cinematic-business-3d";
 
 // Object Storage video URL
 const heroVideoPath = "/api/public/Office_new.mp4";
@@ -101,7 +101,7 @@ export default function VideoHero() {
                 {/* Enhanced Background Glow */}
                 <div className="absolute -inset-4 bg-gradient-to-r from-primary/30 to-secondary/30 rounded-3xl blur-2xl -z-10 animate-pulse"></div>
                 
-                <BusinessAnimation3D className="w-64 h-64 sm:w-80 h-80 lg:w-96 lg:h-96 shadow-2xl group-hover:scale-105 transition-transform duration-500" />
+                <CinematicBusiness3D className="w-64 h-64 sm:w-80 h-80 lg:w-96 lg:h-96 shadow-2xl group-hover:scale-105 transition-transform duration-500" />
                 
                 {/* Mobile Optimized Success Badge */}
                 <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 lg:-top-4 lg:-right-4 bg-gradient-to-br from-primary to-secondary rounded-full p-2 sm:p-3 lg:p-4 shadow-xl border-2 border-white/20 animate-pulse">
