@@ -230,12 +230,14 @@ export default function Warehouse() {
 
           {/* Prime Trans Group Fleet Image */}
           <section className="mb-20">
-            <div className="w-full max-w-4xl mx-auto">
+            <div className="w-full max-w-4xl mx-auto px-4">
               <img 
-                src="/api/public/30_20250918_233222_0001_1758221385021.png"
+                src="/fleet-image.png"
                 alt="Prime Trans Group Fleet - Professional Transportation Solutions"
                 className="w-full h-auto rounded-2xl shadow-2xl"
                 data-testid="fleet-showcase-image"
+                onLoad={() => console.log('Fleet image loaded successfully')}
+                onError={(e) => console.error('Fleet image failed to load:', e)}
               />
             </div>
           </section>
