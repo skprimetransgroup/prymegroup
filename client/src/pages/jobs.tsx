@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import Header from "@/components/layout/header";
@@ -7,13 +7,14 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import JobCard from "@/components/ui/job-card";
-import { Search } from "lucide-react";
+import { Search, ArrowRight } from "lucide-react";
 import type { Job } from "@shared/schema";
 import type { SearchFilters } from "@/lib/types";
 import HiringAnimation3D from "@/components/staffing/hiring-animation-3d";
 
 export default function Jobs() {
   const [location] = useLocation();
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [filters, setFilters] = useState<SearchFilters>({
     query: "",
     location: "",
@@ -31,6 +32,27 @@ export default function Jobs() {
       category: urlParams.get('category') || "",
     });
   }, [location]);
+
+  // Video event handlers
+  useEffect(() => {
+    if (videoRef.current) {
+      const video = videoRef.current;
+      
+      const handleLoadStart = () => console.log('Staffing video loading started');
+      const handleCanPlay = () => console.log('Staffing video can start playing');
+      const handleError = (e: Event) => console.error('Staffing video error:', e);
+      
+      video.addEventListener('loadstart', handleLoadStart);
+      video.addEventListener('canplay', handleCanPlay);
+      video.addEventListener('error', handleError);
+      
+      return () => {
+        video.removeEventListener('loadstart', handleLoadStart);
+        video.removeEventListener('canplay', handleCanPlay);
+        video.removeEventListener('error', handleError);
+      };
+    }
+  }, []);
 
   const { data: jobs = [], isLoading } = useQuery<Job[]>({
     queryKey: ["/api/jobs", filters],
@@ -57,17 +79,67 @@ export default function Jobs() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
+      
+      {/* Video Hero Section */}
+      <section className="relative h-[60vh] sm:h-[70vh] lg:h-[80vh] flex items-center justify-center overflow-hidden">
+        {/* Video Background */}
+        <div className="absolute inset-0 w-full h-full">
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
+            data-testid="jobs-hero-video"
+          >
+            <source src="/api/public/Staffing.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          {/* Dark overlay for better text readability */}
+          <div className="absolute inset-0 bg-black/50"></div>
+        </div>
+        
+        {/* Hero Content */}
+        <div className="relative z-10 text-center text-white px-4 max-w-6xl mx-auto">
+          <div className="space-y-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight" data-testid="hero-title">
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+                Find Your
+              </span>
+              <span className="block text-white">
+                Perfect Job
+              </span>
+            </h1>
+            <p className="text-lg sm:text-xl lg:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed" data-testid="hero-subtitle">
+              Browse through our extensive collection of job opportunities across Canada. 
+              Connect with top employers and build your career with Prime Trans Group.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 px-8 py-4 text-lg font-semibold rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
+                data-testid="button-browse-jobs"
+              >
+                Browse Jobs
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-8 py-4 text-lg font-semibold rounded-xl"
+                data-testid="button-upload-resume"
+              >
+                Upload Resume
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <main className="py-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Page Header */}
-          <div className="mb-8">
-            <h1 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Find Your Perfect Job
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              Browse through our extensive collection of job opportunities across Canada.
-            </p>
-          </div>
 
           {/* 3D Hiring Animation Section */}
           <section className="relative mb-12 bg-gradient-to-br from-primary/5 via-secondary/5 to-primary/10 rounded-2xl p-8 overflow-hidden">
