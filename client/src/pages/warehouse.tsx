@@ -232,12 +232,12 @@ export default function Warehouse() {
           <section className="mb-20">
             <div className="w-full px-4 lg:px-8">
               <img 
-                src="/api/public/White%20and%20Purple%20Simple%20Light%20Real%20Estate%20Service%20Website"
-                alt="White and Purple Simple Light Real Estate Service Website"
+                src="/fleet-image.png"
+                alt="Prime Trans Group Fleet - Professional Transportation Solutions"
                 className="w-full h-auto rounded-2xl shadow-2xl"
-                data-testid="real-estate-service-image"
-                onLoad={() => console.log('Real estate image loaded successfully')}
-                onError={(e) => console.error('Real estate image failed to load:', e)}
+                data-testid="fleet-showcase-image"
+                onLoad={() => console.log('Fleet image loaded successfully')}
+                onError={(e) => console.error('Fleet image failed to load:', e)}
               />
             </div>
           </section>
