@@ -232,7 +232,7 @@ export default function Warehouse() {
           <section className="mb-20">
             <div className="w-full max-w-4xl mx-auto">
               <img 
-                src="@assets/30_20250918_233222_0001_1758221385021.png"
+                src="/api/public/30_20250918_233222_0001_1758221385021.png"
                 alt="Prime Trans Group Fleet - Professional Transportation Solutions"
                 className="w-full h-auto rounded-2xl shadow-2xl"
                 data-testid="fleet-showcase-image"
