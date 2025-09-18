@@ -34,7 +34,7 @@ export default function Jobs() {
     });
   }, [location]);
 
-  // Video optimization and mobile handling
+  // Enhanced mobile video optimization
   useEffect(() => {
     if (videoRef.current) {
       const video = videoRef.current;
@@ -42,9 +42,41 @@ export default function Jobs() {
       // Check for reduced motion preference
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       
-      if (prefersReducedMotion) {
+      // Check for data saver mode
+      const isDataSaver = (navigator as any).connection?.saveData || false;
+      
+      if (prefersReducedMotion || isDataSaver) {
         video.pause();
+        video.removeAttribute('autoplay');
         return;
+      }
+      
+      // Mobile-specific optimizations
+      const isMobile = window.innerWidth <= 768;
+      
+      if (isMobile) {
+        // Lower quality settings for mobile
+        video.setAttribute('playbackRate', '0.9');
+        
+        // Pause on scroll for mobile performance
+        let scrollTimeout: NodeJS.Timeout;
+        const handleScroll = () => {
+          video.pause();
+          clearTimeout(scrollTimeout);
+          scrollTimeout = setTimeout(() => {
+            if (!document.hidden) {
+              video.play().catch(() => {});
+            }
+          }, 100);
+        };
+        
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        
+        // Clean up scroll listener
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+          clearTimeout(scrollTimeout);
+        };
       }
       
       // Handle visibility changes to save battery
@@ -58,9 +90,25 @@ export default function Jobs() {
         }
       };
       
+      // Intersection Observer for better performance
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              video.play().catch(() => {});
+            } else {
+              video.pause();
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+      
+      observer.observe(video);
       document.addEventListener('visibilitychange', handleVisibilityChange);
       
       return () => {
+        observer.disconnect();
         document.removeEventListener('visibilitychange', handleVisibilityChange);
       };
     }
@@ -92,8 +140,8 @@ export default function Jobs() {
     <div className="min-h-screen bg-background">
       <Header />
       
-      {/* Video Hero Section - Mobile Optimized */}
-      <section className="relative h-[45vh] sm:h-[60vh] lg:h-[80vh] flex items-center justify-center overflow-hidden">
+      {/* Video Hero Section - Enhanced Mobile Optimized */}
+      <section className="relative h-[40vh] sm:h-[55vh] md:h-[65vh] lg:h-[80vh] flex items-center justify-center overflow-hidden">
         {/* Video Background */}
         <div className="absolute inset-0 w-full h-full">
           <video
@@ -107,7 +155,7 @@ export default function Jobs() {
             disableRemotePlayback
             controlsList="nodownload nofullscreen noplaybackrate"
             className="w-full h-full object-cover object-top sm:object-center"
-            style={{ minHeight: '45vh' }}
+            style={{ minHeight: '40vh' }}
             data-testid="jobs-hero-video"
             aria-hidden="true"
             role="presentation"
