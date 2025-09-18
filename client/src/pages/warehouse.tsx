@@ -230,7 +230,7 @@ export default function Warehouse() {
 
           {/* Prime Trans Group Fleet Image */}
           <section className="mb-20">
-            <div className="w-full max-w-4xl mx-auto px-4">
+            <div className="w-full px-4 lg:px-8">
               <img 
                 src="/fleet-image.png"
                 alt="Prime Trans Group Fleet - Professional Transportation Solutions"
