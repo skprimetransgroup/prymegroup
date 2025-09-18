@@ -228,16 +228,17 @@ export default function Warehouse() {
             </div>
           </section>
 
-          {/* Real Estate Service Website Background Section */}
+          {/* Real Estate Service Website Full Image */}
           <section className="mb-20">
-            <div 
-              className="w-full h-96 lg:h-[500px] bg-cover bg-center bg-no-repeat rounded-2xl shadow-2xl mx-4 lg:mx-8"
-              style={{
-                backgroundImage: `url('/api/public/White%20and%20Purple%20Simple%20Light%20Real%20Estate%20Service%20Website')`
-              }}
-              data-testid="real-estate-background-section"
-            >
-              {/* Optional overlay content can go here */}
+            <div className="w-full px-4 lg:px-8">
+              <img 
+                src="/api/public/White%20and%20Purple%20Simple%20Light%20Real%20Estate%20Service%20Website"
+                alt="White and Purple Simple Light Real Estate Service Website"
+                className="w-full h-auto rounded-2xl shadow-2xl"
+                data-testid="real-estate-full-image"
+                onLoad={() => console.log('Real estate full image loaded successfully')}
+                onError={(e) => console.error('Real estate image failed to load:', e)}
+              />
             </div>
           </section>
 
