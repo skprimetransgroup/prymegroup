@@ -231,13 +231,14 @@ export default function Warehouse() {
           {/* Real Estate Service Website Full Image */}
           <section className="mb-20">
             <div className="w-full px-4 lg:px-8">
-              <div className="w-full h-96 bg-gray-100 rounded-2xl shadow-2xl flex items-center justify-center">
-                <p className="text-gray-500 text-center">
-                  Your "White and Purple Simple Light Real Estate Service Website" image should appear here.
-                  <br />
-                  Please check the exact filename in your public storage.
-                </p>
-              </div>
+              <img 
+                src="/api/public/Warehouse_element_1"
+                alt="Warehouse Element Design"
+                className="w-full h-auto rounded-2xl shadow-2xl"
+                data-testid="warehouse-element-image"
+                onLoad={() => console.log('Warehouse element image loaded successfully')}
+                onError={(e) => console.error('Warehouse element image failed to load:', e)}
+              />
             </div>
           </section>
 
