@@ -228,94 +228,15 @@ export default function Warehouse() {
             </div>
           </section>
 
-          {/* Prime Trans Group Fleet Showcase */}
-          <section className="mb-20 relative">
-            <div className="relative bg-gradient-to-r from-[#edc247] via-[#edc247] to-[#d4af3a] rounded-3xl overflow-hidden">
-              {/* Golden Arc Background */}
-              <div className="absolute inset-0">
-                <div 
-                  className="w-full h-full bg-contain bg-center bg-no-repeat"
-                  style={{
-                    backgroundImage: `url('@assets/30_20250918_233222_0001_1758221385021.png')`,
-                  }}
-                />
-                {/* Overlay for better text contrast */}
-                <div className="absolute inset-0 bg-gradient-to-r from-[#edc247]/95 via-[#edc247]/90 to-[#edc247]/95"></div>
-              </div>
-              
-              <div className="relative z-10 py-16 px-8">
-                <div className="text-center max-w-4xl mx-auto">
-                  {/* Logo and Branding */}
-                  <div className="flex justify-center items-center mb-8">
-                    <div className="bg-black/10 rounded-full p-4 mr-6">
-                      <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center">
-                        <Truck className="h-8 w-8 text-[#edc247]" />
-                      </div>
-                    </div>
-                    <div className="text-left">
-                      <h2 className="text-4xl lg:text-5xl font-bold text-black mb-2">
-                        PRIME TRANS
-                      </h2>
-                      <div className="bg-red-600 px-4 py-1 inline-block mb-2">
-                        <span className="text-white font-bold text-2xl">GROUP</span>
-                      </div>
-                      <p className="text-xl font-semibold text-black">WORKFORCE SOLUTIONS</p>
-                    </div>
-                  </div>
-                  
-                  {/* Fleet Description */}
-                  <div className="text-center mb-12">
-                    <h3 className="text-3xl font-bold text-black mb-6">
-                      Our Professional Fleet
-                    </h3>
-                    <p className="text-lg text-black/80 max-w-3xl mx-auto leading-relaxed">
-                      From compact delivery vans to heavy-duty transport trucks, our diverse fleet 
-                      is equipped to handle all your logistics and transportation needs across Canada. 
-                      Every vehicle is maintained to the highest standards and operated by certified professionals.
-                    </p>
-                  </div>
-                  
-                  {/* Fleet Statistics */}
-                  <div className="grid md:grid-cols-4 gap-6">
-                    <div className="text-center">
-                      <div className="bg-black/10 rounded-2xl p-6 backdrop-blur-sm border border-black/20">
-                        <div className="text-3xl font-bold text-black mb-2" data-testid="fleet-vehicles-count">50+</div>
-                        <p className="text-black/80 font-medium">Fleet Vehicles</p>
-                      </div>
-                    </div>
-                    <div className="text-center">
-                      <div className="bg-black/10 rounded-2xl p-6 backdrop-blur-sm border border-black/20">
-                        <div className="text-3xl font-bold text-black mb-2" data-testid="fleet-coverage-provinces">10</div>
-                        <p className="text-black/80 font-medium">Provinces Covered</p>
-                      </div>
-                    </div>
-                    <div className="text-center">
-                      <div className="bg-black/10 rounded-2xl p-6 backdrop-blur-sm border border-black/20">
-                        <div className="text-3xl font-bold text-black mb-2" data-testid="fleet-uptime">99.8%</div>
-                        <p className="text-black/80 font-medium">Fleet Uptime</p>
-                      </div>
-                    </div>
-                    <div className="text-center">
-                      <div className="bg-black/10 rounded-2xl p-6 backdrop-blur-sm border border-black/20">
-                        <div className="text-3xl font-bold text-black mb-2" data-testid="fleet-drivers">200+</div>
-                        <p className="text-black/80 font-medium">Professional Drivers</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* CTA Button */}
-                  <div className="mt-12">
-                    <Button 
-                      size="lg" 
-                      className="bg-black hover:bg-black/90 text-[#edc247] font-bold px-8 py-6 text-lg border-2 border-black"
-                      data-testid="button-fleet-services"
-                      onClick={() => document.querySelector('form')?.scrollIntoView({ behavior: 'smooth' })}
-                    >
-                      Explore Fleet Services <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
-                  </div>
-                </div>
-              </div>
+          {/* Prime Trans Group Fleet Image */}
+          <section className="mb-20">
+            <div className="w-full max-w-4xl mx-auto">
+              <img 
+                src="@assets/30_20250918_233222_0001_1758221385021.png"
+                alt="Prime Trans Group Fleet - Professional Transportation Solutions"
+                className="w-full h-auto rounded-2xl shadow-2xl"
+                data-testid="fleet-showcase-image"
+              />
             </div>
           </section>
 
