@@ -231,18 +231,14 @@ export default function Warehouse() {
           {/* Real Estate Service Website Full Image */}
           <section className="mb-20">
             <div className="w-full px-4 lg:px-8">
-              <div className="w-full h-96 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-2xl flex items-center justify-center border-2 border-dashed border-blue-200">
-                <div className="text-center text-gray-600 px-6">
-                  <div className="text-6xl mb-4">📦</div>
-                  <p className="text-xl font-medium mb-2">Warehouse Element</p>
-                  <p className="text-sm text-gray-500">Your "Warehouse_element_1" image should display here</p>
-                  <div className="mt-4 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
-                    <p className="text-xs text-yellow-700">
-                      <strong>Technical Note:</strong> The file exists in storage but may need to be re-uploaded with a proper image extension (.png, .jpg, etc.) to display correctly in browsers.
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <img 
+                src="/api/public/Warehouse_element_1.png"
+                alt="Warehouse Element Design"
+                className="w-full h-auto rounded-2xl shadow-2xl"
+                data-testid="warehouse-element-image"
+                onLoad={() => console.log('✅ Warehouse element image loaded successfully')}
+                onError={(e) => console.error('❌ Failed to load Warehouse_element_1.png:', e)}
+              />
             </div>
           </section>
 
