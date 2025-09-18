@@ -34,23 +34,34 @@ export default function Jobs() {
     });
   }, [location]);
 
-  // Video event handlers
+  // Video optimization and mobile handling
   useEffect(() => {
     if (videoRef.current) {
       const video = videoRef.current;
       
-      const handleLoadStart = () => console.log('Staffing video loading started');
-      const handleCanPlay = () => console.log('Staffing video can start playing');
-      const handleError = (e: Event) => console.error('Staffing video error:', e);
+      // Check for reduced motion preference
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       
-      video.addEventListener('loadstart', handleLoadStart);
-      video.addEventListener('canplay', handleCanPlay);
-      video.addEventListener('error', handleError);
+      if (prefersReducedMotion) {
+        video.pause();
+        return;
+      }
+      
+      // Handle visibility changes to save battery
+      const handleVisibilityChange = () => {
+        if (document.hidden) {
+          video.pause();
+        } else {
+          video.play().catch(() => {
+            // Auto-play failed, which is fine for mobile
+          });
+        }
+      };
+      
+      document.addEventListener('visibilitychange', handleVisibilityChange);
       
       return () => {
-        video.removeEventListener('loadstart', handleLoadStart);
-        video.removeEventListener('canplay', handleCanPlay);
-        video.removeEventListener('error', handleError);
+        document.removeEventListener('visibilitychange', handleVisibilityChange);
       };
     }
   }, []);
@@ -81,8 +92,8 @@ export default function Jobs() {
     <div className="min-h-screen bg-background">
       <Header />
       
-      {/* Video Hero Section */}
-      <section className="relative h-[60vh] sm:h-[70vh] lg:h-[80vh] flex items-center justify-center overflow-hidden">
+      {/* Video Hero Section - Mobile Optimized */}
+      <section className="relative h-[45vh] sm:h-[60vh] lg:h-[80vh] flex items-center justify-center overflow-hidden">
         {/* Video Background */}
         <div className="absolute inset-0 w-full h-full">
           <video
@@ -91,8 +102,15 @@ export default function Jobs() {
             muted
             loop
             playsInline
-            className="w-full h-full object-cover"
+            preload="metadata"
+            disablePictureInPicture
+            disableRemotePlayback
+            controlsList="nodownload nofullscreen noplaybackrate"
+            className="w-full h-full object-cover object-top sm:object-center"
+            style={{ minHeight: '45vh' }}
             data-testid="jobs-hero-video"
+            aria-hidden="true"
+            role="presentation"
           >
             <source src={staffingVideo} type="video/mp4" />
             Your browser does not support the video tag.
