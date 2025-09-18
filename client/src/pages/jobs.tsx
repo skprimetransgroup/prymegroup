@@ -98,43 +98,6 @@ export default function Jobs() {
             Your browser does not support the video tag.
           </video>
         </div>
-        
-        {/* Hero Content */}
-        <div className="relative z-10 text-center text-white px-4 max-w-6xl mx-auto">
-          <div className="space-y-6">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight" data-testid="hero-title">
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-                Find Your
-              </span>
-              <span className="block text-white">
-                Perfect Job
-              </span>
-            </h1>
-            <p className="text-lg sm:text-xl lg:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed" data-testid="hero-subtitle">
-              Browse through our extensive collection of job opportunities across Canada. 
-              Connect with top employers and build your career with Prime Trans Group.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
-              <Button 
-                size="lg" 
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 px-8 py-4 text-lg font-semibold rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
-                data-testid="button-browse-jobs"
-              >
-                Browse Jobs
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-8 py-4 text-lg font-semibold rounded-xl"
-                data-testid="button-upload-resume"
-              >
-                Upload Resume
-              </Button>
-            </div>
-          </div>
-        </div>
       </section>
 
       <main className="py-8">
