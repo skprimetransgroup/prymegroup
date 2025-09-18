@@ -23,6 +23,7 @@ import AdminLogin from "@/pages/admin/login";
 import PostJob from "@/pages/post-job";
 import Warehouse from "@/pages/warehouse";
 import Transportation from "@/pages/transportation";
+import Staffing from "@/pages/staffing";
 import TermsConditions from "@/pages/terms-conditions";
 import PrivacyPolicy from "@/pages/privacy-policy";
 import About from "@/pages/about";
@@ -43,6 +44,7 @@ function Router() {
         <Route path="/post-job" component={PostJob} />
         <Route path="/warehouse" component={Warehouse} />
         <Route path="/transportation" component={Transportation} />
+        <Route path="/staffing" component={Staffing} />
         <Route path="/terms-conditions" component={TermsConditions} />
         <Route path="/privacy-policy" component={PrivacyPolicy} />
         <Route path="/about" component={About} />
