@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Users, Truck, Building2, Handshake, Star, Award, TrendingUp } from "lucide-react";
 import { useState } from "react";
+import BusinessAnimation3D from "@/components/hero/business-animation-3d";
 
 // Object Storage video URL
 const heroVideoPath = "/api/public/Office_new.mp4";
@@ -95,19 +96,15 @@ export default function VideoHero() {
                 </div>
               </div>
               
-              {/* Mobile Optimized Professional Image */}
+              {/* Mobile Optimized Professional Animation */}
               <div className="relative group">
-                {/* Single Clean Glow */}
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur-xl -z-10"></div>
+                {/* Enhanced Background Glow */}
+                <div className="absolute -inset-4 bg-gradient-to-r from-primary/30 to-secondary/30 rounded-3xl blur-2xl -z-10 animate-pulse"></div>
                 
-                <img
-                  src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400"
-                  alt="Professional team collaboration"
-                  className="w-64 h-64 sm:w-80 h-80 lg:w-96 lg:h-96 rounded-2xl object-cover shadow-2xl border-3 border-white/20 group-hover:scale-105 transition-transform duration-500"
-                />
+                <BusinessAnimation3D className="w-64 h-64 sm:w-80 h-80 lg:w-96 lg:h-96 shadow-2xl group-hover:scale-105 transition-transform duration-500" />
                 
                 {/* Mobile Optimized Success Badge */}
-                <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 lg:-top-4 lg:-right-4 bg-gradient-to-br from-primary to-secondary rounded-full p-2 sm:p-3 lg:p-4 shadow-xl border-2 border-white/20">
+                <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 lg:-top-4 lg:-right-4 bg-gradient-to-br from-primary to-secondary rounded-full p-2 sm:p-3 lg:p-4 shadow-xl border-2 border-white/20 animate-pulse">
                   <Handshake className="w-5 h-5 sm:w-6 h-6 lg:w-8 lg:h-8 text-white" />
                 </div>
               </div>
