@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import Forklift3D from "@/components/warehouse/forklift-3d";
+import BackgroundVideo from "@/components/sections/background-video";
 
 const warehouseServices = [
   {
@@ -76,10 +77,6 @@ const warehouseFeatures = [
 ];
 
 export default function Warehouse() {
-  const [isMobile, setIsMobile] = useState(false);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const heroRef = useRef<HTMLDivElement>(null);
-  
   const [formData, setFormData] = useState({
     name: "",
     company: "",
@@ -90,25 +87,6 @@ export default function Warehouse() {
     message: ""
   });
 
-  // Mobile and accessibility detection
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    const checkMotion = () => {
-      setPrefersReducedMotion(
-        window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      );
-    };
-
-    checkMobile();
-    checkMotion();
-    
-    window.addEventListener('resize', checkMobile);
-    
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   const handleInputChange = (name: string, value: string) => {
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -139,38 +117,17 @@ export default function Warehouse() {
       <div className="min-h-screen bg-background">
         <Header />
         
-        {/* Hero Section with Mobile-Optimized Background */}
-        <div 
-          ref={heroRef}
-          className="relative py-16 sm:py-20 lg:py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden"
+        {/* Hero Section with Optimized Video Background */}
+        <BackgroundVideo
+          sources={{
+            desktop: "/api/public/Office_new.mp4", // Fallback to working video
+            mobile: "/api/public/Office_new.mp4", // Using same source for now
+          }}
+          poster="/api/public/Warehouse_element_1.png"
+          className="py-16 sm:py-20 lg:py-32 text-white overflow-hidden"
         >
-          {/* Conditionally Rendered Background */}
-          <div className="absolute inset-0 w-full h-full">
-            {/* Use static image on mobile or when motion is reduced */}
-            {isMobile || prefersReducedMotion ? (
-              <div 
-                className="w-full h-full bg-cover bg-center bg-no-repeat"
-                style={{
-                  backgroundImage: 'url(/api/public/Warehouse_element_1.png)',
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                }}
-                data-testid="warehouse-hero-background-static"
-              />
-            ) : (
-              <div 
-                className="w-full h-full bg-cover bg-center bg-no-repeat"
-                style={{
-                  backgroundImage: 'url(/api/public/warehouse_hero.gif)',
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                }}
-                data-testid="warehouse-hero-background-animated"
-              />
-            )}
-            {/* Dark overlay for text readability */}
-            <div className="absolute inset-0 bg-black/60"></div>
-          </div>
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 bg-black/60"></div>
           
           {/* Gradient overlay for enhanced text visibility */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/70"></div>
@@ -221,7 +178,7 @@ export default function Warehouse() {
               </div>
             </div>
           </div>
-        </div>
+        </BackgroundVideo>
 
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
