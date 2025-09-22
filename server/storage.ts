@@ -322,91 +322,91 @@ If possible, Siegel says to demonstrate mastery of each skill by listing your ye
         excerpt: "Your resume must clearly, concisely and strategically present your qualifications to get a recruiter interested in meeting you.",
         content: `Your resume must clearly, concisely and strategically present your qualifications to get a recruiter interested in meeting you. It should convey your skills, work experience and assets. The resume is used to describe what you can accomplish professionally in a manner that also illustrates what you can do for an employer. Job opportunities can arise unexpectedly. An updated modern resume is the key to a successful job search. Here are some do's and don'ts of how to write a good resume:
 
-## Resume Writing Do's
+Resume Writing Do's
 
-### Keep your resume clear and concise
+Keep your resume clear and concise
 
 An employer takes an average of 30 seconds to skim a resume. You want them to see right away that you are qualified for the position.
 
-### Proofread your resume numerous times
+Proofread your resume numerous times
 
 Be sure there are no spelling or grammar mistakes. Have someone else read it over as well. A simple spelling mistake on a resume can give a negative impression to the employer. It can even prevent you from getting the job.
 
-### Limit your resume to two pages
+Limit your resume to two pages
 
 Place the emphasis of your resume on your most recent experience. Older jobs and experience that are more than 15 years old should either be cut out or minimized. This way, the employer can focus on more relevant information.
 
-### Tailor your resume to suit the position you are applying for
+Tailor your resume to suit the position you are applying for
 
 Specify work experience or achievements that are related to the position you are applying to. This can be done by reviewing the job description or the employer website.
 
-### Highlight what you have accomplished
+Highlight what you have accomplished
 
 You want to be able to identify the best examples of where you demonstrated your skills. These examples should speak to what you achieved in your role, and should demonstrate what kind of employee you are. It is best to include this information in the "Work experience" section of the resume.
 
-### Be honest
+Be honest
 
 Lying on your resume is never a good idea. You don't want to overstate your skills or results as it will mislead the employer. Have confidence in what you have to offer.
 
-### Quantify your achievements
+Quantify your achievements
 
 Use firm numbers that the employer will understand and be impressed by. For example, how many people you supervised, how many products you sold, by what percentage you increased sales, etc.
 
-### Use simple words and action verbs
+Use simple words and action verbs
 
 The person reading your resume might not always be the employer. Resumes can be reviewed by recruiters or Human Resources specialists who may not be familiar with your specific field. Use simple and plain language, but also persuasive verbs such as handled, managed, led, developed, increased, accomplished, leveraged, etc.
 
-### Include unpaid work that show off your skills
+Include unpaid work that show off your skills
 
 If you have volunteered with a well-known organization or worked for an important cause, put it in your resume. You should include these experiences under the "Work experience" or the "Volunteer work" section, especially if they are related to the position you are applying for.
 
-### Double check and include your contact information
+Double check and include your contact information
 
 Your resume should list your name, address, email and phone number. This information should be placed at the top of the first page. Also, make sure this information is accurate. Otherwise, the employer won't be able to contact you.
 
-## Resume Writing Don'ts
+Resume Writing Don'ts
 
-### Don't use an inappropriate email address
+Don't use an inappropriate email address
 
 Make sure your email is easy to read, easy to type, professional and non offensive. In general, your email address should be based on your name. Exclude any nicknames, numbers, or special characters.
 
-### Don't include unnecessary personal information
+Don't include unnecessary personal information
 
 It is best to leave out any personal details such as age, weight, height, marital status, religious preference, political views, or any other personal attributes that could be controversial. This will prevent any potential bias. Most importantly, never include your Social Insurance Number in your resume.
 
-### Don't include a picture of yourself
+Don't include a picture of yourself
 
 Although in some countries it may be acceptable to include a photo, it is not the norm in Canada. It can actually lower your chances of obtaining a position and divert the whole focus of your resume. You want the employer to focus on your skills and experience, not what you look like.
 
-### Don't use too many bullets
+Don't use too many bullets
 
 Make your resume easy to read by limiting each resume section or sub section to 5-7 bullet points. This will make it easier for the employer to scan your resume and identify your potential. Each bullet point should be used wisely by keeping the information relevant and concise.
 
-### Don't use personal pronouns
+Don't use personal pronouns
 
 Do not use "I," "my," or "me". Write your resume in the third person, as if it's being written by someone else.
 
-### Don't simply list job responsibilities
+Don't simply list job responsibilities
 
 Your job duties will be obvious from your job title. Instead, highlight your achievements by putting a personal spin on your job duties and providing specific examples.
 
-### Don't make general statements
+Don't make general statements
 
 Steer clear from vague statements that don't highlight your actual contribution. Unclear statements such as, "Responsible for improving efficiencies and making cost savings", does not provide any information to an employer. Personalize your experience!
 
-### Don't include reasons for leaving previous jobs
+Don't include reasons for leaving previous jobs
 
 The main purpose of your resume is to promote you, your skills, experience and achievements. It should be entirely positive, and therefore should not include reasons for leaving as it does not add any value to you as a candidate.
 
-### Don't include references
+Don't include references
 
 An employer only requires references if they are seriously considering hiring you. Keep references on a separate sheet and provide them only when they are specifically requested.
 
-### Don't include hobbies or interests
+Don't include hobbies or interests
 
 It is not recommended to mention hobbies because of the judgments potential employers can make. However, if your hobbies relate to the position, you may include them as they can demonstrate to the employer why you are a good fit.
 
-*Source: Canadian Job Bank*`,
+Source: Canadian Job Bank`,
         imageUrl: "/api/public/Professional_resume_writing_guide_poster_7dfa1f88.png",
         slug: "how-to-write-good-resume",
         published: true,
