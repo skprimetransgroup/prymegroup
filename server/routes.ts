@@ -6,6 +6,7 @@ import { z } from "zod";
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
+import { Client } from "@replit/object-storage";
 
 // ES module equivalent of __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -35,18 +36,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     // Extract the file path from the URL
     const filePath = req.path.replace("/api/public/", "");
     
-    // For development, serve from local assets
-    if (process.env.NODE_ENV === 'development') {
-      // Fallback to local assets in development
-      const localPath = path.join(__dirname, '../client/public/assets', filePath);
-      
-      if (fs.existsSync(localPath)) {
-        return res.sendFile(path.resolve(localPath));
+    // Always try to serve from local assets first (both dev and production)
+    const localPath = path.join(__dirname, '../client/public/assets', filePath);
+    
+    if (fs.existsSync(localPath)) {
+      // Set proper headers for video files
+      const extension = path.extname(filePath).toLowerCase();
+      if (extension === '.mp4' || extension === '.webm') {
+        res.setHeader('Accept-Ranges', 'bytes');
       }
+      return res.sendFile(path.resolve(localPath));
     }
     
-    // In production or if local file doesn't exist, let Object Storage handler take over
-    next();
+    // If not found locally, return 404 for now
+    res.status(404).json({ message: 'File not found' });
   });
 
   // Admin Authentication API
