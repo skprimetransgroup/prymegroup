@@ -225,30 +225,22 @@ export default function Warehouse() {
               })}
             </div>
           </section>
+        </div>
 
-          {/* Third Section - Mobile-Optimized Warehouse Poster */}
-          <section 
-            className="relative w-full flex items-center justify-center bg-gray-50"
-            style={{ 
-              height: '100vh',
-              minHeight: '100vh'
-            }}
-            data-testid="section-warehouse-poster"
-          >
-            <img 
-              src={warehousePosterPath}
-              alt=""
-              className="max-w-full max-h-full object-contain"
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'contain',
-                objectPosition: 'center center'
-              }}
-              loading="eager"
-            />
-          </section>
+        {/* Third Section - Mobile-Optimized Warehouse Poster (Outside Container) */}
+        <section 
+          className="relative w-full h-[100dvh] bg-black"
+          data-testid="section-warehouse-poster"
+        >
+          <img 
+            src={warehousePosterPath}
+            alt=""
+            className="w-full h-full object-cover md:object-contain"
+            loading="eager"
+          />
+        </section>
 
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
           {/* Real Estate Service Website Full Image */}
           <section className="mb-20">
             <div className="w-full px-4 lg:px-8">
