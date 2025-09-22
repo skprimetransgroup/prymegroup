@@ -13,7 +13,7 @@ export default function Footer() {
               <img 
                 src={primeLogoPath} 
                 alt="Hopewell Group" 
-                className="h-8 w-auto"
+                className="h-12 w-auto"
               />
             </Link>
             <p className="text-sm text-secondary-foreground/80 max-w-xs">
