@@ -225,20 +225,21 @@ export default function Warehouse() {
               })}
             </div>
           </section>
-        </div>
 
-        {/* Third Section - Mobile-Optimized Warehouse Poster (Outside Container) */}
-        <section 
-          className="relative w-full h-[100dvh] bg-black"
-          data-testid="section-warehouse-poster"
-        >
-          <img 
-            src={warehousePosterPath}
-            alt=""
-            className="w-full h-full object-cover md:object-contain"
-            loading="eager"
-          />
-        </section>
+          {/* Third Section - Mobile-Optimized Warehouse Poster */}
+          <section className="my-12 md:my-16" data-testid="section-warehouse-poster">
+            <div className="relative w-full overflow-hidden bg-black rounded-2xl">
+              <div className="h-[70vh] sm:h-[60vh] lg:aspect-[16/9] relative">
+                <img 
+                  src={warehousePosterPath}
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover md:object-contain"
+                  loading="eager"
+                />
+              </div>
+            </div>
+          </section>
+        </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
           {/* Real Estate Service Website Full Image */}
