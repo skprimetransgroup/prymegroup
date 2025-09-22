@@ -8,7 +8,6 @@ import WhyChooseUs from "@/components/sections/why-choose-us";
 import Services from "@/components/sections/services";
 import FeaturedJobs from "@/components/sections/featured-jobs";
 import CTA from "@/components/sections/cta";
-import Testimonials from "@/components/sections/testimonials";
 import Blog from "@/components/sections/blog";
 
 export default function Home() {
@@ -24,7 +23,6 @@ export default function Home() {
         <Services />
         <FeaturedJobs />
         <CTA />
-        <Testimonials />
         <Blog />
       </main>
       <Footer />
