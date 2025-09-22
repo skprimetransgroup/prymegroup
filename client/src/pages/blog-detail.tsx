@@ -5,7 +5,7 @@ import Footer from "@/components/layout/footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { Calendar, Clock, ArrowLeft, Share2, Facebook, Twitter, Linkedin, ChevronRight, ArrowRight, MessageCircle } from "lucide-react";
+import { Calendar, Clock, ArrowLeft, Share2, Facebook, Twitter, Linkedin, ChevronRight, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import type { BlogPost } from "@shared/schema";
 
@@ -30,12 +30,6 @@ export default function BlogDetail() {
     const title = encodeURIComponent(post?.title || '');
     const summary = encodeURIComponent(post?.excerpt || '');
     window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`, '_blank', 'width=600,height=400');
-  };
-  
-  const shareToWhatsApp = () => {
-    const url = encodeURIComponent(window.location.href);
-    const text = encodeURIComponent(`Check out this article: ${post?.title || ''} - ${url}`);
-    window.open(`https://api.whatsapp.com/send/?phone=12494440004&text=${text}&type=phone_number&app_absent=0`, '_blank');
   };
   
   const copyLink = async () => {
@@ -174,10 +168,6 @@ export default function BlogDetail() {
                 <Button size="sm" className="bg-primary hover:bg-primary/90 text-white border-0 font-semibold" onClick={shareToLinkedIn} data-testid="share-linkedin">
                   <Linkedin className="w-4 h-4 mr-2" />
                   LinkedIn
-                </Button>
-                <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white border-0 font-semibold" onClick={shareToWhatsApp} data-testid="share-whatsapp">
-                  <MessageCircle className="w-4 h-4 mr-2" />
-                  WhatsApp
                 </Button>
                 <Button variant="outline" size="sm" className="border-secondary text-secondary hover:bg-secondary hover:text-white font-semibold" onClick={copyLink} data-testid="share-link">
                   <Share2 className="w-4 h-4 mr-2" />

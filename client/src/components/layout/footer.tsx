@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Facebook, Twitter, Linkedin, Instagram, MapPin, Phone, Mail, Clock } from "lucide-react";
+import { Facebook, Twitter, Linkedin, MessageCircle, MapPin, Phone, Mail, Clock } from "lucide-react";
 import primeLogoPath from "@assets/Footer logo new_1758575059952.png";
 
 export default function Footer() {
@@ -21,7 +21,9 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4">
               <a 
-                href="#" 
+                href="https://www.facebook.com/profile.php?id=100088670138701" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-secondary-foreground/60 hover:text-primary transition-colors nav-item-3d"
                 data-testid="link-social-facebook"
               >
@@ -35,18 +37,22 @@ export default function Footer() {
                 <Twitter className="h-5 w-5" />
               </a>
               <a 
-                href="#" 
+                href="http://linkedin.com/company/prymetransgroup/?originalSubdomain=ca" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-secondary-foreground/60 hover:text-primary transition-colors nav-item-3d"
                 data-testid="link-social-linkedin"
               >
                 <Linkedin className="h-5 w-5" />
               </a>
               <a 
-                href="#" 
+                href="https://api.whatsapp.com/send/?phone=12494440004&text&type=phone_number&app_absent=0" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-secondary-foreground/60 hover:text-primary transition-colors nav-item-3d"
-                data-testid="link-social-instagram"
+                data-testid="link-social-whatsapp"
               >
-                <Instagram className="h-5 w-5" />
+                <MessageCircle className="h-5 w-5" />
               </a>
             </div>
           </div>
