@@ -321,7 +321,7 @@ If possible, Siegel says to demonstrate mastery of each skill by listing your ye
         title: "How to write a good resume",
         excerpt: "Your resume must clearly, concisely and strategically present your qualifications to get a recruiter interested in meeting you.",
         content: "Step by step guide to creating an effective resume that gets results...",
-        imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&w=800&h=600",
+        imageUrl: "/api/public/Professional_resume_writing_guide_poster_7dfa1f88.png",
         slug: "how-to-write-good-resume",
         published: true,
         publishedAt: new Date("2022-12-27"),
