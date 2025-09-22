@@ -31,7 +31,7 @@ export default function TrustedPartners() {
         {/* Partner Logos Carousel */}
         <div className="relative">
           <div className="h-56" data-testid="trusted-partners-carousel">
-            <Carousel3D autoPlay={true} interval={4000}>
+            <Carousel3D autoPlay={true} interval={2500}>
               {trustedPartners.map((partner) => (
                 <div 
                   key={partner.name} 
