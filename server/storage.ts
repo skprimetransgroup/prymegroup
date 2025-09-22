@@ -311,7 +311,7 @@ Siegel offers three recommendations for a resume to make it past the bots:
 If possible, Siegel says to demonstrate mastery of each skill by listing your years of experience learning or using each one in your work history.
 
 *Source: CNBC*`,
-        imageUrl: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?ixlib=rb-4.0.3&w=800&h=600",
+        imageUrl: "/api/public/Professional_cover_letter_guide_poster_5671271f.png",
         slug: "why-cover-letters-still-matter",
         published: true,
         publishedAt: new Date("2024-01-10"),
