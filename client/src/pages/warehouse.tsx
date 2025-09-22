@@ -226,17 +226,15 @@ export default function Warehouse() {
             </div>
           </section>
 
-          {/* Third Section - Mobile-Optimized Warehouse Poster */}
+          {/* Third Section - Full Warehouse Poster (No Cropping) */}
           <section className="my-12 md:my-16" data-testid="section-warehouse-poster">
-            <div className="relative w-full overflow-hidden bg-black rounded-2xl">
-              <div className="h-[70vh] sm:h-[60vh] lg:aspect-[16/9] relative">
-                <img 
-                  src={warehousePosterPath}
-                  alt=""
-                  className="absolute inset-0 w-full h-full object-cover md:object-contain"
-                  loading="eager"
-                />
-              </div>
+            <div className="relative -mx-4 sm:mx-0">
+              <img 
+                src={warehousePosterPath}
+                alt=""
+                className="block w-full h-auto rounded-none sm:rounded-2xl max-h-[80vh] object-contain"
+                loading="eager"
+              />
             </div>
           </section>
         </div>
