@@ -71,12 +71,17 @@ export default function BackgroundVideo({
         entries.forEach((entry) => {
           isIntersectingRef.current = entry.isIntersecting;
           if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-            video.play().catch(() => {
+            video.play().catch((error) => {
               // Autoplay failed, probably due to browser policy
               console.log("Video autoplay prevented by browser");
+              // Silently handle cross-origin and other video errors
             });
           } else {
-            video.pause();
+            try {
+              video.pause();
+            } catch (error) {
+              // Silently handle pause errors
+            }
           }
         });
       },
@@ -88,9 +93,15 @@ export default function BackgroundVideo({
     // Handle page visibility changes
     const handleVisibilityChange = () => {
       if (document.hidden) {
-        video.pause();
+        try {
+          video.pause();
+        } catch (error) {
+          // Silently handle pause errors
+        }
       } else if (isIntersectingRef.current) {
-        video.play().catch(() => {});
+        video.play().catch((error) => {
+          // Silently handle all video play errors including cross-origin
+        });
       }
     };
 
