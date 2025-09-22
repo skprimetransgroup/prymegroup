@@ -468,55 +468,99 @@ export default function Transportation() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4" data-testid="heading-services">
-              Our Transportation Services
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Comprehensive logistics solutions tailored to your business needs
-            </p>
-          </div>
+      {/* Services Section - Enhanced Visual Design */}
+      <section className="py-20 bg-background relative">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 rounded-3xl"></div>
+          <div className="absolute top-10 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-10 right-10 w-40 h-40 bg-secondary/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((service, index) => {
-              const Icon = service.icon;
-              return (
-                <Card key={index} className="hover:shadow-lg transition-shadow border-l-4 border-l-primary" data-testid={`card-service-${index}`}>
-                  <CardHeader className="text-center">
-                    <div className="mx-auto mb-4 p-4 bg-primary/10 rounded-full w-fit">
-                      <Icon className="h-8 w-8 text-primary" />
-                    </div>
-                    <CardTitle className="text-lg">{service.title}</CardTitle>
-                    <CardDescription>{service.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2">
-                      {service.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center text-sm">
-                          <CheckCircle className="h-4 w-4 text-green-600 mr-2 flex-shrink-0" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-          {/* Third Section - Full Transportation Poster (No Cropping) */}
-          <section className="my-12 md:my-16" data-testid="section-transportation-poster">
-            <div className="relative -mx-4 sm:mx-0">
-              <img 
-                src={transportPosterPath}
-                alt=""
-                className="block w-full h-auto rounded-none sm:rounded-2xl max-h-[80vh] object-contain"
-                loading="eager"
-              />
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative z-10 bg-gradient-to-br from-background/80 via-background/60 to-background/80 backdrop-blur-sm rounded-3xl p-8 lg:p-12 border border-border/50 shadow-xl">
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-6">
+                <Truck className="h-4 w-4" />
+                Premium Logistics
+              </div>
+              <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight" data-testid="heading-services">
+                Our <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Transportation Services</span>
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                Comprehensive logistics solutions tailored to your business needs with nationwide coverage and expert support
+              </p>
             </div>
-          </section>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {services.map((service, index) => {
+                const Icon = service.icon;
+                return (
+                  <Card key={index} className="group relative overflow-hidden border-0 bg-gradient-to-br from-background via-background/90 to-background/70 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2" data-testid={`card-service-${index}`}>
+                    {/* Card Background Glow Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur"></div>
+                    
+                    <div className="relative">
+                      <CardHeader className="text-center pb-4">
+                        <div className="w-16 h-16 mx-auto bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                          <Icon className="h-8 w-8 text-primary" />
+                        </div>
+                        <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">{service.title}</CardTitle>
+                        <CardDescription className="text-muted-foreground leading-relaxed">{service.description}</CardDescription>
+                      </CardHeader>
+                      <CardContent className="pt-0">
+                        <ul className="space-y-3">
+                          {service.features.map((feature, idx) => (
+                            <li key={idx} className="flex items-center gap-3 group/feature">
+                              <div className="w-6 h-6 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm">
+                                <CheckCircle className="h-3 w-3 text-white" />
+                              </div>
+                              <span className="text-sm text-muted-foreground group-hover/feature:text-foreground transition-colors duration-200">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </CardContent>
+                    </div>
+                  </Card>
+                );
+              })}
+            </div>
+
+            {/* Enhanced Bottom Section */}
+            <div className="mt-16 text-center">
+              <div className="inline-flex items-center gap-4 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full px-6 py-3 backdrop-blur-sm border border-primary/20">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="text-sm font-medium text-foreground">Real-time Tracking</span>
+                </div>
+                <div className="w-px h-4 bg-border"></div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-500"></div>
+                  <span className="text-sm font-medium text-foreground">Cross-border Service</span>
+                </div>
+                <div className="w-px h-4 bg-border"></div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse delay-1000"></div>
+                  <span className="text-sm font-medium text-foreground">24/7 Dispatch</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Third Section - Full Transportation Poster (No Cropping) */}
+      <section className="my-12 md:my-16" data-testid="section-transportation-poster">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative -mx-4 sm:mx-0">
+            <img 
+              src={transportPosterPath}
+              alt=""
+              className="block w-full h-auto rounded-none sm:rounded-2xl max-h-[80vh] object-contain"
+              loading="eager"
+            />
+          </div>
         </div>
       </section>
 
