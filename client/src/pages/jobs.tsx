@@ -165,74 +165,151 @@ export default function Jobs() {
         </div>
       </section>
 
-      <main className="py-8">
+      {/* Enhanced Job Search Section */}
+      <main className="py-8 relative">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 rounded-3xl"></div>
+          <div className="absolute top-20 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-40 h-40 bg-secondary/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-
-
-          {/* Search and Filters */}
-          <div className="bg-card border border-border rounded-lg p-6 mb-8">
-            <form onSubmit={handleSearch} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <Input
-                  type="text"
-                  placeholder="Job title, keywords, or company"
-                  value={filters.query}
-                  onChange={(e) => handleFilterChange("query", e.target.value)}
-                  data-testid="input-job-search"
-                />
-                <Input
-                  type="text"
-                  placeholder="Location"
-                  value={filters.location}
-                  onChange={(e) => handleFilterChange("location", e.target.value)}
-                  data-testid="input-location-search"
-                />
-                <Select 
-                  value={filters.type} 
-                  onValueChange={(value) => handleFilterChange("type", value)}
-                >
-                  <SelectTrigger data-testid="select-job-type">
-                    <SelectValue placeholder="Job Type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Types</SelectItem>
-                    {jobTypes.map((type) => (
-                      <SelectItem key={type} value={type}>
-                        {type}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Select 
-                  value={filters.category} 
-                  onValueChange={(value) => handleFilterChange("category", value)}
-                >
-                  <SelectTrigger data-testid="select-job-category">
-                    <SelectValue placeholder="Category" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Categories</SelectItem>
-                    {jobCategories.map((category) => (
-                      <SelectItem key={category} value={category}>
-                        {category}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+          {/* Premium Search Section */}
+          <div className="relative z-10 bg-gradient-to-br from-background/80 via-background/60 to-background/80 backdrop-blur-sm rounded-3xl p-8 lg:p-12 border border-border/50 shadow-xl mb-12">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-6">
+                <Search className="h-4 w-4" />
+                Advanced Search
               </div>
-              <Button type="submit" className="w-full md:w-auto" data-testid="button-search">
-                <Search className="h-4 w-4 mr-2" />
-                Search Jobs
-              </Button>
+              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4 leading-tight">
+                Find Your Perfect <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Career Opportunity</span>
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                Search through hundreds of job opportunities across Canada with our advanced filtering system
+              </p>
+            </div>
+
+            {/* Enhanced Search Form */}
+            <form onSubmit={handleSearch} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="group">
+                  <label className="block text-sm font-medium text-foreground mb-2">Job Title & Keywords</label>
+                  <Input
+                    type="text"
+                    placeholder="e.g., Machine Operator, Driver"
+                    value={filters.query}
+                    onChange={(e) => handleFilterChange("query", e.target.value)}
+                    className="bg-background/60 backdrop-blur-sm border-border/50 focus:border-primary/50 transition-all duration-200 group-hover:shadow-md"
+                    data-testid="input-job-search"
+                  />
+                </div>
+                <div className="group">
+                  <label className="block text-sm font-medium text-foreground mb-2">Location</label>
+                  <Input
+                    type="text"
+                    placeholder="City, Province"
+                    value={filters.location}
+                    onChange={(e) => handleFilterChange("location", e.target.value)}
+                    className="bg-background/60 backdrop-blur-sm border-border/50 focus:border-primary/50 transition-all duration-200 group-hover:shadow-md"
+                    data-testid="input-location-search"
+                  />
+                </div>
+                <div className="group">
+                  <label className="block text-sm font-medium text-foreground mb-2">Job Type</label>
+                  <Select 
+                    value={filters.type} 
+                    onValueChange={(value) => handleFilterChange("type", value)}
+                  >
+                    <SelectTrigger className="bg-background/60 backdrop-blur-sm border-border/50 focus:border-primary/50 transition-all duration-200 group-hover:shadow-md" data-testid="select-job-type">
+                      <SelectValue placeholder="Select Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Types</SelectItem>
+                      {jobTypes.map((type) => (
+                        <SelectItem key={type} value={type}>
+                          {type}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="group">
+                  <label className="block text-sm font-medium text-foreground mb-2">Category</label>
+                  <Select 
+                    value={filters.category} 
+                    onValueChange={(value) => handleFilterChange("category", value)}
+                  >
+                    <SelectTrigger className="bg-background/60 backdrop-blur-sm border-border/50 focus:border-primary/50 transition-all duration-200 group-hover:shadow-md" data-testid="select-job-category">
+                      <SelectValue placeholder="Select Category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Categories</SelectItem>
+                      {jobCategories.map((category) => (
+                        <SelectItem key={category} value={category}>
+                          {category}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              
+              <div className="flex justify-center pt-4">
+                <Button 
+                  type="submit" 
+                  size="lg"
+                  className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl px-8"
+                  data-testid="button-search"
+                >
+                  <Search className="h-5 w-5 mr-2" />
+                  Search Jobs
+                  <ArrowRight className="h-5 w-5 ml-2" />
+                </Button>
+              </div>
             </form>
+
+            {/* Enhanced Status Bar */}
+            <div className="mt-8 text-center">
+              <div className="inline-flex items-center gap-4 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full px-6 py-3 backdrop-blur-sm border border-primary/20">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="text-sm font-medium text-foreground">Real-time Updates</span>
+                </div>
+                <div className="w-px h-4 bg-border"></div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-500"></div>
+                  <span className="text-sm font-medium text-foreground">Verified Employers</span>
+                </div>
+                <div className="w-px h-4 bg-border"></div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse delay-1000"></div>
+                  <span className="text-sm font-medium text-foreground">Quick Apply</span>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Results */}
-          <div className="mb-6">
-            <div className="flex justify-between items-center">
-              <h2 className="text-xl font-semibold text-foreground">
-                {isLoading ? "Loading..." : `${jobs.length} Jobs Found`}
+          {/* Enhanced Results Header */}
+          <div className="mb-8">
+            <div className="flex justify-between items-center bg-gradient-to-r from-background/80 to-background/60 backdrop-blur-sm rounded-xl p-4 border border-border/30">
+              <h2 className="text-2xl font-bold text-foreground">
+                {isLoading ? (
+                  <span className="flex items-center gap-2">
+                    <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+                    Loading...
+                  </span>
+                ) : (
+                  <>
+                    <span className="text-primary">{jobs.length}</span> Jobs Found
+                  </>
+                )}
               </h2>
+              {jobs.length > 0 && (
+                <div className="text-sm text-muted-foreground">
+                  Updated today
+                </div>
+              )}
             </div>
           </div>
 
