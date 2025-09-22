@@ -94,23 +94,32 @@ export default function PostJobPage() {
     return (
       <div className="min-h-screen bg-background">
         <Header />
-        <div className="container mx-auto px-4 py-16">
+        <div className="container mx-auto px-4 py-12 sm:py-16">
           <div className="max-w-2xl mx-auto text-center">
-            <div className="bg-green-100 p-6 rounded-full w-24 h-24 mx-auto mb-6 flex items-center justify-center">
-              <CheckCircle className="h-12 w-12 text-green-600" />
+            <div className="bg-green-100 p-4 sm:p-6 rounded-full w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-6 flex items-center justify-center">
+              <CheckCircle className="h-10 w-10 sm:h-12 sm:w-12 text-green-600" />
             </div>
-            <h1 className="text-3xl font-bold text-foreground mb-4">
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 sm:mb-4 px-2">
               Job Posted Successfully!
             </h1>
-            <p className="text-muted-foreground mb-8 text-lg">
+            <p className="text-muted-foreground mb-6 sm:mb-8 text-base sm:text-lg px-4 sm:px-0">
               Thank you for posting with Prime Trans Group. Your job listing is now under review 
               and will be published on our website once approved by our team.
             </p>
-            <div className="space-x-4">
-              <Button onClick={() => setLocation("/")} variant="outline">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:justify-center">
+              <Button 
+                onClick={() => setLocation("/")} 
+                variant="outline"
+                className="w-full sm:w-auto touch-target"
+                data-testid="button-back-home"
+              >
                 Back to Home
               </Button>
-              <Button onClick={() => setLocation("/jobs")}>
+              <Button 
+                onClick={() => setLocation("/jobs")}
+                className="w-full sm:w-auto touch-target"
+                data-testid="button-browse-jobs"
+              >
                 Browse Jobs
               </Button>
             </div>
@@ -124,21 +133,21 @@ export default function PostJobPage() {
     <div className="min-h-screen bg-background">
       <Header />
       
-      {/* Hero Section */}
-      <div className="bg-gradient-to-br from-background via-background to-muted py-16">
+      {/* Hero Section - Mobile Optimized */}
+      <div className="bg-gradient-to-br from-background via-background to-muted py-12 sm:py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="mx-auto mb-6 flex items-center justify-center">
+            <div className="mx-auto mb-4 sm:mb-6 flex items-center justify-center">
               <img 
                 src={primeLogoPath} 
                 alt="Prime Trans Group" 
-                className="h-16 w-auto max-w-[200px]"
+                className="h-12 sm:h-16 w-auto max-w-[180px] sm:max-w-[200px]"
               />
             </div>
-            <h1 className="text-4xl font-bold text-foreground mb-4">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-3 sm:mb-4 px-2 sm:px-0">
               Post a Job Opening
             </h1>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-base sm:text-lg lg:text-xl text-muted-foreground px-4 sm:px-0">
               Connect with talented candidates through Prime Trans Group's extensive network. 
               Post your job today and find the perfect fit for your team.
             </p>
@@ -146,30 +155,31 @@ export default function PostJobPage() {
         </div>
       </div>
 
-      {/* Form Section */}
-      <div className="container mx-auto px-4 py-16">
+      {/* Form Section - Mobile Optimized */}
+      <div className="container mx-auto px-4 py-12 sm:py-16">
         <div className="max-w-4xl mx-auto">
           <Card>
-            <CardHeader>
-              <CardTitle>Job Details</CardTitle>
-              <CardDescription>
+            <CardHeader className="p-4 sm:p-6">
+              <CardTitle className="text-lg sm:text-xl">Job Details</CardTitle>
+              <CardDescription className="text-sm sm:text-base">
                 Fill out the form below to post your job. All submissions are reviewed before being published.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-4 sm:p-6 pt-0 sm:pt-0">
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                     <FormField
                       control={form.control}
                       name="title"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Job Title *</FormLabel>
+                          <FormLabel className="text-sm font-medium">Job Title *</FormLabel>
                           <FormControl>
                             <Input
                               placeholder="e.g. Senior Software Developer"
                               {...field}
+                              className="h-12 sm:h-10 text-sm sm:text-base"
                               data-testid="input-job-title"
                             />
                           </FormControl>
@@ -183,11 +193,12 @@ export default function PostJobPage() {
                       name="company"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Company Name *</FormLabel>
+                          <FormLabel className="text-sm font-medium">Company Name *</FormLabel>
                           <FormControl>
                             <Input
                               placeholder="Your company name"
                               {...field}
+                              className="h-12 sm:h-10 text-sm sm:text-base"
                               data-testid="input-company"
                             />
                           </FormControl>
@@ -201,10 +212,10 @@ export default function PostJobPage() {
                       name="type"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Job Type *</FormLabel>
+                          <FormLabel className="text-sm font-medium">Job Type *</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
-                              <SelectTrigger data-testid="select-job-type">
+                              <SelectTrigger className="h-12 sm:h-10" data-testid="select-job-type">
                                 <SelectValue placeholder="Select job type" />
                               </SelectTrigger>
                             </FormControl>
@@ -226,10 +237,10 @@ export default function PostJobPage() {
                       name="category"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Category *</FormLabel>
+                          <FormLabel className="text-sm font-medium">Category *</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
-                              <SelectTrigger data-testid="select-category">
+                              <SelectTrigger className="h-12 sm:h-10" data-testid="select-category">
                                 <SelectValue placeholder="Select category" />
                               </SelectTrigger>
                             </FormControl>
@@ -251,11 +262,12 @@ export default function PostJobPage() {
                       name="location"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Location *</FormLabel>
+                          <FormLabel className="text-sm font-medium">Location *</FormLabel>
                           <FormControl>
                             <Input
                               placeholder="e.g. Toronto, ON"
                               {...field}
+                              className="h-12 sm:h-10 text-sm sm:text-base"
                               data-testid="input-location"
                             />
                           </FormControl>
@@ -269,12 +281,13 @@ export default function PostJobPage() {
                       name="salary"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Salary Range</FormLabel>
+                          <FormLabel className="text-sm font-medium">Salary Range</FormLabel>
                           <FormControl>
                             <Input
                               placeholder="e.g. $50,000 - $70,000"
                               {...field}
                               value={field.value || ""}
+                              className="h-12 sm:h-10 text-sm sm:text-base"
                               data-testid="input-salary"
                             />
                           </FormControl>
@@ -289,11 +302,11 @@ export default function PostJobPage() {
                     name="description"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Job Description *</FormLabel>
+                        <FormLabel className="text-sm font-medium">Job Description *</FormLabel>
                         <FormControl>
                           <Textarea
                             placeholder="Describe the role, responsibilities, and what you're looking for in a candidate..."
-                            className="min-h-[120px]"
+                            className="min-h-[100px] sm:min-h-[120px] text-sm sm:text-base resize-y"
                             {...field}
                             data-testid="textarea-description"
                           />
@@ -308,11 +321,11 @@ export default function PostJobPage() {
                     name="requirements"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Requirements</FormLabel>
+                        <FormLabel className="text-sm font-medium">Requirements</FormLabel>
                         <FormControl>
                           <Textarea
                             placeholder="List the qualifications, skills, and experience required..."
-                            className="min-h-[100px]"
+                            className="min-h-[80px] sm:min-h-[100px] text-sm sm:text-base resize-y"
                             {...field}
                             value={field.value || ""}
                             data-testid="textarea-requirements"
@@ -323,18 +336,19 @@ export default function PostJobPage() {
                     )}
                   />
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                     <FormField
                       control={form.control}
                       name="contactEmail"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Contact Email *</FormLabel>
+                          <FormLabel className="text-sm font-medium">Contact Email *</FormLabel>
                           <FormControl>
                             <Input
                               type="email"
                               placeholder="hiring@company.com"
                               {...field}
+                              className="h-12 sm:h-10 text-sm sm:text-base"
                               data-testid="input-contact-email"
                             />
                           </FormControl>
@@ -348,12 +362,13 @@ export default function PostJobPage() {
                       name="contactPhone"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Contact Phone *</FormLabel>
+                          <FormLabel className="text-sm font-medium">Contact Phone *</FormLabel>
                           <FormControl>
                             <Input
                               type="tel"
                               placeholder="+1 (555) 123-4567"
                               {...field}
+                              className="h-12 sm:h-10 text-sm sm:text-base"
                               data-testid="input-contact-phone"
                             />
                           </FormControl>
@@ -363,16 +378,16 @@ export default function PostJobPage() {
                     />
                   </div>
 
-                  <div className="pt-6 border-t border-border">
-                    <div className="flex flex-col sm:flex-row gap-4 justify-between">
-                      <p className="text-sm text-muted-foreground">
+                  <div className="pt-4 sm:pt-6 border-t border-border">
+                    <div className="flex flex-col sm:flex-row gap-4 sm:justify-between">
+                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                         By submitting this form, you agree to our terms and conditions. 
                         All job postings are subject to approval.
                       </p>
                       <Button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full sm:w-auto"
+                        className="w-full sm:w-auto py-3 touch-target"
                         data-testid="button-submit-job"
                       >
                         {isSubmitting ? (

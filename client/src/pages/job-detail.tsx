@@ -80,16 +80,16 @@ export default function JobDetail() {
     return (
       <div className="min-h-screen bg-background">
         <Header />
-        <main className="py-8">
+        <main className="py-6 sm:py-8">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="animate-pulse space-y-6">
-              <div className="h-8 bg-muted rounded w-1/4"></div>
-              <div className="h-12 bg-muted rounded w-3/4"></div>
-              <div className="grid lg:grid-cols-3 gap-8">
-                <div className="lg:col-span-2 space-y-6">
-                  <div className="h-64 bg-muted rounded"></div>
+            <div className="animate-pulse space-y-4 sm:space-y-6">
+              <div className="h-6 sm:h-8 bg-muted rounded w-1/3 sm:w-1/4"></div>
+              <div className="h-8 sm:h-12 bg-muted rounded w-3/4"></div>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+                <div className="lg:col-span-2 space-y-4 sm:space-y-6">
+                  <div className="h-48 sm:h-64 bg-muted rounded"></div>
                 </div>
-                <div className="h-96 bg-muted rounded"></div>
+                <div className="h-64 sm:h-96 bg-muted rounded"></div>
               </div>
             </div>
           </div>
@@ -103,15 +103,15 @@ export default function JobDetail() {
     return (
       <div className="min-h-screen bg-background">
         <Header />
-        <main className="py-8">
+        <main className="py-6 sm:py-8">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center py-12">
-              <h1 className="text-2xl font-bold text-foreground mb-4">Job Not Found</h1>
-              <p className="text-muted-foreground mb-6">
+            <div className="text-center py-8 sm:py-12 px-4">
+              <h1 className="text-xl sm:text-2xl font-bold text-foreground mb-3 sm:mb-4">Job Not Found</h1>
+              <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6">
                 The job you're looking for doesn't exist or has been removed.
               </p>
               <Link href="/jobs">
-                <Button>Browse All Jobs</Button>
+                <Button className="w-full sm:w-auto">Browse All Jobs</Button>
               </Link>
             </div>
           </div>
@@ -124,47 +124,47 @@ export default function JobDetail() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="py-8">
+      <main className="py-6 sm:py-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Breadcrumb */}
-          <div className="mb-6">
-            <Link href="/jobs" className="inline-flex items-center text-primary hover:text-accent transition-colors">
-              <ArrowLeft className="h-4 w-4 mr-2" />
+          {/* Breadcrumb - Mobile Optimized */}
+          <div className="mb-4 sm:mb-6">
+            <Link href="/jobs" className="inline-flex items-center text-primary hover:text-accent transition-colors text-sm sm:text-base touch-target">
+              <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
               Back to Jobs
             </Link>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Job Details */}
-            <div className="lg:col-span-2 space-y-6">
-              {/* Job Header */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+            {/* Job Details - Mobile Optimized */}
+            <div className="lg:col-span-2 space-y-4 sm:space-y-6">
+              {/* Job Header - Mobile Optimized */}
               <Card>
-                <CardHeader>
-                  <div className="flex flex-wrap items-start justify-between gap-4">
-                    <div className="flex-1">
-                      <CardTitle className="text-2xl lg:text-3xl mb-2" data-testid="job-detail-title">
+                <CardHeader className="p-4 sm:p-6">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
+                    <div className="flex-1 min-w-0">
+                      <CardTitle className="text-xl sm:text-2xl lg:text-3xl mb-3 leading-tight" data-testid="job-detail-title">
                         {job.title}
                       </CardTitle>
-                      <div className="flex flex-wrap items-center gap-4 text-muted-foreground">
+                      <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2 sm:gap-4 text-sm text-muted-foreground">
                         <div className="flex items-center gap-1">
-                          <Building className="h-4 w-4" />
-                          <span data-testid="job-detail-company">{job.company}</span>
+                          <Building className="h-3 w-3 sm:h-4 sm:w-4 shrink-0" />
+                          <span data-testid="job-detail-company" className="truncate">{job.company}</span>
                         </div>
                         <div className="flex items-center gap-1">
-                          <MapPin className="h-4 w-4" />
-                          <span data-testid="job-detail-location">{job.location}</span>
+                          <MapPin className="h-3 w-3 sm:h-4 sm:w-4 shrink-0" />
+                          <span data-testid="job-detail-location" className="truncate">{job.location}</span>
                         </div>
                         <div className="flex items-center gap-1">
-                          <Clock className="h-4 w-4" />
+                          <Clock className="h-3 w-3 sm:h-4 sm:w-4 shrink-0" />
                           <span data-testid="job-detail-posted">Posted {formatDate(job.postedAt)}</span>
                         </div>
                       </div>
                     </div>
-                    <div className="flex flex-col gap-2">
-                      <Badge variant="secondary" data-testid="job-detail-type">
+                    <div className="flex flex-row sm:flex-col gap-2 shrink-0">
+                      <Badge variant="secondary" className="text-xs" data-testid="job-detail-type">
                         {job.type}
                       </Badge>
-                      <Badge variant="outline" data-testid="job-detail-category">
+                      <Badge variant="outline" className="text-xs" data-testid="job-detail-category">
                         {job.category}
                       </Badge>
                     </div>
@@ -172,41 +172,45 @@ export default function JobDetail() {
                 </CardHeader>
               </Card>
 
-              {/* Job Description */}
+              {/* Job Description - Mobile Optimized */}
               <Card>
-                <CardHeader>
-                  <CardTitle>Job Description</CardTitle>
+                <CardHeader className="p-4 sm:p-6 pb-3 sm:pb-6">
+                  <CardTitle className="text-lg sm:text-xl">Job Description</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="prose prose-gray max-w-none">
-                    <p data-testid="job-detail-description">{job.description}</p>
+                <CardContent className="p-4 sm:p-6 pt-0">
+                  <div className="prose prose-sm sm:prose prose-gray max-w-none">
+                    <p data-testid="job-detail-description" className="text-sm sm:text-base leading-relaxed">
+                      {job.description}
+                    </p>
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Requirements */}
+              {/* Requirements - Mobile Optimized */}
               {job.requirements && (
                 <Card>
-                  <CardHeader>
-                    <CardTitle>Requirements</CardTitle>
+                  <CardHeader className="p-4 sm:p-6 pb-3 sm:pb-6">
+                    <CardTitle className="text-lg sm:text-xl">Requirements</CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <p data-testid="job-detail-requirements">{job.requirements}</p>
+                  <CardContent className="p-4 sm:p-6 pt-0">
+                    <p data-testid="job-detail-requirements" className="text-sm sm:text-base leading-relaxed">
+                      {job.requirements}
+                    </p>
                   </CardContent>
                 </Card>
               )}
 
-              {/* Salary */}
+              {/* Salary - Mobile Optimized */}
               {job.salary && (
                 <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <DollarSign className="h-5 w-5" />
+                  <CardHeader className="p-4 sm:p-6 pb-3 sm:pb-6">
+                    <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+                      <DollarSign className="h-4 w-4 sm:h-5 sm:w-5" />
                       Salary
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <p className="text-lg font-semibold" data-testid="job-detail-salary">
+                  <CardContent className="p-4 sm:p-6 pt-0">
+                    <p className="text-base sm:text-lg font-semibold" data-testid="job-detail-salary">
                       {job.salary}
                     </p>
                   </CardContent>
@@ -214,13 +218,13 @@ export default function JobDetail() {
               )}
             </div>
 
-            {/* Application Form */}
-            <div className="space-y-6">
+            {/* Application Form - Mobile Optimized */}
+            <div className="space-y-4 sm:space-y-6">
               <Card>
-                <CardHeader>
-                  <CardTitle>Apply for this Position</CardTitle>
+                <CardHeader className="p-4 sm:p-6 pb-3 sm:pb-6">
+                  <CardTitle className="text-lg sm:text-xl">Apply for this Position</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-4 sm:p-6 pt-0">
                   <form onSubmit={handleSubmitApplication} className="space-y-4">
                     <div>
                       <label htmlFor="coverLetter" className="block text-sm font-medium text-foreground mb-2">
@@ -231,7 +235,7 @@ export default function JobDetail() {
                         placeholder="Tell us why you're perfect for this role..."
                         value={applicationData.coverLetter}
                         onChange={(e) => setApplicationData(prev => ({ ...prev, coverLetter: e.target.value }))}
-                        className="min-h-[120px]"
+                        className="min-h-[100px] sm:min-h-[120px] text-sm sm:text-base"
                         required
                         data-testid="textarea-cover-letter"
                       />
@@ -247,6 +251,7 @@ export default function JobDetail() {
                         placeholder="https://your-resume-link.com"
                         value={applicationData.resume}
                         onChange={(e) => setApplicationData(prev => ({ ...prev, resume: e.target.value }))}
+                        className="text-sm sm:text-base h-12 sm:h-10"
                         data-testid="input-resume-url"
                       />
                       <p className="text-xs text-muted-foreground mt-1">
@@ -258,7 +263,7 @@ export default function JobDetail() {
 
                     <Button 
                       type="submit" 
-                      className="w-full" 
+                      className="w-full py-3 touch-target" 
                       disabled={applyMutation.isPending}
                       data-testid="button-submit-application"
                     >
@@ -268,20 +273,20 @@ export default function JobDetail() {
                 </CardContent>
               </Card>
 
-              {/* Quick Actions */}
+              {/* Quick Actions - Mobile Optimized */}
               <Card>
-                <CardHeader>
-                  <CardTitle>Quick Actions</CardTitle>
+                <CardHeader className="p-4 sm:p-6 pb-3 sm:pb-6">
+                  <CardTitle className="text-lg sm:text-xl">Quick Actions</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-3">
-                  <Button variant="outline" className="w-full" data-testid="button-save-job">
+                <CardContent className="p-4 sm:p-6 pt-0 space-y-3">
+                  <Button variant="outline" className="w-full py-3 touch-target" data-testid="button-save-job">
                     Save Job
                   </Button>
-                  <Button variant="outline" className="w-full" data-testid="button-share-job">
+                  <Button variant="outline" className="w-full py-3 touch-target" data-testid="button-share-job">
                     Share Job
                   </Button>
                   <Link href="/jobs" className="block">
-                    <Button variant="ghost" className="w-full" data-testid="button-browse-similar">
+                    <Button variant="ghost" className="w-full py-3 touch-target" data-testid="button-browse-similar">
                       Browse Similar Jobs
                     </Button>
                   </Link>

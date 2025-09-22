@@ -72,43 +72,43 @@ export default function FeaturedJobs() {
   };
 
   return (
-    <section id="jobs" className="py-16 lg:py-24 bg-muted">
+    <section id="jobs" className="py-12 sm:py-16 lg:py-24 bg-muted">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <div className="text-sm font-semibold text-primary mb-2">Employers Offering Job</div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4 text-3d">Our Featured Job Categories</h2>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-3 sm:mb-4 text-3d px-2 sm:px-0">Our Featured Job Categories</h2>
         </div>
 
-        {/* Job Categories */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-16">
+        {/* Job Categories - Mobile Optimized */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 mb-12 sm:mb-16">
           {jobCategories.map((category, index) => {
             const Icon = category.icon;
             return (
               <Link
                 key={category.name}
                 href={`/jobs?category=${encodeURIComponent(category.name)}`}
-                className="bg-card border border-border rounded-lg p-6 text-center card-hover glow-3d professional-shadow card-stack-3d pulse-glow block"
+                className="bg-card border border-border rounded-lg p-4 sm:p-6 text-center card-hover glow-3d professional-shadow card-stack-3d pulse-glow block touch-target"
                 data-testid={`category-card-${category.name.toLowerCase().replace(/\s+/g, '-')}`}
               >
-                <div className={`w-12 h-12 mx-auto bg-${category.color}-100 rounded-lg flex items-center justify-center mb-4`}>
-                  <Icon className={`h-6 w-6 text-${category.color}-600`} />
+                <div className={`w-10 h-10 sm:w-12 sm:h-12 mx-auto bg-${category.color}-100 rounded-lg flex items-center justify-center mb-3 sm:mb-4`}>
+                  <Icon className={`h-5 w-5 sm:h-6 sm:w-6 text-${category.color}-600`} />
                 </div>
-                <h3 className="font-semibold text-foreground mb-1 text-3d">{category.name}</h3>
-                <p className="text-sm text-muted-foreground">{category.count} Jobs</p>
+                <h3 className="text-sm sm:text-base font-semibold text-foreground mb-1 text-3d leading-tight">{category.name}</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground">{category.count} Jobs</p>
               </Link>
             );
           })}
         </div>
 
-        {/* Job Filter Tabs */}
-        <div className="mb-12">
-          <div className="flex justify-center mb-8">
-            <div className="flex bg-card border border-border rounded-lg p-1">
+        {/* Job Filter Tabs - Mobile Optimized */}
+        <div className="mb-8 sm:mb-12">
+          <div className="flex justify-center mb-6 sm:mb-8 px-2 sm:px-0">
+            <div className="flex flex-wrap sm:flex-nowrap bg-card border border-border rounded-lg p-1 gap-1 sm:gap-0 w-full sm:w-auto">
               {jobFilters.map((filter) => (
                 <button
                   key={filter.value}
                   onClick={() => setActiveFilter(filter.value)}
-                  className={`px-4 py-2 text-sm font-medium rounded-md transition-colors button-3d ${
+                  className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-md transition-colors button-3d touch-target ${
                     activeFilter === filter.value
                       ? "bg-primary text-primary-foreground pulse-glow"
                       : "text-muted-foreground hover:text-foreground"
@@ -121,11 +121,11 @@ export default function FeaturedJobs() {
             </div>
           </div>
 
-          {/* Job Listings */}
+          {/* Job Listings - Mobile Optimized */}
           {isLoading ? (
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="bg-card border border-border rounded-lg p-6 animate-pulse">
+                <div key={i} className="bg-card border border-border rounded-lg p-4 sm:p-6 animate-pulse">
                   <div className="h-4 bg-muted rounded w-3/4 mb-2"></div>
                   <div className="h-3 bg-muted rounded w-1/2 mb-4"></div>
                   <div className="h-8 bg-muted rounded"></div>
@@ -133,7 +133,7 @@ export default function FeaturedJobs() {
               ))}
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 gap-6" data-testid="job-listings">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6" data-testid="job-listings">
               {getFilteredJobs().map((job) => (
                 <JobCard key={job.id} job={job} />
               ))}
@@ -143,7 +143,7 @@ export default function FeaturedJobs() {
 
         <div className="text-center">
           <Link href="/jobs">
-            <Button variant="outline" className="px-8 py-3" data-testid="button-load-more-jobs">
+            <Button variant="outline" className="w-full sm:w-auto px-6 sm:px-8 py-3" data-testid="button-load-more-jobs">
               Load More Jobs
             </Button>
           </Link>

@@ -64,7 +64,7 @@ export default function Jobs() {
 
       if (isMobile) {
         // Lower quality settings for mobile
-        video.setAttribute("playbackRate", "0.9");
+        video.playbackRate = 0.9;
 
         // Pause on scroll for mobile performance
         let scrollTimeout: NodeJS.Timeout;
@@ -159,8 +159,8 @@ export default function Jobs() {
     <div className="min-h-screen bg-background">
       <Header />
 
-      {/* Video Hero Section - Enhanced Mobile Optimized */}
-      <section className="relative h-[40vh] sm:h-[55vh] md:h-[65vh] lg:h-[80vh] flex items-center justify-center overflow-hidden">
+      {/* Video Hero Section - Mobile Optimized */}
+      <section className="relative h-[30vh] sm:h-[40vh] md:h-[55vh] lg:h-[80vh] flex items-center justify-center overflow-hidden">
         {/* Video Background */}
         <div className="absolute inset-0 w-full h-full">
           <video
@@ -174,7 +174,7 @@ export default function Jobs() {
             disableRemotePlayback
             controlsList="nodownload nofullscreen noplaybackrate"
             className="w-full h-full object-cover object-top sm:object-center"
-            style={{ minHeight: "40vh" }}
+            style={{ minHeight: "30vh" }}
             data-testid="jobs-hero-video"
             aria-hidden="true"
             role="presentation"
@@ -185,38 +185,38 @@ export default function Jobs() {
         </div>
       </section>
 
-      {/* Enhanced Job Search Section */}
-      <main className="py-8 relative">
+      {/* Job Search Section - Mobile Optimized */}
+      <main className="py-6 sm:py-8 relative">
         {/* Background Pattern */}
         <div className="absolute inset-0 -z-10">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 rounded-3xl"></div>
-          <div className="absolute top-20 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-40 h-40 bg-secondary/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-20 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl animate-pulse hidden sm:block"></div>
+          <div className="absolute bottom-20 right-10 w-40 h-40 bg-secondary/10 rounded-full blur-3xl animate-pulse delay-1000 hidden sm:block"></div>
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Premium Search Section */}
-          <div className="relative z-10 bg-gradient-to-br from-background/80 via-background/60 to-background/80 backdrop-blur-sm rounded-3xl p-8 lg:p-12 border border-border/50 shadow-xl mb-12">
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-6">
-                <Search className="h-4 w-4" />
+          {/* Search Section - Mobile Optimized */}
+          <div className="relative z-10 bg-gradient-to-br from-background/80 via-background/60 to-background/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-4 sm:p-8 lg:p-12 border border-border/50 shadow-xl mb-8 sm:mb-12">
+            <div className="text-center mb-6 sm:mb-8">
+              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-semibold mb-4 sm:mb-6">
+                <Search className="h-3 w-3 sm:h-4 sm:w-4" />
                 Advanced Search
               </div>
-              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4 leading-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-3 sm:mb-4 leading-tight px-2 sm:px-0">
                 Find Your Perfect{" "}
                 <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                   Career Opportunity
                 </span>
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed px-2 sm:px-0">
                 Search through hundreds of job opportunities across Canada with
                 our advanced filtering system
               </p>
             </div>
 
-            {/* Enhanced Search Form */}
-            <form onSubmit={handleSearch} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Search Form - Mobile Optimized */}
+            <form onSubmit={handleSearch} className="space-y-4 sm:space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 <div className="group">
                   <label className="block text-sm font-medium text-foreground mb-2">
                     Job Title & Keywords
@@ -228,7 +228,7 @@ export default function Jobs() {
                     onChange={(e) =>
                       handleFilterChange("query", e.target.value)
                     }
-                    className="bg-background/60 backdrop-blur-sm border-border/50 focus:border-primary/50 transition-all duration-200 group-hover:shadow-md"
+                    className="bg-background/60 backdrop-blur-sm border-border/50 focus:border-primary/50 transition-all duration-200 group-hover:shadow-md h-12 sm:h-10"
                     data-testid="input-job-search"
                   />
                 </div>
@@ -243,7 +243,7 @@ export default function Jobs() {
                     onChange={(e) =>
                       handleFilterChange("location", e.target.value)
                     }
-                    className="bg-background/60 backdrop-blur-sm border-border/50 focus:border-primary/50 transition-all duration-200 group-hover:shadow-md"
+                    className="bg-background/60 backdrop-blur-sm border-border/50 focus:border-primary/50 transition-all duration-200 group-hover:shadow-md h-12 sm:h-10"
                     data-testid="input-location-search"
                   />
                 </div>
@@ -256,7 +256,7 @@ export default function Jobs() {
                     onValueChange={(value) => handleFilterChange("type", value)}
                   >
                     <SelectTrigger
-                      className="bg-background/60 backdrop-blur-sm border-border/50 focus:border-primary/50 transition-all duration-200 group-hover:shadow-md"
+                      className="bg-background/60 backdrop-blur-sm border-border/50 focus:border-primary/50 transition-all duration-200 group-hover:shadow-md h-12 sm:h-10"
                       data-testid="select-job-type"
                     >
                       <SelectValue placeholder="Select Type" />
@@ -282,7 +282,7 @@ export default function Jobs() {
                     }
                   >
                     <SelectTrigger
-                      className="bg-background/60 backdrop-blur-sm border-border/50 focus:border-primary/50 transition-all duration-200 group-hover:shadow-md"
+                      className="bg-background/60 backdrop-blur-sm border-border/50 focus:border-primary/50 transition-all duration-200 group-hover:shadow-md h-12 sm:h-10"
                       data-testid="select-job-category"
                     >
                       <SelectValue placeholder="Select Category" />
@@ -299,40 +299,40 @@ export default function Jobs() {
                 </div>
               </div>
 
-              <div className="flex justify-center pt-4">
+              <div className="flex justify-center pt-2 sm:pt-4">
                 <Button
                   type="submit"
                   size="lg"
-                  className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl px-8"
+                  className="w-full sm:w-auto bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl px-6 sm:px-8 py-3 touch-target"
                   data-testid="button-search"
                 >
-                  <Search className="h-5 w-5 mr-2" />
+                  <Search className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                   Search Jobs
-                  <ArrowRight className="h-5 w-5 ml-2" />
+                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 ml-2" />
                 </Button>
               </div>
             </form>
 
-            {/* Enhanced Status Bar */}
-            <div className="mt-8 text-center">
-              <div className="inline-flex items-center gap-4 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full px-6 py-3 backdrop-blur-sm border border-primary/20">
+            {/* Status Bar - Mobile Optimized */}
+            <div className="mt-6 sm:mt-8 text-center">
+              <div className="inline-flex flex-col sm:flex-row items-center gap-2 sm:gap-4 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full px-4 py-3 sm:px-6 backdrop-blur-sm border border-primary/20">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium text-foreground">
+                  <span className="text-xs sm:text-sm font-medium text-foreground">
                     Real-time Updates
                   </span>
                 </div>
-                <div className="w-px h-4 bg-border"></div>
+                <div className="w-px h-4 bg-border hidden sm:block"></div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-500"></div>
-                  <span className="text-sm font-medium text-foreground">
+                  <span className="text-xs sm:text-sm font-medium text-foreground">
                     Verified Employers
                   </span>
                 </div>
-                <div className="w-px h-4 bg-border"></div>
+                <div className="w-px h-4 bg-border hidden sm:block"></div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse delay-1000"></div>
-                  <span className="text-sm font-medium text-foreground">
+                  <span className="text-xs sm:text-sm font-medium text-foreground">
                     Quick Apply
                   </span>
                 </div>
@@ -340,13 +340,13 @@ export default function Jobs() {
             </div>
           </div>
 
-          {/* Enhanced Results Header */}
-          <div className="mb-8">
-            <div className="flex justify-between items-center bg-gradient-to-r from-background/80 to-background/60 backdrop-blur-sm rounded-xl p-4 border border-border/30">
-              <h2 className="text-2xl font-bold text-foreground">
+          {/* Results Header - Mobile Optimized */}
+          <div className="mb-6 sm:mb-8">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0 bg-gradient-to-r from-background/80 to-background/60 backdrop-blur-sm rounded-xl p-4 border border-border/30">
+              <h2 className="text-xl sm:text-2xl font-bold text-foreground text-center sm:text-left">
                 {isLoading ? (
-                  <span className="flex items-center gap-2">
-                    <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+                  <span className="flex items-center justify-center sm:justify-start gap-2">
+                    <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
                     Loading...
                   </span>
                 ) : (
@@ -357,20 +357,20 @@ export default function Jobs() {
                 )}
               </h2>
               {jobs.length > 0 && (
-                <div className="text-sm text-muted-foreground">
+                <div className="text-xs sm:text-sm text-muted-foreground text-center sm:text-right">
                   Updated today
                 </div>
               )}
             </div>
           </div>
 
-          {/* Job Listings */}
+          {/* Job Listings - Mobile Optimized */}
           {isLoading ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {[...Array(6)].map((_, i) => (
                 <div
                   key={i}
-                  className="bg-card border border-border rounded-lg p-6 animate-pulse"
+                  className="bg-card border border-border rounded-lg p-4 sm:p-6 animate-pulse"
                 >
                   <div className="h-4 bg-muted rounded w-3/4 mb-2"></div>
                   <div className="h-3 bg-muted rounded w-1/2 mb-4"></div>
@@ -379,8 +379,8 @@ export default function Jobs() {
               ))}
             </div>
           ) : jobs.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-lg text-muted-foreground mb-4">
+            <div className="text-center py-8 sm:py-12 px-4">
+              <p className="text-base sm:text-lg text-muted-foreground mb-4">
                 No jobs found matching your criteria.
               </p>
               <Button
@@ -392,6 +392,7 @@ export default function Jobs() {
                     category: "",
                   })
                 }
+                className="w-full sm:w-auto"
                 data-testid="button-clear-filters"
               >
                 Clear Filters
@@ -399,7 +400,7 @@ export default function Jobs() {
             </div>
           ) : (
             <div
-              className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+              className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
               data-testid="jobs-grid"
             >
               {jobs.map((job) => (
