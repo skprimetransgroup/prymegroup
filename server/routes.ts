@@ -32,24 +32,51 @@ function requireAdminAuth(req: any, res: any, next: any) {
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Object Storage route for serving public files
-  app.get("/api/public/*", (req, res, next) => {
+  app.get("/api/public/*", async (req, res, next) => {
     // Extract the file path from the URL
     const filePath = req.path.replace("/api/public/", "");
     
-    // Always try to serve from local assets first (both dev and production)
+    // Try to serve from local assets first (for development)
     const localPath = path.join(__dirname, '../client/public/assets', filePath);
     
     if (fs.existsSync(localPath)) {
       // Set proper headers for video files
       const extension = path.extname(filePath).toLowerCase();
-      if (extension === '.mp4' || extension === '.webm') {
+      if (extension === '.mp4' || extension === '.webm' || extension === '.gif') {
         res.setHeader('Accept-Ranges', 'bytes');
       }
       return res.sendFile(path.resolve(localPath));
     }
     
-    // If not found locally, return 404 for now
-    res.status(404).json({ message: 'File not found' });
+    // If not found locally, try object storage (for production)
+    try {
+      const client = new Client();
+      const objectPath = `public/${filePath}`;
+      
+      // Check if file exists in object storage
+      const result = await client.downloadAsBytes(objectPath);
+      
+      if (result.error) {
+        throw new Error(`Object storage error: ${result.error.message}`);
+      }
+      
+      const objectBuffer = result.value;
+      
+      // Set proper headers for video files
+      const extension = path.extname(filePath).toLowerCase();
+      if (extension === '.mp4' || extension === '.webm') {
+        res.setHeader('Content-Type', 'video/mp4');
+        res.setHeader('Accept-Ranges', 'bytes');
+      } else if (extension === '.gif') {
+        res.setHeader('Content-Type', 'image/gif');
+      }
+      
+      // Send the file from object storage
+      res.send(objectBuffer);
+    } catch (error) {
+      console.log(`File not found in object storage: ${filePath}`, error);
+      res.status(404).json({ message: 'File not found' });
+    }
   });
 
   // Admin Authentication API
