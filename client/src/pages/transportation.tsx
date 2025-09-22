@@ -567,27 +567,27 @@ export default function Transportation() {
         </div>
       </section>
 
-      {/* Trust Badges Section */}
-      <section className="py-16 bg-gradient-to-r from-primary/5 to-secondary/5 border-y border-border">
+      {/* Trust Badges Section - Mobile Optimized */}
+      <section className="py-12 sm:py-16 bg-gradient-to-r from-primary/5 to-secondary/5 border-y border-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4" data-testid="heading-trust">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-3 sm:mb-4" data-testid="heading-trust">
               Trusted & Certified
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-base sm:text-lg text-muted-foreground px-2">
               Your freight is in safe hands with our certified, insured carrier network
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {trustBadges.map((badge, index) => {
               const Icon = badge.icon;
               return (
-                <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-border text-center hover:shadow-md transition-shadow" data-testid={`trust-badge-${index}`}>
-                  <div className="mx-auto mb-4 p-3 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full w-fit">
-                    <Icon className="h-6 w-6 text-primary" />
+                <div key={index} className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-lg shadow-sm border border-border text-center hover:shadow-md transition-shadow" data-testid={`trust-badge-${index}`}>
+                  <div className="mx-auto mb-3 sm:mb-4 p-2.5 sm:p-3 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full w-fit">
+                    <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                   </div>
-                  <h3 className="font-bold text-foreground mb-2">{badge.title}</h3>
-                  <p className="text-sm text-muted-foreground">{badge.description}</p>
+                  <h3 className="text-sm sm:text-base font-bold text-foreground mb-2">{badge.title}</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{badge.description}</p>
                 </div>
               );
             })}
@@ -595,27 +595,27 @@ export default function Transportation() {
         </div>
       </section>
 
-      {/* Statistics Section */}
-      <section className="py-16 bg-background">
+      {/* Statistics Section - Mobile Optimized */}
+      <section className="py-12 sm:py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4" data-testid="heading-stats">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-3 sm:mb-4" data-testid="heading-stats">
               Proven Results
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-base sm:text-lg text-muted-foreground px-2">
               Numbers that demonstrate our commitment to excellence
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {statistics.map((stat, index) => {
               const Icon = stat.icon;
               return (
                 <div key={index} className="text-center" data-testid={`statistic-${index}`}>
-                  <div className="mx-auto mb-4 p-4 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full w-fit">
-                    <Icon className="h-8 w-8 text-primary" />
+                  <div className="mx-auto mb-3 sm:mb-4 p-3 sm:p-4 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full w-fit">
+                    <Icon className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
                   </div>
-                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">{stat.value}</div>
-                  <div className="text-muted-foreground font-medium">{stat.label}</div>
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-1 sm:mb-2">{stat.value}</div>
+                  <div className="text-xs sm:text-sm md:text-base text-muted-foreground font-medium leading-tight">{stat.label}</div>
                 </div>
               );
             })}
