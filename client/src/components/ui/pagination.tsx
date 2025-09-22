@@ -20,7 +20,7 @@ const PaginationContent = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <ul
     ref={ref}
-    className={cn("flex flex-row items-center gap-1", className)}
+    className={cn("flex flex-row items-center gap-2 sm:gap-1", className)}
     {...props}
   />
 ))
@@ -42,7 +42,7 @@ type PaginationLinkProps = {
 const PaginationLink = ({
   className,
   isActive,
-  size = "icon",
+  size = "default",
   ...props
 }: PaginationLinkProps) => (
   <a
@@ -52,6 +52,7 @@ const PaginationLink = ({
         variant: isActive ? "outline" : "ghost",
         size,
       }),
+      "min-h-[44px] min-w-[44px] sm:min-h-[36px] sm:min-w-[36px]",
       className
     )}
     {...props}
@@ -66,7 +67,7 @@ const PaginationPrevious = ({
   <PaginationLink
     aria-label="Go to previous page"
     size="default"
-    className={cn("gap-1 pl-2.5", className)}
+    className={cn("gap-1 pl-2.5 min-h-[44px] sm:min-h-[36px]", className)}
     {...props}
   >
     <ChevronLeft className="h-4 w-4" />
@@ -82,7 +83,7 @@ const PaginationNext = ({
   <PaginationLink
     aria-label="Go to next page"
     size="default"
-    className={cn("gap-1 pr-2.5", className)}
+    className={cn("gap-1 pr-2.5 min-h-[44px] sm:min-h-[36px]", className)}
     {...props}
   >
     <span>Next</span>
@@ -97,7 +98,7 @@ const PaginationEllipsis = ({
 }: React.ComponentProps<"span">) => (
   <span
     aria-hidden
-    className={cn("flex h-9 w-9 items-center justify-center", className)}
+    className={cn("flex h-11 w-11 sm:h-9 sm:w-9 items-center justify-center", className)}
     {...props}
   >
     <MoreHorizontal className="h-4 w-4" />
