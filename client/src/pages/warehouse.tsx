@@ -217,13 +217,8 @@ export default function Warehouse() {
                       
                       <div className="relative">
                         <CardHeader className="text-center pb-4">
-                          <div className="relative w-20 h-20 mx-auto mb-6">
-                            {/* Icon Background with Enhanced Gradient */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-primary/20 to-secondary/30 rounded-2xl transform rotate-6 group-hover:rotate-12 transition-transform duration-500"></div>
-                            <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 via-transparent to-primary/20 rounded-2xl transform -rotate-6 group-hover:-rotate-12 transition-transform duration-500"></div>
-                            <div className="relative w-full h-full bg-gradient-to-br from-primary/40 to-secondary/40 rounded-2xl flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-all duration-300 shadow-lg">
-                              <Icon className="h-10 w-10 text-white drop-shadow-sm" />
-                            </div>
+                          <div className="w-16 h-16 mx-auto bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <Icon className="h-8 w-8 text-primary" />
                           </div>
                           <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300" data-testid={`service-title-${index + 1}`}>
                             {service.title}
