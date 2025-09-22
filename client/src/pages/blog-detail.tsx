@@ -6,10 +6,47 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar, Clock, ArrowLeft, Share2, Facebook, Twitter, Linkedin, ChevronRight, ArrowRight } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 import type { BlogPost } from "@shared/schema";
 
 export default function BlogDetail() {
   const { slug } = useParams<{ slug: string }>();
+  const { toast } = useToast();
+  
+  const shareToFacebook = () => {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(post?.title || '');
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank', 'width=600,height=400');
+  };
+  
+  const shareToTwitter = () => {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(`${post?.title || ''} - ${post?.excerpt || ''}`);
+    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+  };
+  
+  const shareToLinkedIn = () => {
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent(post?.title || '');
+    const summary = encodeURIComponent(post?.excerpt || '');
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`, '_blank', 'width=600,height=400');
+  };
+  
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      toast({
+        title: "Link copied!",
+        description: "Article link has been copied to your clipboard.",
+      });
+    } catch (err) {
+      toast({
+        title: "Copy failed",
+        description: "Unable to copy link. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
   
   const { data: post, isLoading } = useQuery<BlogPost>({
     queryKey: [`/api/blog/${slug}`],
@@ -120,19 +157,19 @@ export default function BlogDetail() {
             <div className="flex items-center gap-6 pb-10 border-b-2 border-primary/20">
               <span className="text-base font-bold text-secondary">Share Article:</span>
               <div className="flex items-center gap-3">
-                <Button size="sm" className="bg-primary hover:bg-primary/90 text-white border-0 font-semibold" data-testid="share-facebook">
+                <Button size="sm" className="bg-primary hover:bg-primary/90 text-white border-0 font-semibold" onClick={shareToFacebook} data-testid="share-facebook">
                   <Facebook className="w-4 h-4 mr-2" />
                   Facebook
                 </Button>
-                <Button size="sm" className="bg-secondary hover:bg-secondary/90 text-white border-0 font-semibold" data-testid="share-twitter">
+                <Button size="sm" className="bg-secondary hover:bg-secondary/90 text-white border-0 font-semibold" onClick={shareToTwitter} data-testid="share-twitter">
                   <Twitter className="w-4 h-4 mr-2" />
                   Twitter
                 </Button>
-                <Button size="sm" className="bg-primary hover:bg-primary/90 text-white border-0 font-semibold" data-testid="share-linkedin">
+                <Button size="sm" className="bg-primary hover:bg-primary/90 text-white border-0 font-semibold" onClick={shareToLinkedIn} data-testid="share-linkedin">
                   <Linkedin className="w-4 h-4 mr-2" />
                   LinkedIn
                 </Button>
-                <Button variant="outline" size="sm" className="border-secondary text-secondary hover:bg-secondary hover:text-white font-semibold" data-testid="share-link">
+                <Button variant="outline" size="sm" className="border-secondary text-secondary hover:bg-secondary hover:text-white font-semibold" onClick={copyLink} data-testid="share-link">
                   <Share2 className="w-4 h-4 mr-2" />
                   Copy Link
                 </Button>
@@ -167,8 +204,15 @@ export default function BlogDetail() {
                   .replace(/\n\n/g, '</p><p>')
                   .replace(/\n/g, '<br>')
                   .replace(/\*\*(.*?)\*\*/g, '<strong class="text-primary font-bold">$1</strong>')
-                  .replace(/### (.*?)(?=\n|$)/g, '<h3 class="text-xl font-semibold text-secondary mt-8 mb-4">$1</h3>')
-                  .replace(/## (.*?)(?=\n|$)/g, '<h2 class="text-2xl font-bold text-primary mt-12 mb-6">$1</h2>')
+                  .replace(/^([^\n]+)$/gm, (match) => {
+                    if (match.trim() === 'Resume Writing Do\'s' || match.trim() === 'Resume Writing Don\'ts') {
+                      return `<h2 class="text-2xl font-bold text-primary mt-12 mb-6">${match}</h2>`;
+                    }
+                    if (match.startsWith('Keep your resume') || match.startsWith('Proofread your') || match.startsWith('Limit your') || match.startsWith('Tailor your') || match.startsWith('Highlight what') || match.startsWith('Be honest') || match.startsWith('Quantify your') || match.startsWith('Use simple') || match.startsWith('Include unpaid') || match.startsWith('Double check') || match.startsWith('Don\'t use an') || match.startsWith('Don\'t include unnecessary') || match.startsWith('Don\'t include a picture') || match.startsWith('Don\'t use too') || match.startsWith('Don\'t use personal') || match.startsWith('Don\'t simply') || match.startsWith('Don\'t make general') || match.startsWith('Don\'t include reasons') || match.startsWith('Don\'t include references') || match.startsWith('Don\'t include hobbies')) {
+                      return `<h3 class="text-xl font-semibold text-secondary mt-8 mb-4">${match}</h3>`;
+                    }
+                    return match;
+                  })
               }}
             />
           </div>
