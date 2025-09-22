@@ -50,6 +50,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     // If not found locally, try object storage (for production)
     try {
+      console.log(`Trying to load from object storage: public/${filePath}`);
       const client = new Client();
       const objectPath = `public/${filePath}`;
       
@@ -57,10 +58,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const result = await client.downloadAsBytes(objectPath);
       
       if (result.error) {
+        console.log(`Object storage error for ${filePath}:`, result.error);
         throw new Error(`Object storage error: ${result.error.message}`);
       }
       
       const objectBuffer = result.value;
+      console.log(`Successfully loaded ${filePath} from object storage, size: ${objectBuffer.length}`);
       
       // Set proper headers for video files
       const extension = path.extname(filePath).toLowerCase();
