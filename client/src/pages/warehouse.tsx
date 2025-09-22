@@ -226,6 +226,31 @@ export default function Warehouse() {
             </div>
           </section>
 
+          {/* Third Section - Mobile-Optimized Warehouse Poster */}
+          <section 
+            className="relative w-full flex items-center justify-center bg-gray-50"
+            style={{ 
+              height: '100vh',
+              minHeight: '100vh'
+            }}
+            data-testid="section-warehouse-poster"
+          >
+            <img 
+              src={warehousePosterPath}
+              alt=""
+              className="max-w-full max-h-full object-contain"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                objectPosition: 'center center'
+              }}
+              loading="eager"
+            />
+            {/* Dark overlay for readability */}
+            <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+          </section>
+
           {/* Real Estate Service Website Full Image */}
           <section className="mb-20">
             <div className="w-full px-4 lg:px-8">
@@ -464,17 +489,6 @@ export default function Warehouse() {
           </section>
         </div>
 
-        {/* Third Section - Full Viewport Warehouse Poster */}
-        <section 
-          className="relative h-screen w-full bg-cover bg-center"
-          style={{
-            backgroundImage: `url(${warehousePosterPath})`
-          }}
-          data-testid="section-warehouse-poster"
-        >
-          {/* Dark overlay for readability */}
-          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-        </section>
 
         <Footer />
       </div>
