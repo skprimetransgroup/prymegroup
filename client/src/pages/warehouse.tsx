@@ -118,14 +118,14 @@ export default function Warehouse() {
       <div className="min-h-screen bg-background">
         <Header />
         
-        {/* Hero Section with Optimized Video Background */}
+        {/* Hero Section with Optimized Video Background - Mobile Optimized */}
         <BackgroundVideo
           sources={{
             desktop: "/api/public/warehouse_hero.gif",
             mobile: "/api/public/warehouse_hero.gif", // Same GIF for mobile
           }}
           poster="/api/public/warehouse_hero.gif"
-          className="py-16 sm:py-20 lg:py-32 text-white overflow-hidden"
+          className="py-12 sm:py-16 md:py-20 lg:py-32 text-white overflow-hidden"
         >
           {/* Dark overlay for text readability */}
           <div className="absolute inset-0 bg-black/60"></div>
@@ -133,47 +133,50 @@ export default function Warehouse() {
           {/* Gradient overlay for enhanced text visibility */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/70"></div>
           
-          {/* Content */}
+          {/* Content - Mobile Optimized */}
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="max-w-4xl mx-auto text-center">
-              <Badge className="mb-6 bg-primary/20 text-primary border-primary/30" data-testid="badge-warehouse">
+            <div className="max-w-4xl mx-auto text-center space-y-6 sm:space-y-8">
+              <Badge className="inline-block bg-primary/20 text-primary border-primary/30 px-3 py-1.5 text-sm sm:text-base font-semibold" data-testid="badge-warehouse">
                 Premium Warehouse Solutions
               </Badge>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" data-testid="page-title-warehouse">
-                Warehouse & 
-                <span className="text-primary"> Distribution</span>
-                <br />
-                <span className="text-2xl md:text-3xl lg:text-4xl text-gray-300 font-normal">
-                  Excellence in Every Operation
-                </span>
-              </h1>
+              <div className="space-y-4">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight" data-testid="page-title-warehouse">
+                  Warehouse & 
+                  <span className="text-primary"> Distribution</span>
+                  <br className="hidden sm:block" />
+                  <span className="block sm:inline text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-300 font-normal mt-2 sm:mt-0">
+                    Excellence in Every Operation
+                  </span>
+                </h1>
+              </div>
               
-              <p className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto" data-testid="page-description-warehouse">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed px-2" data-testid="page-description-warehouse">
                 Connect with trusted warehouse partners for comprehensive storage, distribution, 
                 and logistics solutions. From inventory management to order fulfillment, 
                 we deliver operational excellence that scales with your business.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                 <Button 
                   size="lg" 
-                  className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-bold px-8 py-6 text-lg"
+                  className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-bold px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg shadow-xl hover:shadow-primary/25 transition-all duration-300 hover:scale-105"
                   data-testid="button-get-warehouse-quote"
                   onClick={() => document.querySelector('form')?.scrollIntoView({ behavior: 'smooth' })}
                 >
-                  Get Your Quote <ArrowRight className="ml-2 h-5 w-5" />
+                  Get Your Quote <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                 </Button>
               </div>
               
-              <div className="flex flex-wrap justify-center gap-4">
-                <Badge className="bg-white/10 text-white border-white/20 px-4 py-2 text-lg backdrop-blur-sm">
+              {/* Mobile-Optimized Stats Badges */}
+              <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center gap-3 sm:gap-4 pt-4">
+                <Badge className="bg-white/10 text-white border-white/20 px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base lg:text-lg backdrop-blur-sm font-medium">
                   500+ Satisfied Clients
                 </Badge>
-                <Badge className="bg-white/10 text-white border-white/20 px-4 py-2 text-lg backdrop-blur-sm">
+                <Badge className="bg-white/10 text-white border-white/20 px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base lg:text-lg backdrop-blur-sm font-medium">
                   10+ Partner Facilities
                 </Badge>
-                <Badge className="bg-white/10 text-white border-white/20 px-4 py-2 text-lg backdrop-blur-sm">
+                <Badge className="bg-white/10 text-white border-white/20 px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base lg:text-lg backdrop-blur-sm font-medium">
                   99.9% Accuracy Rate
                 </Badge>
               </div>
