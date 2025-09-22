@@ -121,10 +121,10 @@ export default function Warehouse() {
         {/* Hero Section with Optimized Video Background */}
         <BackgroundVideo
           sources={{
-            desktop: "/api/public/712s__warehouse_202509171756_1758146239348.gif",
-            mobile: "/api/public/Warehouse_element_1.png", // Static image for mobile performance
+            desktop: "/api/public/warehouse_hero.gif",
+            mobile: "/api/public/warehouse_hero.gif", // Same GIF for mobile
           }}
-          poster="/api/public/Warehouse_element_1.png"
+          poster="/api/public/warehouse_hero.gif"
           className="py-16 sm:py-20 lg:py-32 text-white overflow-hidden"
         >
           {/* Dark overlay for text readability */}
