@@ -183,46 +183,92 @@ export default function Warehouse() {
 
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          {/* Services Overview */}
-          <section className="mb-20">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-                Comprehensive Warehouse Solutions
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                From storage to distribution, we provide complete warehouse services to streamline your operations
-              </p>
+          {/* Services Overview - Enhanced Visual Design */}
+          <section className="mb-20 relative">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 -z-10">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 rounded-3xl"></div>
+              <div className="absolute top-10 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+              <div className="absolute bottom-10 right-10 w-40 h-40 bg-secondary/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {warehouseServices.map((service, index) => {
-                const Icon = service.icon;
-                return (
-                  <Card key={service.title} className="group hover:shadow-lg transition-all duration-300" data-testid={`service-card-${index + 1}`}>
-                    <CardHeader className="text-center">
-                      <div className="w-16 h-16 mx-auto bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                        <Icon className="h-8 w-8 text-primary" />
-                      </div>
-                      <CardTitle className="text-xl" data-testid={`service-title-${index + 1}`}>
-                        {service.title}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground mb-4 text-center" data-testid={`service-description-${index + 1}`}>
-                        {service.description}
-                      </p>
-                      <div className="space-y-2">
-                        {service.features.map((feature, featureIndex) => (
-                          <div key={featureIndex} className="flex items-center gap-2">
-                            <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
-                            <span className="text-sm text-muted-foreground">{feature}</span>
+            <div className="relative z-10 bg-gradient-to-br from-background/80 via-background/60 to-background/80 backdrop-blur-sm rounded-3xl p-8 lg:p-12 border border-border/50 shadow-xl">
+              <div className="text-center mb-16">
+                <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-6">
+                  <Package className="h-4 w-4" />
+                  Premium Solutions
+                </div>
+                <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
+                  Comprehensive <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Warehouse Solutions</span>
+                </h2>
+                <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                  From storage to distribution, we provide complete warehouse services to streamline your operations and accelerate your business growth
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {warehouseServices.map((service, index) => {
+                  const Icon = service.icon;
+                  return (
+                    <Card key={service.title} className="group relative overflow-hidden border-0 bg-gradient-to-br from-background via-background/90 to-background/70 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2" data-testid={`service-card-${index + 1}`}>
+                      {/* Card Background Glow Effect */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur"></div>
+                      
+                      <div className="relative">
+                        <CardHeader className="text-center pb-4">
+                          <div className="relative w-20 h-20 mx-auto mb-6">
+                            {/* Icon Background with Enhanced Gradient */}
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-primary/20 to-secondary/30 rounded-2xl transform rotate-6 group-hover:rotate-12 transition-transform duration-500"></div>
+                            <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 via-transparent to-primary/20 rounded-2xl transform -rotate-6 group-hover:-rotate-12 transition-transform duration-500"></div>
+                            <div className="relative w-full h-full bg-gradient-to-br from-primary/40 to-secondary/40 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/20 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                              <Icon className="h-10 w-10 text-white drop-shadow-sm" />
+                            </div>
                           </div>
-                        ))}
+                          <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300" data-testid={`service-title-${index + 1}`}>
+                            {service.title}
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent className="pt-0">
+                          <p className="text-muted-foreground mb-6 text-center leading-relaxed" data-testid={`service-description-${index + 1}`}>
+                            {service.description}
+                          </p>
+                          <div className="space-y-3">
+                            {service.features.map((feature, featureIndex) => (
+                              <div key={featureIndex} className="flex items-center gap-3 group/feature">
+                                <div className="w-6 h-6 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm">
+                                  <CheckCircle className="h-3 w-3 text-white" />
+                                </div>
+                                <span className="text-sm text-muted-foreground group-hover/feature:text-foreground transition-colors duration-200">{feature}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </CardContent>
                       </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
+                    </Card>
+                  );
+                })}
+              </div>
+
+              {/* Enhanced Bottom Section */}
+              <div className="mt-16 text-center">
+                <div className="inline-flex items-center gap-4 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full px-6 py-3 backdrop-blur-sm border border-primary/20">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    <span className="text-sm font-medium text-foreground">24/7 Operations</span>
+                  </div>
+                  <div className="w-px h-4 bg-border"></div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-500"></div>
+                    <span className="text-sm font-medium text-foreground">Nationwide Coverage</span>
+                  </div>
+                  <div className="w-px h-4 bg-border"></div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse delay-1000"></div>
+                    <span className="text-sm font-medium text-foreground">Expert Support</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 
