@@ -68,27 +68,27 @@ export default function Footer() {
               >
                 Post a Job
               </Link>
-              <a 
-                href="#services" 
+              <Link 
+                href="/services" 
                 className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors"
                 data-testid="link-footer-services"
               >
                 Our Services
-              </a>
-              <a 
-                href="#about" 
+              </Link>
+              <Link 
+                href="/about" 
                 className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors"
                 data-testid="link-footer-about"
               >
                 About Us
-              </a>
-              <a 
-                href="#contact" 
+              </Link>
+              <Link 
+                href="/contact" 
                 className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors"
                 data-testid="link-footer-contact"
               >
                 Contact
-              </a>
+              </Link>
             </div>
           </div>
 
