@@ -33,21 +33,21 @@ export default function JobCard({ job }: JobCardProps) {
 
   return (
     <div 
-      className="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-shadow"
+      className="bg-card border border-border rounded-lg p-4 sm:p-6 hover:shadow-lg transition-shadow"
       data-testid={`job-card-${job.id}`}
     >
-      <div className="flex justify-between items-start mb-4">
-        <div className="flex-1">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-4 space-y-3 sm:space-y-0">
+        <div className="flex-1 min-w-0">
           <Link href={`/jobs/${job.id}`} className="block nav-item-3d">
             <h3 
-              className="text-lg font-semibold text-foreground mb-1 hover:text-primary transition-colors text-3d"
+              className="text-base sm:text-lg font-semibold text-foreground mb-2 hover:text-primary transition-colors text-3d leading-tight"
               data-testid={`job-title-${job.id}`}
             >
               {job.title}
             </h3>
           </Link>
           <p 
-            className="text-sm text-muted-foreground mb-2"
+            className="text-sm text-muted-foreground mb-1 sm:mb-2"
             data-testid={`job-location-${job.id}`}
           >
             {job.location}
@@ -60,7 +60,7 @@ export default function JobCard({ job }: JobCardProps) {
           </p>
         </div>
         <span 
-          className={`px-3 py-1 rounded-full text-xs font-medium ${getTypeColor(job.type)}`}
+          className={`px-3 py-1.5 rounded-full text-xs font-medium ${getTypeColor(job.type)} shrink-0 self-start`}
           data-testid={`job-type-${job.id}`}
         >
           {job.type}
@@ -68,7 +68,7 @@ export default function JobCard({ job }: JobCardProps) {
       </div>
       <Link href={`/jobs/${job.id}`}>
         <Button 
-          className="w-full button-3d pulse-glow working-clock"
+          className="w-full py-3 button-3d pulse-glow working-clock touch-target"
           data-testid={`button-apply-${job.id}`}
         >
           Apply Now
