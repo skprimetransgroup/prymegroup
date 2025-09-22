@@ -60,155 +60,86 @@ export default function VideoHero() {
         )}
       </div>
 
-      {/* Content Below Video - Mobile Optimized */}
-      <div className="relative bg-gradient-to-br from-black via-gray-900 to-black text-white py-8 sm:py-12 lg:py-16 pb-20 md:pb-16 overflow-hidden">
-        {/* Subtle Background Particles */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-1 h-1 bg-primary/30 rounded-full animate-pulse opacity-60"></div>
-          <div className="absolute bottom-32 right-20 w-1 h-1 bg-white/40 rounded-full animate-ping opacity-40"></div>
-          <div className="absolute top-1/2 right-10 w-1 h-1 bg-primary/20 rounded-full animate-pulse opacity-50"></div>
-        </div>
-
-        {/* Gradient Overlays */}
+      {/* Professional Content Section */}
+      <div className="relative bg-gradient-to-br from-black via-gray-900 to-black text-white py-16 lg:py-24 overflow-hidden">
+        {/* Subtle Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-secondary/5"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[60vh] sm:min-h-[70vh] lg:min-h-[80vh]">
-          {/* Left Side - Mobile Optimized Graphics */}
-          <div className="flex items-center justify-center order-2 lg:order-1">
-            <div className="relative">
-              {/* Simplified Background Elements for Mobile */}
-              <div className="absolute -inset-12 sm:-inset-16 lg:-inset-24 grid grid-cols-3 grid-rows-3 gap-4 sm:gap-6 lg:gap-8 place-items-center">
-                {/* Top Row */}
-                <div className="bg-gradient-to-br from-primary/20 to-primary/10 backdrop-blur-sm rounded-full p-2 sm:p-3 lg:p-4 animate-float border border-white/10 shadow-xl">
-                  <Truck className="w-4 h-4 sm:w-5 h-5 lg:w-6 lg:h-6 text-primary" />
-                </div>
-                <div></div> {/* Empty space */}
-                <div className="bg-gradient-to-br from-secondary/20 to-secondary/10 backdrop-blur-sm rounded-full p-2 sm:p-3 lg:p-4 animate-float-delayed border border-white/10 shadow-xl">
-                  <Building2 className="w-4 h-4 sm:w-5 h-5 lg:w-6 lg:h-6 text-secondary" />
-                </div>
-                
-                {/* Middle Row */}
-                <div></div> {/* Empty space */}
-                <div></div> {/* Center space for main image */}
-                <div></div> {/* Empty space */}
-                
-                {/* Bottom Row */}
-                <div className="bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-sm rounded-full p-2 sm:p-3 lg:p-4 animate-float border border-white/10 shadow-xl">
-                  <Users className="w-4 h-4 sm:w-5 h-5 lg:w-6 lg:h-6 text-white" />
-                </div>
-                <div></div> {/* Empty space */}
-                <div className="bg-gradient-to-br from-primary/15 to-white/10 backdrop-blur-sm rounded-full p-2 sm:p-2 lg:p-3 animate-float-delayed border border-white/10 shadow-lg">
-                  <Award className="w-3 h-3 sm:w-4 h-4 lg:w-5 lg:h-5 text-primary" />
-                </div>
-              </div>
+          <div className="text-center max-w-6xl mx-auto space-y-12">
+            
+            {/* Professional Headline */}
+            <div className="space-y-6">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+                Canada's <span className="text-primary font-black">Leading</span>
+                <br />
+                <span className="relative">
+                  Business Solutions
+                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-primary to-secondary mt-2"></div>
+                </span>
+              </h1>
               
-              {/* Clean Logo Display */}
-              <div className="relative group">
-                {/* Enhanced Background Glow */}
-                <div className="absolute -inset-4 bg-gradient-to-r from-primary/30 to-secondary/30 rounded-3xl blur-2xl -z-10 animate-pulse"></div>
-                
-                {/* Simple Business Icon */}
-                <div className="w-64 h-64 sm:w-80 h-80 lg:w-96 lg:h-96 bg-gradient-to-br from-primary/20 via-background/40 to-secondary/20 backdrop-blur-sm rounded-3xl border border-white/10 shadow-2xl group-hover:scale-105 transition-transform duration-500 flex items-center justify-center">
-                  <div className="bg-gradient-to-br from-primary to-secondary p-8 rounded-full">
-                    <Building2 className="w-16 h-16 sm:w-20 h-20 lg:w-24 lg:h-24 text-white" />
-                  </div>
-                </div>
-                
-                {/* Mobile Optimized Success Badge */}
-                <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 lg:-top-4 lg:-right-4 bg-gradient-to-br from-primary to-secondary rounded-full p-2 sm:p-3 lg:p-4 shadow-xl border-2 border-white/20 animate-pulse">
-                  <Handshake className="w-5 h-5 sm:w-6 h-6 lg:w-8 lg:h-8 text-white" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Side - Mobile Optimized Content */}
-          <div className="text-center lg:text-left space-y-6 sm:space-y-8 lg:space-y-10 order-1 lg:order-2">
-            <div className="space-y-6 sm:space-y-8">
-              {/* Mobile Optimized Headline */}
-              <div className="relative">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white leading-tight">
-                  Canada's <span className="text-primary font-black">Leading</span>
-                  <br />
-                  <span className="relative">
-                    Business Solutions
-                    {/* Clean Underline */}
-                    <div className="absolute bottom-0 left-0 w-full h-0.5 sm:h-1 bg-gradient-to-r from-primary to-secondary mt-1 sm:mt-2"></div>
-                  </span>
-                </h1>
-                
-                {/* Mobile Optimized Badge */}
-                <div className="absolute -top-3 sm:-top-4 lg:-top-6 right-0 bg-primary/20 backdrop-blur-sm text-primary text-xs sm:text-sm font-bold px-2 sm:px-3 py-1 rounded-full border border-primary/30">
-                  #1 in Canada
-                </div>
-              </div>
-              
-              {/* Mobile Optimized Feature List */}
-              <div className="space-y-3 sm:space-y-4 text-base sm:text-lg md:text-xl lg:text-2xl">
-                <div className="flex items-center gap-3 sm:gap-4 animate-slide-in-left" style={{animationDelay: '0.2s'}}>
-                  <div className="w-6 h-6 sm:w-7 h-7 lg:w-8 lg:h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white text-xs sm:text-sm font-bold">✓</span>
-                  </div>
-                  <p className="font-semibold text-gray-100">Expert Staffing & Recruitment</p>
-                </div>
-                <div className="flex items-center gap-3 sm:gap-4 animate-slide-in-left" style={{animationDelay: '0.4s'}}>
-                  <div className="w-6 h-6 sm:w-7 h-7 lg:w-8 lg:h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white text-xs sm:text-sm font-bold">✓</span>
-                  </div>
-                  <p className="font-semibold text-gray-100">E-commerce & Product Solutions</p>
-                </div>
-                <div className="flex items-center gap-3 sm:gap-4 animate-slide-in-left" style={{animationDelay: '0.6s'}}>
-                  <div className="w-6 h-6 sm:w-7 h-7 lg:w-8 lg:h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white text-xs sm:text-sm font-bold">✓</span>
-                  </div>
-                  <p className="font-semibold text-gray-100">Warehouse Services & Logistics</p>
-                </div>
+              <div className="inline-flex items-center bg-primary/10 backdrop-blur-sm text-primary text-sm font-semibold px-4 py-2 rounded-full border border-primary/20">
+                <Star className="w-4 h-4 mr-2" />
+                #1 in Canada
               </div>
             </div>
 
-            <div className="space-y-4 sm:space-y-6">
-              {/* Mobile Optimized Description */}
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg blur-sm"></div>
-                <p className="relative text-sm sm:text-base md:text-lg lg:text-xl text-gray-200 max-w-lg p-4 sm:p-6 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
-                  Trusted by <span className="text-primary font-bold">leading companies</span> across Canada, we deliver comprehensive business solutions 
-                  spanning staffing services, e-commerce, and warehouse logistics to drive your success.
-                </p>
+            {/* Professional Description */}
+            <div className="max-w-4xl mx-auto">
+              <p className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed">
+                Trusted by <span className="text-primary font-semibold">leading companies</span> across Canada, 
+                we deliver comprehensive business solutions spanning staffing services, 
+                warehouse logistics, and transportation to drive your success.
+              </p>
+            </div>
+
+            {/* Service Categories */}
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              <div className="text-center space-y-4">
+                <div className="w-16 h-16 mx-auto bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
+                  <Users className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold">Expert Staffing</h3>
+                <p className="text-gray-300">Professional recruitment and staffing solutions</p>
               </div>
               
-              {/* Mobile Optimized Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <Button 
-                  size="lg" 
-                  className="relative bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-bold px-6 sm:px-8 lg:px-10 py-4 sm:py-5 text-base sm:text-lg lg:text-xl shadow-2xl hover:shadow-primary/25 transition-all duration-300 hover:scale-105 group overflow-hidden"
-                  data-testid="button-contact-us"
-                >
-                  <span className="relative z-10">Get Started Today</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="border-2 sm:border-3 border-primary text-primary hover:bg-primary hover:text-white px-6 sm:px-8 lg:px-10 py-4 sm:py-5 text-base sm:text-lg lg:text-xl font-bold shadow-lg hover:shadow-primary/25 transition-all duration-300 hover:scale-105 bg-white/5 backdrop-blur-sm"
-                  data-testid="button-learn-more"
-                >
-                  Explore Solutions
-                </Button>
+              <div className="text-center space-y-4">
+                <div className="w-16 h-16 mx-auto bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
+                  <Building2 className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold">Warehouse Services</h3>
+                <p className="text-gray-300">Complete logistics and warehouse management</p>
+              </div>
+              
+              <div className="text-center space-y-4">
+                <div className="w-16 h-16 mx-auto bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
+                  <Truck className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold">Transportation</h3>
+                <p className="text-gray-300">Reliable transportation and delivery solutions</p>
               </div>
             </div>
-          </div>
-        </div>
-        </div>
-      </div>
 
-      {/* Mobile Optimized Scroll Indicator */}
-      <div className="absolute bottom-4 sm:bottom-6 lg:bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce hidden md:block">
-        <div className="flex flex-col items-center">
-          <span className="text-xs sm:text-sm mb-2">Scroll to explore</span>
-          <div className="w-5 h-8 sm:w-6 h-10 border-2 border-white rounded-full flex justify-center">
-            <div className="w-1 h-2 sm:h-3 bg-white rounded-full mt-1 sm:mt-2 animate-pulse"></div>
+            {/* Professional Call-to-Action */}
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-semibold px-8 py-4 text-lg shadow-xl hover:shadow-primary/25 transition-all duration-300 hover:scale-105"
+                data-testid="button-contact-us"
+              >
+                Get Started Today
+              </Button>
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-4 text-lg font-semibold transition-all duration-300 hover:scale-105 bg-white/5 backdrop-blur-sm"
+                data-testid="button-learn-more"
+              >
+                Explore Solutions
+              </Button>
+            </div>
           </div>
         </div>
       </div>
