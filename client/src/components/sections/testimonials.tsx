@@ -2,14 +2,18 @@ import { useQuery } from "@tanstack/react-query";
 import TestimonialCard from "@/components/ui/testimonial-card";
 import Carousel3D from "@/components/effects/carousel-3d";
 import type { Testimonial } from "@shared/schema";
+import ryderLogo from "@assets/1_1758573580140.png";
+import timHortonsLogo from "@assets/2_1758573580139.png";
+import redGeometricLogo from "@assets/3_1758573580138.png";
+import vitranLogo from "@assets/4_1758573580138.png";
+import tforceLogo from "@assets/5_1758573580141.png";
 
 const clientLogos = [
-  "VITRAN EXPRESS",
-  "CCT CANADA", 
-  "Ryder",
-  "TForce Freight",
-  "Tim Hortons",
-  "FastFrate"
+  { name: "Ryder", logo: ryderLogo },
+  { name: "Tim Hortons", logo: timHortonsLogo },
+  { name: "Company Partner", logo: redGeometricLogo },
+  { name: "Vitran", logo: vitranLogo },
+  { name: "TForce Freight", logo: tforceLogo }
 ];
 
 export default function Testimonials() {
@@ -44,21 +48,32 @@ export default function Testimonials() {
           </div>
         )}
 
-        {/* Client Logos */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-items-center opacity-60">
-          {clientLogos.map((logo) => (
-            <div 
-              key={logo} 
-              className="bg-white px-6 py-4 rounded-lg shadow-sm card-hover image-3d"
-              data-testid={`client-logo-${logo.toLowerCase().replace(/\s+/g, '-')}`}
-            >
-              <div className={`text-sm lg:text-base font-bold ${
-                logo === "Tim Hortons" ? "text-red-600" : "text-gray-800"
-              }`}>
-                {logo}
-              </div>
-            </div>
-          ))}
+        {/* Client Logos Carousel */}
+        <div className="mb-8">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold text-foreground mb-2">Trusted by Industry Leaders</h3>
+            <p className="text-muted-foreground">Working with Canada's top transportation and logistics companies</p>
+          </div>
+          
+          <div className="h-48" data-testid="client-logos-carousel">
+            <Carousel3D autoPlay={true} interval={3000}>
+              {clientLogos.map((client) => (
+                <div 
+                  key={client.name} 
+                  className="w-full max-w-xs mx-auto"
+                  data-testid={`client-logo-${client.name.toLowerCase().replace(/\s+/g, '-')}`}
+                >
+                  <div className="bg-white rounded-2xl p-8 shadow-lg card-hover image-3d flex items-center justify-center h-32">
+                    <img 
+                      src={client.logo} 
+                      alt={`${client.name} logo`}
+                      className="max-w-full max-h-full object-contain filter hover:scale-110 transition-transform duration-300"
+                    />
+                  </div>
+                </div>
+              ))}
+            </Carousel3D>
+          </div>
         </div>
       </div>
     </section>
