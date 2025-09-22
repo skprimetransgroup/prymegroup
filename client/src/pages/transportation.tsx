@@ -511,7 +511,11 @@ export default function Transportation() {
 
       {/* Third Section - Mobile-Optimized Poster Image */}
       <section 
-        className="relative w-full h-screen sm:h-screen md:h-screen lg:h-screen xl:h-screen min-h-[100vh] overflow-hidden"
+        className="relative w-full min-h-screen overflow-hidden"
+        style={{ 
+          height: '100vh',
+          minHeight: '100vh'
+        }}
         data-testid="section-transportation-poster"
       >
         <div 
@@ -520,11 +524,11 @@ export default function Transportation() {
             backgroundImage: `url(${transportPosterPath})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center center',
-            backgroundAttachment: 'scroll' // Better for mobile performance
+            backgroundAttachment: 'scroll',
+            height: '100%',
+            width: '100%'
           }}
         />
-        {/* Ensure proper aspect ratio and prevent layout shifts on mobile */}
-        <div className="absolute inset-0 w-full h-full" style={{ minHeight: '100vh' }} />
       </section>
 
       {/* Trust Badges Section */}
