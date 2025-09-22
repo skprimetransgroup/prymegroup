@@ -81,9 +81,9 @@ export default function Statistics() {
   }, [stats, hasAnimated]);
 
   return (
-    <section ref={sectionRef} className="py-16 bg-muted">
+    <section ref={sectionRef} className="py-12 sm:py-16 bg-muted">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-6 lg:gap-8 text-center">
           {animatedStats.map((stat, index) => (
             <div 
               key={stat.label} 
@@ -93,19 +93,19 @@ export default function Statistics() {
               }}
             >
               <div 
-                className="text-4xl lg:text-5xl font-bold text-primary transition-all duration-300 hover:text-primary/80"
+                className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary transition-all duration-300 hover:text-primary/80"
                 data-testid={`stat-value-${stat.label.toLowerCase()}`}
               >
                 {stat.value.toLocaleString()}+
               </div>
               <div 
-                className="text-lg font-medium text-foreground"
+                className="text-base sm:text-lg font-medium text-foreground"
                 data-testid={`stat-label-${stat.label.toLowerCase()}`}
               >
                 {stat.label}
               </div>
               <div 
-                className="text-sm text-muted-foreground"
+                className="text-sm text-muted-foreground px-2 sm:px-0"
                 data-testid={`stat-description-${stat.label.toLowerCase()}`}
               >
                 {stat.description}
