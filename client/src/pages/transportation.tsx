@@ -470,6 +470,20 @@ export default function Transportation() {
         </div>
       </section>
 
+      {/* Second Section - Full Transportation Poster (No Cropping) */}
+      <section className="my-12 md:my-16" data-testid="section-transportation-poster">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative -mx-4 sm:mx-0">
+            <img 
+              src={transportPosterPath}
+              alt=""
+              className="block w-full h-auto rounded-none sm:rounded-2xl max-h-[80vh] object-contain"
+              loading="eager"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Services Section - Mobile Optimized */}
       <section className="py-12 sm:py-16 md:py-20 bg-background relative">
         {/* Background Pattern */}
@@ -549,20 +563,6 @@ export default function Transportation() {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Third Section - Full Transportation Poster (No Cropping) */}
-      <section className="my-12 md:my-16" data-testid="section-transportation-poster">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative -mx-4 sm:mx-0">
-            <img 
-              src={transportPosterPath}
-              alt=""
-              className="block w-full h-auto rounded-none sm:rounded-2xl max-h-[80vh] object-contain"
-              loading="eager"
-            />
           </div>
         </div>
       </section>
