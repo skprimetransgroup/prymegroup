@@ -247,8 +247,6 @@ export default function Warehouse() {
               }}
               loading="eager"
             />
-            {/* Dark overlay for readability */}
-            <div className="absolute inset-0 bg-black bg-opacity-40"></div>
           </section>
 
           {/* Real Estate Service Website Full Image */}
