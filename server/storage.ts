@@ -269,7 +269,7 @@ If a specific job requires any type of formal educational training, you may be r
 **References**
 
 Your prospective employer may want to get in touch with some of your previous employers to verify the type of employee you were and could be if hired for the job you're applying for. As such, you may be asked to submit a list of references of previous employers, along with their contact information.`,
-        imageUrl: "@assets/kelly-sikkema-1_RZL8BGBM-unsplash_1757368986355.jpg",
+        imageUrl: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&w=800&h=600",
         slug: "job-document-checklist-canada",
         published: true,
         publishedAt: new Date("2024-01-15"),
@@ -311,7 +311,7 @@ Siegel offers three recommendations for a resume to make it past the bots:
 If possible, Siegel says to demonstrate mastery of each skill by listing your years of experience learning or using each one in your work history.
 
 *Source: CNBC*`,
-        imageUrl: "@assets/glenn-carstens-peters-npxXWgQ33ZQ-unsplash_1757369012389.jpg",
+        imageUrl: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?ixlib=rb-4.0.3&w=800&h=600",
         slug: "why-cover-letters-still-matter",
         published: true,
         publishedAt: new Date("2024-01-10"),
@@ -321,7 +321,7 @@ If possible, Siegel says to demonstrate mastery of each skill by listing your ye
         title: "How to write a good resume",
         excerpt: "Your resume must clearly, concisely and strategically present your qualifications to get a recruiter interested in meeting you.",
         content: "Step by step guide to creating an effective resume that gets results...",
-        imageUrl: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?ixlib=rb-4.0.3",
+        imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&w=800&h=600",
         slug: "how-to-write-good-resume",
         published: true,
         publishedAt: new Date("2022-12-27"),
