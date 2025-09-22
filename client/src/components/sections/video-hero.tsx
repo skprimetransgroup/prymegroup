@@ -28,11 +28,20 @@ export default function VideoHero() {
           className="w-full h-full object-cover"
           style={{ minHeight: '40vh' }}
           data-testid="hero-video"
-          onError={() => {
-            console.log('Video failed to load');
+          onError={(e) => {
+            console.log('Video failed to load:', e);
+            console.log('Video source:', heroVideoPath);
             setShowFallback(true);
           }}
-          onLoadStart={() => console.log('Video loading started')}
+          onLoadStart={() => {
+            console.log('Video loading started from:', heroVideoPath);
+          }}
+          onCanPlay={() => {
+            console.log('Video can play:', heroVideoPath);
+          }}
+          onLoadedData={() => {
+            console.log('Video loaded data:', heroVideoPath);
+          }}
         >
           <source src={heroVideoPath} type="video/mp4" />
           Your browser does not support the video tag.
