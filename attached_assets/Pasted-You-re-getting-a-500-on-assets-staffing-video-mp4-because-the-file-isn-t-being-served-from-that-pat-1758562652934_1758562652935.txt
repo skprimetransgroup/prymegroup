@@ -1,0 +1,94 @@
+You’re getting a 500 on /assets/staffing-video.mp4 because the file isn’t being served from that path in your build. With Vite, anything inside src/assets gets fingerprinted (e.g., /assets/staffing-video.8a3dfc.mp4) and the plain /assets/staffing-video.mp4 URL won’t exist in production. Replit then returns a generic 500 with Content-Length: 0.
+
+Here are three safe fixes—pick one:
+
+✅ Option A (simplest): Use Vite’s public/ folder
+
+Put the video at: public/staffing-video.mp4
+
+Reference it by its root path:
+
+// before
+// const staffingVideo = "/assets/staffing-video.mp4";
+
+// after
+const staffingVideo = "/staffing-video.mp4";
+
+
+That path is stable (no hashing) and works in dev & prod.
+
+✅ Option B: Import the asset so Vite rewrites the URL
+
+Keep the file in src/assets/ and import the resolved URL:
+
+// put file at: src/assets/staffing-video.mp4
+import staffingVideo from "@/assets/staffing-video.mp4?url";
+
+// then use it as-is:
+<source src={staffingVideo} type="video/mp4" />
+
+
+The ?url tells Vite to emit and return the final hashed URL (e.g., /assets/staffing-video.8a3dfc.mp4).
+
+✅ Option C: Provide a fallback + graceful degradation
+
+(Use with Option A or B to avoid layout jank if the video can’t load)
+
+const [videoError, setVideoError] = useState(false);
+
+// ...
+<div className="absolute inset-0 w-full h-full">
+  {!videoError ? (
+    <video
+      ref={videoRef}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      onError={() => setVideoError(true)}
+      className="w-full h-full object-cover object-top sm:object-center"
+      aria-hidden="true"
+      role="presentation"
+      data-testid="jobs-hero-video"
+    >
+      <source src={staffingVideo} type="video/mp4" />
+      {/* Optional second source to maximize compatibility */}
+      {/* <source src="/staffing-video.webm" type="video/webm" /> */}
+    </video>
+  ) : (
+    <img
+      src="/staffing-video-poster.jpg" // put this in public/ as a lightweight fallback
+      alt=""
+      className="w-full h-full object-cover object-top sm:object-center"
+    />
+  )}
+</div>
+
+Quick checks after deploying
+
+Visit https://your-app.replit.app/staffing-video.mp4 directly in the browser.
+You should see 200 OK, Content-Type: video/mp4, and ideally Accept-Ranges: bytes.
+
+In DevTools → Network, the source should now load with Status 200 (not 500).
+
+Pro tip: keep the file light
+
+Some hosts struggle with big media files. If your video is large, compress it:
+
+# ~720p, reasonable quality/size
+ffmpeg -i staffing-video.mp4 -vcodec libx264 -crf 23 -preset veryfast -acodec aac -b:a 128k -movflags +faststart staffing-video-720p.mp4
+
+
+Then use the compressed file in public/.
+
+Minimal patch for your file (Option A + fallback)
+- // Use direct public asset to bypass caching issues
+- const staffingVideo = "/assets/staffing-video.mp4";
++ // Use public/ so the URL is stable in prod
++ const staffingVideo = "/staffing-video.mp4";
+
+
+…and add the small onError handler block from Option C if you want graceful fallback.
+
+If you do just that (move to public/ and fix the path), the 500 will go away.
