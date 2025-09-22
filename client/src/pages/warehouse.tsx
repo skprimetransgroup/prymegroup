@@ -283,20 +283,6 @@ export default function Warehouse() {
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          {/* Real Estate Service Website Full Image */}
-          <section className="mb-20">
-            <div className="w-full px-4 lg:px-8">
-              <img 
-                src="/api/public/Warehouse_element_1.png"
-                alt="Warehouse Element Design"
-                className="w-full h-auto rounded-2xl shadow-2xl"
-                data-testid="warehouse-element-image"
-                onLoad={() => console.log('✅ Warehouse element image loaded successfully')}
-                onError={(e) => console.error('❌ Failed to load Warehouse_element_1.png:', e)}
-              />
-            </div>
-          </section>
-
           {/* Key Features */}
           <section className="mb-20 bg-muted/30 rounded-2xl p-8">
             <div className="text-center mb-12">
