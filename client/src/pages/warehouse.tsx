@@ -25,6 +25,7 @@ import {
 import { useState, useEffect, useRef } from "react";
 import Forklift3D from "@/components/warehouse/forklift-3d";
 import BackgroundVideo from "@/components/sections/background-video";
+import warehousePosterPath from "@assets/27d89250-971c-4d38-8ad3-6c90f573e796_1758511522890.jpeg";
 
 const warehouseServices = [
   {
@@ -462,6 +463,18 @@ export default function Warehouse() {
             </div>
           </section>
         </div>
+
+        {/* Third Section - Full Viewport Warehouse Poster */}
+        <section 
+          className="relative h-screen w-full bg-cover bg-center"
+          style={{
+            backgroundImage: `url(${warehousePosterPath})`
+          }}
+          data-testid="section-warehouse-poster"
+        >
+          {/* Dark overlay for readability */}
+          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+        </section>
 
         <Footer />
       </div>
