@@ -1011,6 +1011,28 @@ export default function Transportation() {
         </div>
       </section>
 
+      {/* Third Section - Full Viewport Transportation Hero */}
+      <section 
+        className="relative h-screen w-full bg-cover bg-center flex items-center justify-center"
+        style={{
+          backgroundImage: 'url(/api/public/IMG_0454_1758510467427.png)'
+        }}
+        data-testid="section-transportation-hero"
+      >
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+        
+        {/* Content */}
+        <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-4 sm:mb-6 md:mb-8">
+            Transportation
+          </h2>
+          <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium max-w-4xl mx-auto">
+            Connecting Canada Coast to Coast with Prime Trans Group's Fleet Solutions
+          </p>
+        </div>
+      </section>
+
       <Footer />
       
       {/* Mobile Sticky CTA Bar */}
