@@ -10,7 +10,7 @@ import JobCard from "@/components/ui/job-card";
 import { Search, ArrowRight } from "lucide-react";
 import type { Job } from "@shared/schema";
 import type { SearchFilters } from "@/lib/types";
-import staffingVideo from "@assets/Staffing_1758231468220.mp4";
+import staffingVideo from "@assets/Staffing.mp4";
 
 export default function Jobs() {
   const [location] = useLocation();
