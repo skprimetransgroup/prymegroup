@@ -10,31 +10,26 @@ const jobCategories = [
   {
     name: "Accounting",
     icon: Calculator,
-    color: "blue",
     count: 5,
   },
   {
     name: "Digital Marketing", 
     icon: Megaphone,
-    color: "green",
     count: 5,
   },
   {
     name: "Customer Service",
     icon: Headphones,
-    color: "purple", 
     count: 10,
   },
   {
     name: "Broadcasting",
     icon: Radio,
-    color: "orange",
     count: 3,
   },
   {
     name: "Sales Assistant",
     icon: TrendingUp,
-    color: "pink",
     count: 2,
   },
 ];
@@ -87,11 +82,11 @@ export default function FeaturedJobs() {
               <Link
                 key={category.name}
                 href={`/jobs?category=${encodeURIComponent(category.name)}`}
-                className="bg-card border border-border rounded-lg p-4 sm:p-6 text-center card-hover glow-3d professional-shadow card-stack-3d pulse-glow block touch-target"
+                className="bg-card border border-border rounded-lg p-4 sm:p-6 text-center card-hover glow-3d professional-shadow card-stack-3d pulse-glow block touch-target group hover:border-primary/30 transition-all duration-300"
                 data-testid={`category-card-${category.name.toLowerCase().replace(/\s+/g, '-')}`}
               >
-                <div className={`w-10 h-10 sm:w-12 sm:h-12 mx-auto bg-${category.color}-100 rounded-lg flex items-center justify-center mb-3 sm:mb-4`}>
-                  <Icon className={`h-5 w-5 sm:h-6 sm:w-6 text-${category.color}-600`} />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg flex items-center justify-center mb-3 sm:mb-4 hover:from-primary/30 hover:to-secondary/30 transition-all duration-300">
+                  <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                 </div>
                 <h3 className="text-base font-semibold text-foreground">{category.name}</h3>
                 <p className="text-xs sm:text-sm text-muted-foreground">{category.count} Jobs</p>
