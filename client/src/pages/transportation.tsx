@@ -16,6 +16,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Truck, Shield, Clock, MapPin, Users, CheckCircle, Star, ArrowRight, Phone, Mail, Award, TrendingUp, Zap, Globe } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import transportPosterPath from "@assets/IMG_0454_1758510467427.png";
 
 const quoteSchema = z.object({
   contactName: z.string().min(2, "Name must be at least 2 characters"),
@@ -1016,10 +1017,11 @@ export default function Transportation() {
         className="relative h-screen w-full min-h-screen"
         data-testid="section-transportation-poster"
       >
-        <img 
-          src="/api/public/IMG_0454_1758510467427.png"
-          alt="Prime Trans Group Fleet"
-          className="absolute inset-0 w-full h-full object-cover"
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center"
+          style={{
+            backgroundImage: `url(${transportPosterPath})`
+          }}
         />
       </section>
 
