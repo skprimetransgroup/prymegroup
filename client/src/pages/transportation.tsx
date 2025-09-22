@@ -343,8 +343,8 @@ export default function Transportation() {
     <div className="min-h-screen bg-background">
       <Header />
       
-      {/* Hero Section with Video Background */}
-      <section className="relative py-20 lg:py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden">
+      {/* Hero Section with Video Background - Mobile Optimized */}
+      <section className="relative py-12 sm:py-16 md:py-20 lg:py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden">
         {/* Video Background */}
         <div className="absolute inset-0 w-full h-full">
           <video 
@@ -375,41 +375,43 @@ export default function Transportation() {
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <Badge className="mb-6 bg-primary/20 text-primary border-primary/30" data-testid="badge-premium">
+          <div className="max-w-4xl mx-auto text-center space-y-6 sm:space-y-8">
+            <Badge className="inline-block bg-primary/20 text-primary border-primary/30 px-3 py-1.5 text-sm sm:text-base font-semibold" data-testid="badge-premium">
               Premium Transport Facilitation
             </Badge>
             
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" data-testid="heading-hero">
-              Connecting Your Freight with 
-              <span className="text-primary"> Trusted Carriers</span>
-              <br />
-              <span className="text-2xl md:text-3xl lg:text-4xl text-gray-300 font-normal">
-                On Time, Every Time
-              </span>
-            </h1>
+            <div className="space-y-4">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight" data-testid="heading-hero">
+                Connecting Your Freight with 
+                <span className="text-primary"> Trusted Carriers</span>
+                <br className="hidden sm:block" />
+                <span className="block sm:inline text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-300 font-normal mt-2 sm:mt-0">
+                  On Time, Every Time
+                </span>
+              </h1>
+            </div>
             
-            <p className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed px-2">
               In today's fast-paced supply chain world, every minute matters. We connect your freight 
               with trusted carriers across Canada and North America — ensuring excellence in delivery, 
               from dispatch to dock. No surprises, just results.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-bold px-8 py-6 text-lg"
+                className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-bold px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg shadow-xl hover:shadow-primary/25 transition-all duration-300 hover:scale-105"
                 data-testid="button-get-quote"
                 onClick={() => document.getElementById('quote-form')?.scrollIntoView({ behavior: 'smooth' })}
               >
-                Get Your Quote <ArrowRight className="ml-2 h-5 w-5" />
+                Get Your Quote <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
               <Dialog open={isJoinModalOpen} onOpenChange={setIsJoinModalOpen}>
                 <DialogTrigger asChild>
                   <Button 
                     variant="outline" 
                     size="lg"
-                    className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-6 text-lg font-bold bg-white/5 backdrop-blur-sm"
+                    className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg font-semibold bg-white/5 backdrop-blur-sm transition-all duration-300 hover:scale-105"
                     data-testid="button-join-network"
                   >
                     Join Our Network

@@ -185,31 +185,32 @@ export default function Warehouse() {
         </BackgroundVideo>
 
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          {/* Services Overview - Enhanced Visual Design */}
-          <section className="mb-20 relative">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+          {/* Services Overview - Mobile Optimized */}
+          <section className="mb-16 sm:mb-20 relative">
             {/* Background Pattern */}
             <div className="absolute inset-0 -z-10">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 rounded-3xl"></div>
-              <div className="absolute top-10 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
-              <div className="absolute bottom-10 right-10 w-40 h-40 bg-secondary/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 rounded-2xl sm:rounded-3xl"></div>
+              <div className="absolute top-6 sm:top-10 left-6 sm:left-10 w-24 h-24 sm:w-32 sm:h-32 bg-primary/10 rounded-full blur-2xl sm:blur-3xl animate-pulse"></div>
+              <div className="absolute bottom-6 sm:bottom-10 right-6 sm:right-10 w-28 h-28 sm:w-40 sm:h-40 bg-secondary/10 rounded-full blur-2xl sm:blur-3xl animate-pulse delay-1000"></div>
             </div>
 
-            <div className="relative z-10 bg-gradient-to-br from-background/80 via-background/60 to-background/80 backdrop-blur-sm rounded-3xl p-8 lg:p-12 border border-border/50 shadow-xl">
-              <div className="text-center mb-16">
-                <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-6">
-                  <Package className="h-4 w-4" />
+            <div className="relative z-10 bg-gradient-to-br from-background/80 via-background/60 to-background/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 border border-border/50 shadow-xl">
+              <div className="text-center mb-12 sm:mb-16">
+                <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold mb-4 sm:mb-6">
+                  <Package className="h-3 w-3 sm:h-4 sm:w-4" />
                   Premium Solutions
                 </div>
-                <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 sm:mb-6 leading-tight">
                   Comprehensive <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Warehouse Solutions</span>
                 </h2>
-                <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed px-2">
                   From storage to distribution, we provide complete warehouse services to streamline your operations and accelerate your business growth
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {/* Mobile-Optimized Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                 {warehouseServices.map((service, index) => {
                   const Icon = service.icon;
                   return (
@@ -219,25 +220,25 @@ export default function Warehouse() {
                       <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur"></div>
                       
                       <div className="relative">
-                        <CardHeader className="text-center pb-4">
-                          <div className="w-16 h-16 mx-auto bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                            <Icon className="h-8 w-8 text-primary" />
+                        <CardHeader className="text-center pb-3 sm:pb-4 px-4 sm:px-6 pt-6">
+                          <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <Icon className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
                           </div>
-                          <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300" data-testid={`service-title-${index + 1}`}>
+                          <CardTitle className="text-lg sm:text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300" data-testid={`service-title-${index + 1}`}>
                             {service.title}
                           </CardTitle>
                         </CardHeader>
-                        <CardContent className="pt-0">
-                          <p className="text-muted-foreground mb-6 text-center leading-relaxed" data-testid={`service-description-${index + 1}`}>
+                        <CardContent className="pt-0 px-4 sm:px-6 pb-6">
+                          <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6 text-center leading-relaxed" data-testid={`service-description-${index + 1}`}>
                             {service.description}
                           </p>
-                          <div className="space-y-3">
+                          <div className="space-y-2 sm:space-y-3">
                             {service.features.map((feature, featureIndex) => (
-                              <div key={featureIndex} className="flex items-center gap-3 group/feature">
-                                <div className="w-6 h-6 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm">
-                                  <CheckCircle className="h-3 w-3 text-white" />
+                              <div key={featureIndex} className="flex items-center gap-2 sm:gap-3 group/feature">
+                                <div className="w-5 h-5 sm:w-6 sm:h-6 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm">
+                                  <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
                                 </div>
-                                <span className="text-sm text-muted-foreground group-hover/feature:text-foreground transition-colors duration-200">{feature}</span>
+                                <span className="text-xs sm:text-sm text-muted-foreground group-hover/feature:text-foreground transition-colors duration-200">{feature}</span>
                               </div>
                             ))}
                           </div>
@@ -248,22 +249,22 @@ export default function Warehouse() {
                 })}
               </div>
 
-              {/* Enhanced Bottom Section */}
-              <div className="mt-16 text-center">
-                <div className="inline-flex items-center gap-4 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full px-6 py-3 backdrop-blur-sm border border-primary/20">
+              {/* Mobile-Optimized Bottom Section */}
+              <div className="mt-12 sm:mt-16 text-center">
+                <div className="flex flex-col sm:flex-row sm:inline-flex items-center gap-3 sm:gap-4 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full px-4 sm:px-6 py-3 backdrop-blur-sm border border-primary/20 max-w-sm sm:max-w-none mx-auto">
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="text-sm font-medium text-foreground">24/7 Operations</span>
+                    <span className="text-xs sm:text-sm font-medium text-foreground">24/7 Operations</span>
                   </div>
-                  <div className="w-px h-4 bg-border"></div>
+                  <div className="hidden sm:block w-px h-4 bg-border"></div>
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-500"></div>
-                    <span className="text-sm font-medium text-foreground">Nationwide Coverage</span>
+                    <span className="text-xs sm:text-sm font-medium text-foreground">Nationwide Coverage</span>
                   </div>
-                  <div className="w-px h-4 bg-border"></div>
+                  <div className="hidden sm:block w-px h-4 bg-border"></div>
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse delay-1000"></div>
-                    <span className="text-sm font-medium text-foreground">Expert Support</span>
+                    <span className="text-xs sm:text-sm font-medium text-foreground">Expert Support</span>
                   </div>
                 </div>
               </div>
