@@ -10,7 +10,8 @@ import JobCard from "@/components/ui/job-card";
 import { Search, ArrowRight } from "lucide-react";
 import type { Job } from "@shared/schema";
 import type { SearchFilters } from "@/lib/types";
-import staffingVideo from "@assets/Staffing.mp4";
+// Use direct public asset to bypass caching issues
+const staffingVideo = "/assets/staffing-video.mp4";
 
 export default function Jobs() {
   const [location] = useLocation();
