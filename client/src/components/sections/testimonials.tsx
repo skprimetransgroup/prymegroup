@@ -2,18 +2,41 @@ import { useQuery } from "@tanstack/react-query";
 import TestimonialCard from "@/components/ui/testimonial-card";
 import Carousel3D from "@/components/effects/carousel-3d";
 import type { Testimonial } from "@shared/schema";
-import ryderLogo from "@assets/1_1758573580140.png";
-import timHortonsLogo from "@assets/2_1758573580139.png";
-import redGeometricLogo from "@assets/3_1758573580138.png";
-import vitranLogo from "@assets/4_1758573580138.png";
-import tforceLogo from "@assets/5_1758573580141.png";
+import { Star, Quote } from "lucide-react";
 
-const clientLogos = [
-  { name: "Ryder", logo: ryderLogo },
-  { name: "Tim Hortons", logo: timHortonsLogo },
-  { name: "Company Partner", logo: redGeometricLogo },
-  { name: "Vitran", logo: vitranLogo },
-  { name: "TForce Freight", logo: tforceLogo }
+const clientTestimonials = [
+  {
+    id: 1,
+    quote: "Prime Trans Group helped us find the perfect warehouse team. Their recruitment process is thorough and professional.",
+    author: "Sarah Mitchell",
+    company: "Ryder Supply Chain",
+    position: "Operations Manager",
+    rating: 5
+  },
+  {
+    id: 2,
+    quote: "Outstanding transportation solutions! They connected us with reliable carriers that meet our delivery schedules consistently.",
+    author: "Mike Johnson",
+    company: "TForce Freight",
+    position: "Logistics Director",
+    rating: 5
+  },
+  {
+    id: 3,
+    quote: "The staffing solutions provided exceeded our expectations. Quality candidates who fit our company culture perfectly.",
+    author: "Jennifer Chen",
+    company: "Vitran Express",
+    position: "HR Director",
+    rating: 5
+  },
+  {
+    id: 4,
+    quote: "Professional service from start to finish. Prime Trans Group understands the transportation industry like no other.",
+    author: "David Roberts",
+    company: "Tim Hortons Distribution",
+    position: "Fleet Manager",
+    rating: 5
+  }
 ];
 
 export default function Testimonials() {
@@ -48,31 +71,45 @@ export default function Testimonials() {
           </div>
         )}
 
-        {/* Client Logos Carousel */}
+        {/* Client Testimonials */}
         <div className="mb-8">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-foreground mb-2">Trusted by Industry Leaders</h3>
-            <p className="text-muted-foreground">Working with Canada's top transportation and logistics companies</p>
+          <div className="text-center mb-12">
+            <h3 className="text-2xl font-bold text-foreground mb-2">What Our Clients Say</h3>
+            <p className="text-muted-foreground">Trusted feedback from industry leaders across Canada</p>
           </div>
           
-          <div className="h-48" data-testid="client-logos-carousel">
-            <Carousel3D autoPlay={true} interval={3000}>
-              {clientLogos.map((client) => (
-                <div 
-                  key={client.name} 
-                  className="w-full max-w-xs mx-auto"
-                  data-testid={`client-logo-${client.name.toLowerCase().replace(/\s+/g, '-')}`}
-                >
-                  <div className="bg-white rounded-2xl p-8 shadow-lg card-hover image-3d flex items-center justify-center h-32">
-                    <img 
-                      src={client.logo} 
-                      alt={`${client.name} logo`}
-                      className="max-w-full max-h-full object-contain filter hover:scale-110 transition-transform duration-300"
-                    />
-                  </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6" data-testid="client-testimonials">
+            {clientTestimonials.map((testimonial) => (
+              <div 
+                key={testimonial.id}
+                className="bg-card border border-border rounded-xl p-6 card-hover relative overflow-hidden"
+                data-testid={`testimonial-card-${testimonial.id}`}
+              >
+                {/* Background Quote Icon */}
+                <div className="absolute top-4 right-4 opacity-10">
+                  <Quote className="h-8 w-8 text-primary" />
                 </div>
-              ))}
-            </Carousel3D>
+                
+                {/* Rating Stars */}
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-primary text-primary" />
+                  ))}
+                </div>
+                
+                {/* Quote */}
+                <blockquote className="text-muted-foreground mb-4 leading-relaxed text-sm">
+                  "{testimonial.quote}"
+                </blockquote>
+                
+                {/* Author Info */}
+                <div className="border-t border-border pt-4">
+                  <div className="font-semibold text-foreground text-sm">{testimonial.author}</div>
+                  <div className="text-xs text-muted-foreground">{testimonial.position}</div>
+                  <div className="text-xs text-primary font-medium">{testimonial.company}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
