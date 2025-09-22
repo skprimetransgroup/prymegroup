@@ -3,8 +3,8 @@ import { Users, Truck, Building2, Handshake, Star, Award, TrendingUp } from "luc
 import { useState } from "react";
 import CinematicBusiness3D from "@/components/hero/cinematic-business-3d";
 
-// Use attached assets via @assets alias (works in published versions)
-import officeVideo from "@assets/Office_new.mp4";
+// Use public/ so the URL is stable in prod
+const officeVideo = "/Office-latest.mp4";
 
 export default function VideoHero() {
   const [showFallback, setShowFallback] = useState(false);
