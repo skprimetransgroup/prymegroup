@@ -506,30 +506,18 @@ export default function Transportation() {
               );
             })}
           </div>
+          {/* Third Section - Full Transportation Poster (No Cropping) */}
+          <section className="my-12 md:my-16" data-testid="section-transportation-poster">
+            <div className="relative -mx-4 sm:mx-0">
+              <img 
+                src={transportPosterPath}
+                alt=""
+                className="block w-full h-auto rounded-none sm:rounded-2xl max-h-[80vh] object-contain"
+                loading="eager"
+              />
+            </div>
+          </section>
         </div>
-      </section>
-
-      {/* Third Section - Mobile-Optimized Poster Image */}
-      <section 
-        className="relative w-full flex items-center justify-center bg-gray-50"
-        style={{ 
-          height: '100vh',
-          minHeight: '100vh'
-        }}
-        data-testid="section-transportation-poster"
-      >
-        <img 
-          src={transportPosterPath}
-          alt=""
-          className="max-w-full max-h-full object-contain"
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'contain',
-            objectPosition: 'center center'
-          }}
-          loading="eager"
-        />
       </section>
 
       {/* Trust Badges Section */}
