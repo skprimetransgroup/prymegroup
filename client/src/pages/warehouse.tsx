@@ -184,8 +184,18 @@ export default function Warehouse() {
           </div>
         </BackgroundVideo>
 
-
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+          {/* Second Section - Full Warehouse Poster (No Cropping) */}
+          <section className="my-12 md:my-16" data-testid="section-warehouse-poster">
+            <div className="relative -mx-4 sm:mx-0">
+              <img 
+                src={warehousePosterPath}
+                alt=""
+                className="block w-full h-auto rounded-none sm:rounded-2xl max-h-[80vh] object-contain"
+                loading="eager"
+              />
+            </div>
+          </section>
           {/* Services Overview - Mobile Optimized */}
           <section className="mb-16 sm:mb-20 relative">
             {/* Background Pattern */}
@@ -268,18 +278,6 @@ export default function Warehouse() {
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
-
-          {/* Third Section - Full Warehouse Poster (No Cropping) */}
-          <section className="my-12 md:my-16" data-testid="section-warehouse-poster">
-            <div className="relative -mx-4 sm:mx-0">
-              <img 
-                src={warehousePosterPath}
-                alt=""
-                className="block w-full h-auto rounded-none sm:rounded-2xl max-h-[80vh] object-contain"
-                loading="eager"
-              />
             </div>
           </section>
         </div>
