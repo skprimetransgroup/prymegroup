@@ -17,7 +17,7 @@ import { Search, ArrowRight } from "lucide-react";
 import type { Job } from "@shared/schema";
 import type { SearchFilters } from "@/lib/types";
 // Use direct public asset to bypass caching issues
-const staffingVideo = "/staffing-video.mp4";
+const staffingVideo = "/Staffing-latest.mp4";
 
 export default function Jobs() {
   const [location] = useLocation();
