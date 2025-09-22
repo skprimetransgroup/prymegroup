@@ -168,62 +168,6 @@ export default function Jobs() {
       <main className="py-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
 
-          {/* 3D Hiring Animation Section */}
-          <section className="relative mb-12 bg-gradient-to-br from-primary/5 via-secondary/5 to-primary/10 rounded-2xl p-8 overflow-hidden">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-                Your <span className="text-primary">Career Journey</span> Starts Here
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Watch how we connect talented professionals with amazing opportunities every day
-              </p>
-            </div>
-            
-            <div className="relative">
-              {/* Interactive Stats Overlay */}
-              <div className="absolute top-4 left-4 bg-background/80 backdrop-blur-sm rounded-lg p-4 border border-border shadow-lg">
-                <div className="text-2xl font-bold text-green-600">98%</div>
-                <div className="text-sm text-muted-foreground">Success Rate</div>
-              </div>
-              
-              <div className="absolute top-4 right-4 bg-background/80 backdrop-blur-sm rounded-lg p-4 border border-border shadow-lg">
-                <div className="text-2xl font-bold text-blue-600">24hr</div>
-                <div className="text-sm text-muted-foreground">Avg Response</div>
-              </div>
-              
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-background/80 backdrop-blur-sm rounded-lg p-4 border border-border shadow-lg">
-                <div className="text-2xl font-bold text-primary">1,485</div>
-                <div className="text-sm text-muted-foreground">Jobs Filled</div>
-              </div>
-            </div>
-
-            {/* Process Steps */}
-            <div className="grid md:grid-cols-3 gap-6 mt-12">
-              <div className="text-center p-6 bg-background/60 backdrop-blur-sm rounded-xl border border-border/50">
-                <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">📝</span>
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">Apply & Connect</h3>
-                <p className="text-muted-foreground text-sm">Submit your application and connect with our expert recruiters</p>
-              </div>
-              
-              <div className="text-center p-6 bg-background/60 backdrop-blur-sm rounded-xl border border-border/50">
-                <div className="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">🤝</span>
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">Interview & Match</h3>
-                <p className="text-muted-foreground text-sm">Professional interviews and perfect job-candidate matching</p>
-              </div>
-              
-              <div className="text-center p-6 bg-background/60 backdrop-blur-sm rounded-xl border border-border/50">
-                <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">🎉</span>
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">Success & Growth</h3>
-                <p className="text-muted-foreground text-sm">Land your dream job and advance your career with ongoing support</p>
-              </div>
-            </div>
-          </section>
 
           {/* Search and Filters */}
           <div className="bg-card border border-border rounded-lg p-6 mb-8">
