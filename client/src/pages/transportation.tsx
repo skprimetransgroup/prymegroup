@@ -509,6 +509,24 @@ export default function Transportation() {
         </div>
       </section>
 
+      {/* Third Section - Mobile-Optimized Poster Image */}
+      <section 
+        className="relative w-full h-screen sm:h-screen md:h-screen lg:h-screen xl:h-screen min-h-[100vh] overflow-hidden"
+        data-testid="section-transportation-poster"
+      >
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url(${transportPosterPath})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center center',
+            backgroundAttachment: 'scroll' // Better for mobile performance
+          }}
+        />
+        {/* Ensure proper aspect ratio and prevent layout shifts on mobile */}
+        <div className="absolute inset-0 w-full h-full" style={{ minHeight: '100vh' }} />
+      </section>
+
       {/* Trust Badges Section */}
       <section className="py-16 bg-gradient-to-r from-primary/5 to-secondary/5 border-y border-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -1012,18 +1030,6 @@ export default function Transportation() {
         </div>
       </section>
 
-      {/* Third Section - Full Viewport Poster Image */}
-      <section 
-        className="relative h-screen w-full min-h-screen"
-        data-testid="section-transportation-poster"
-      >
-        <div 
-          className="absolute inset-0 w-full h-full bg-cover bg-center"
-          style={{
-            backgroundImage: `url(${transportPosterPath})`
-          }}
-        />
-      </section>
 
       <Footer />
       
