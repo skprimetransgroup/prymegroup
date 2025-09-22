@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { Users, ShoppingCart, Warehouse, Truck, ArrowRight } from "lucide-react";
+import { Users, Warehouse, Truck, ArrowRight } from "lucide-react";
 
 export default function CTA() {
   const ctaSections = [
@@ -12,15 +12,6 @@ export default function CTA() {
       buttonText: "Find Jobs",
       link: "/jobs",
       gradient: "from-primary/10 to-red-500/10"
-    },
-    {
-      icon: ShoppingCart,
-      tag: "Shop With Confidence",
-      title: "Browse Quality Products",
-      description: "Discover our comprehensive catalog of quality products from trusted suppliers. Shop online with secure transactions and reliable delivery.",
-      buttonText: "Shop Now",
-      link: "/shop",
-      gradient: "from-blue-500/10 to-primary/10"
     },
     {
       icon: Warehouse,
@@ -51,12 +42,12 @@ export default function CTA() {
             Ready to Get Started?
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Choose your path and let us help you achieve your business goals
+            Choose your path from our three core business divisions and let us help you achieve your goals
           </p>
         </div>
 
         {/* CTA Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
           {ctaSections.map((section, index) => {
             const Icon = section.icon;
             return (
