@@ -511,23 +511,25 @@ export default function Transportation() {
 
       {/* Third Section - Mobile-Optimized Poster Image */}
       <section 
-        className="relative w-full min-h-screen overflow-hidden"
+        className="relative w-full flex items-center justify-center"
         style={{ 
-          height: '100vh',
-          minHeight: '100vh'
+          height: 'calc(100vh - 0px)',
+          minHeight: '100vh',
+          maxHeight: '100vh'
         }}
         data-testid="section-transportation-poster"
       >
-        <div 
-          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+        <img 
+          src={transportPosterPath}
+          alt=""
+          className="w-full h-full object-cover object-center absolute inset-0"
           style={{
-            backgroundImage: `url(${transportPosterPath})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center center',
-            backgroundAttachment: 'scroll',
             height: '100%',
-            width: '100%'
+            width: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center center'
           }}
+          loading="eager"
         />
       </section>
 
