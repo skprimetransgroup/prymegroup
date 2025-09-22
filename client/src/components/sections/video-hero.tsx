@@ -3,8 +3,9 @@ import { Users, Truck, Building2, Handshake, Star, Award, TrendingUp } from "luc
 import { useState } from "react";
 import CinematicBusiness3D from "@/components/hero/cinematic-business-3d";
 
-// Use local assets folder (works in published versions)
-const heroVideoPath = "/api/public/Office_new.mp4";
+// Use Vite static assets (works in both dev and published versions)
+import videoSrc from "/assets/Office_new.mp4?url";
+const heroVideoPath = videoSrc;
 
 export default function VideoHero() {
   const [showFallback, setShowFallback] = useState(false);
