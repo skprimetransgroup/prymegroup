@@ -99,13 +99,13 @@ export default function Statistics() {
                 {stat.value.toLocaleString()}+
               </div>
               <div 
-                className="text-base sm:text-lg font-medium text-foreground"
+                className="text-lg font-medium text-foreground"
                 data-testid={`stat-label-${stat.label.toLowerCase()}`}
               >
                 {stat.label}
               </div>
               <div 
-                className="text-sm text-muted-foreground px-2 sm:px-0"
+                className="text-base text-muted-foreground"
                 data-testid={`stat-description-${stat.label.toLowerCase()}`}
               >
                 {stat.description}

@@ -17,10 +17,10 @@ export default function WhyChooseUs() {
               <h2 className="text-3xl lg:text-4xl font-bold text-foreground text-3d">
                 Why we are one of the best workforce solution providers since 2016.
               </h2>
-              <p className="text-base sm:text-lg text-muted-foreground px-2 sm:px-0">
+              <p className="text-lg text-muted-foreground">
                 Just give us a few details, and let us get to work — with matching technology that instantly identifies the best available local and national talent, and staffing specialists that help you quickly close the deal.
               </p>
-              <p className="text-base sm:text-lg font-semibold text-foreground px-2 sm:px-0">
+              <p className="text-lg font-semibold text-foreground">
                 Find the best talent, in the right location, at the right cost with Prime Trans Group.
               </p>
             </div>
@@ -32,7 +32,7 @@ export default function WhyChooseUs() {
                     <Check className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-primary-foreground" />
                   </div>
                   <div 
-                    className="text-sm sm:text-base text-muted-foreground leading-relaxed"
+                    className="text-base text-muted-foreground leading-relaxed"
                     data-testid={`benefit-${index + 1}`}
                   >
                     {benefit}

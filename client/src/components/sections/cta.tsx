@@ -67,11 +67,11 @@ export default function CTA() {
                   
                   <div className="text-xs font-semibold text-primary mb-2 uppercase tracking-wide">{section.tag}</div>
                   
-                  <h3 className="text-xl font-bold text-foreground mb-3">
+                  <h3 className="text-xl font-semibold text-foreground">
                     {section.title}
                   </h3>
                   
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
+                  <p className="text-base text-muted-foreground leading-relaxed">
                     {section.description}
                   </p>
                   

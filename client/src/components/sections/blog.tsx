@@ -33,7 +33,7 @@ export default function Blog() {
             Latest from our Blog
           </h2>
           
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Stay ahead in your career with expert insights, industry trends, and actionable advice from Canada's leading workforce solutions provider.
           </p>
           

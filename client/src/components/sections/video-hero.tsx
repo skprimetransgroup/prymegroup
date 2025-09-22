@@ -88,7 +88,7 @@ export default function VideoHero() {
 
             {/* Professional Description */}
             <div className="max-w-4xl mx-auto">
-              <p className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed">
+              <p className="text-lg text-gray-200 leading-relaxed">
                 Trusted by <span className="text-primary font-semibold">leading companies</span> across Canada, 
                 we deliver comprehensive business solutions spanning staffing services, 
                 warehouse logistics, and transportation to drive your success.
@@ -101,24 +101,24 @@ export default function VideoHero() {
                 <div className="w-16 h-16 mx-auto bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
                   <Users className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold">Expert Staffing</h3>
-                <p className="text-gray-300">Professional recruitment and staffing solutions</p>
+                <h3 className="text-xl font-semibold text-white">Expert Staffing</h3>
+                <p className="text-base text-gray-300">Professional recruitment and staffing solutions</p>
               </div>
               
               <div className="text-center space-y-4">
                 <div className="w-16 h-16 mx-auto bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
                   <Building2 className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold">Warehouse Services</h3>
-                <p className="text-gray-300">Complete logistics and warehouse management</p>
+                <h3 className="text-xl font-semibold text-white">Warehouse Services</h3>
+                <p className="text-base text-gray-300">Complete logistics and warehouse management</p>
               </div>
               
               <div className="text-center space-y-4">
                 <div className="w-16 h-16 mx-auto bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
                   <Truck className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold">Transportation</h3>
-                <p className="text-gray-300">Reliable transportation and delivery solutions</p>
+                <h3 className="text-xl font-semibold text-white">Transportation</h3>
+                <p className="text-base text-gray-300">Reliable transportation and delivery solutions</p>
               </div>
             </div>
 

@@ -36,7 +36,7 @@ export default function Hero() {
                 <span className="text-gradient-3d">Every</span>{" "}
                 Business Need.
               </h1>
-              <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 px-2 sm:px-0">
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0">
                 From staffing and recruitment to e-commerce and warehouse services, we deliver comprehensive business solutions that drive growth across Canada.
               </p>
             </div>

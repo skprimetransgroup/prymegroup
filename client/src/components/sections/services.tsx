@@ -59,14 +59,14 @@ export default function Services() {
                   </div>
                   
                   <h3 
-                    className="text-2xl font-bold text-foreground mb-4 text-center"
+                    className="text-xl font-semibold text-foreground text-center"
                     data-testid={`division-title-${index + 1}`}
                   >
                     {division.title}
                   </h3>
                   
                   <p 
-                    className="text-muted-foreground mb-6 text-center leading-relaxed"
+                    className="text-base text-muted-foreground text-center leading-relaxed"
                     data-testid={`division-description-${index + 1}`}
                   >
                     {division.description}

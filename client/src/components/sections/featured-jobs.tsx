@@ -93,7 +93,7 @@ export default function FeaturedJobs() {
                 <div className={`w-10 h-10 sm:w-12 sm:h-12 mx-auto bg-${category.color}-100 rounded-lg flex items-center justify-center mb-3 sm:mb-4`}>
                   <Icon className={`h-5 w-5 sm:h-6 sm:w-6 text-${category.color}-600`} />
                 </div>
-                <h3 className="text-sm sm:text-base font-semibold text-foreground mb-1 text-3d leading-tight">{category.name}</h3>
+                <h3 className="text-base font-semibold text-foreground">{category.name}</h3>
                 <p className="text-xs sm:text-sm text-muted-foreground">{category.count} Jobs</p>
               </Link>
             );
