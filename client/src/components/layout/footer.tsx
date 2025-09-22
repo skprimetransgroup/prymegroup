@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Facebook, Twitter, Linkedin, MessageCircle, MapPin, Phone, Mail, Clock } from "lucide-react";
+import { Facebook, Linkedin, MessageCircle, MapPin, Phone, Mail, Clock } from "lucide-react";
 import primeLogoPath from "@assets/Footer logo new_1758575059952.png";
 
 export default function Footer() {
@@ -28,13 +28,6 @@ export default function Footer() {
                 data-testid="link-social-facebook"
               >
                 <Facebook className="h-5 w-5" />
-              </a>
-              <a 
-                href="#" 
-                className="text-secondary-foreground/60 hover:text-primary transition-colors nav-item-3d"
-                data-testid="link-social-twitter"
-              >
-                <Twitter className="h-5 w-5" />
               </a>
               <a 
                 href="http://linkedin.com/company/prymetransgroup/?originalSubdomain=ca" 
