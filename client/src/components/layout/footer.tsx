@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { Facebook, Twitter, Linkedin, Instagram, MapPin, Phone, Mail, Clock } from "lucide-react";
-import primeLogoPath from "@assets/image_1758574985109.png";
+import primeLogoPath from "@assets/Footer logo new_1758575059952.png";
 
 export default function Footer() {
   return (
