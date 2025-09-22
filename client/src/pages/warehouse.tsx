@@ -221,7 +221,7 @@ export default function Warehouse() {
                             {/* Icon Background with Enhanced Gradient */}
                             <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-primary/20 to-secondary/30 rounded-2xl transform rotate-6 group-hover:rotate-12 transition-transform duration-500"></div>
                             <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 via-transparent to-primary/20 rounded-2xl transform -rotate-6 group-hover:-rotate-12 transition-transform duration-500"></div>
-                            <div className="relative w-full h-full bg-gradient-to-br from-primary/40 to-secondary/40 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/20 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                            <div className="relative w-full h-full bg-gradient-to-br from-primary/40 to-secondary/40 rounded-2xl flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-all duration-300 shadow-lg">
                               <Icon className="h-10 w-10 text-white drop-shadow-sm" />
                             </div>
                           </div>
