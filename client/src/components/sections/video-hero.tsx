@@ -3,8 +3,8 @@ import { Users, Truck, Building2, Handshake, Star, Award, TrendingUp } from "luc
 import { useState } from "react";
 import CinematicBusiness3D from "@/components/hero/cinematic-business-3d";
 
-// Object Storage video URL - Updated video
-const heroVideoPath = "/api/public/Office_new_updated.mp4";
+// Temporary fallback to local file while object storage syncs
+const heroVideoPath = "/api/public/Office_new.mp4";
 
 export default function VideoHero() {
   const [showFallback, setShowFallback] = useState(false);
