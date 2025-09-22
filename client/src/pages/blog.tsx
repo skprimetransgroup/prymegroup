@@ -9,9 +9,19 @@ import { Input } from "@/components/ui/input";
 import { Calendar, Clock, ArrowRight, BookOpen, Search, TrendingUp, Users, Target, Filter, Tag, User } from "lucide-react";
 import type { BlogPost } from "@shared/schema";
 
+interface Stats {
+  jobs: number;
+  employers: number;
+  hired: number;
+}
+
 export default function Blog() {
   const { data: posts, isLoading } = useQuery<BlogPost[]>({
     queryKey: ["/api/blog"],
+  });
+  
+  const { data: stats, isLoading: statsLoading } = useQuery<Stats>({
+    queryKey: ["/api/stats"],
   });
 
   return (
@@ -70,19 +80,37 @@ export default function Blog() {
               </div>
             </div>
             
-            {/* Professional Stats */}
+            {/* Real-Time Professional Stats */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-3xl mx-auto">
               <div className="text-center">
-                <div className="text-3xl lg:text-4xl font-bold text-primary mb-2">10K+</div>
-                <div className="text-sm text-muted-foreground font-medium">Professionals Helped</div>
+                <div className="text-3xl lg:text-4xl font-bold text-primary mb-2" data-testid="stat-professionals">
+                  {statsLoading ? (
+                    <div className="animate-pulse bg-primary/20 rounded h-10 w-20 mx-auto"></div>
+                  ) : (
+                    `${stats?.hired.toLocaleString()}+`
+                  )}
+                </div>
+                <div className="text-sm text-muted-foreground font-medium">Professionals Hired</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl lg:text-4xl font-bold text-primary mb-2">150+</div>
-                <div className="text-sm text-muted-foreground font-medium">Expert Articles</div>
+                <div className="text-3xl lg:text-4xl font-bold text-primary mb-2" data-testid="stat-jobs">
+                  {statsLoading ? (
+                    <div className="animate-pulse bg-primary/20 rounded h-10 w-20 mx-auto"></div>
+                  ) : (
+                    `${stats?.jobs.toLocaleString()}+`
+                  )}
+                </div>
+                <div className="text-sm text-muted-foreground font-medium">Job Opportunities</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl lg:text-4xl font-bold text-primary mb-2">Weekly</div>
-                <div className="text-sm text-muted-foreground font-medium">Fresh Insights</div>
+                <div className="text-3xl lg:text-4xl font-bold text-primary mb-2" data-testid="stat-employers">
+                  {statsLoading ? (
+                    <div className="animate-pulse bg-primary/20 rounded h-10 w-20 mx-auto"></div>
+                  ) : (
+                    `${stats?.employers.toLocaleString()}+`
+                  )}
+                </div>
+                <div className="text-sm text-muted-foreground font-medium">Partner Employers</div>
               </div>
             </div>
           </div>
