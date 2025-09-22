@@ -31,7 +31,7 @@ export default function Hero() {
           {/* Hero Content - Mobile Optimized */}
           <div className="space-y-6 sm:space-y-8 text-center lg:text-left">
             <div className="space-y-3 sm:space-y-4">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight text-3d">
+              <h1 className="text-3xl lg:text-4xl font-bold text-foreground text-3d">
                 Discover Solutions for{" "}
                 <span className="text-gradient-3d">Every</span>{" "}
                 Business Need.

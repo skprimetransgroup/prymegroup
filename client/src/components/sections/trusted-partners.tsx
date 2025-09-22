@@ -20,7 +20,7 @@ export default function TrustedPartners() {
         {/* Header */}
         <div className="text-center mb-16">
           <div className="text-sm font-semibold text-primary mb-3 uppercase tracking-wider">Industry Leaders</div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-6 text-3d">
+          <h2 className="text-3xl lg:text-4xl font-bold text-foreground text-3d">
             Trusted Partners
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">

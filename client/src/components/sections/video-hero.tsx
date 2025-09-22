@@ -71,7 +71,7 @@ export default function VideoHero() {
             
             {/* Professional Headline */}
             <div className="space-y-6">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+              <h1 className="text-3xl lg:text-4xl font-bold text-white text-3d">
                 Canada's <span className="text-primary font-black">Leading</span>
                 <br />
                 <span className="relative">

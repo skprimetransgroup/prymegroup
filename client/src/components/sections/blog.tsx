@@ -29,7 +29,7 @@ export default function Blog() {
             <Sparkles className="w-4 h-4 ml-2" />
           </div>
           
-          <h2 className="text-4xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+          <h2 className="text-3xl lg:text-4xl font-bold text-foreground text-3d">
             Latest from our Blog
           </h2>
           

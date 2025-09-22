@@ -76,7 +76,7 @@ export default function FeaturedJobs() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16">
           <div className="text-sm font-semibold text-primary mb-2">Employers Offering Job</div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-3 sm:mb-4 text-3d px-2 sm:px-0">Our Featured Job Categories</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold text-foreground text-3d">Our Featured Job Categories</h2>
         </div>
 
         {/* Job Categories - Mobile Optimized */}

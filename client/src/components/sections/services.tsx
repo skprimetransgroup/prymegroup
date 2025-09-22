@@ -34,7 +34,7 @@ export default function Services() {
     <section id="services" className="py-16 lg:py-24 bg-gradient-to-br from-background via-muted/20 to-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">Our Business Divisions</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold text-foreground text-3d">Our Business Divisions</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Three specialized divisions working together to deliver comprehensive business solutions across Canada
           </p>

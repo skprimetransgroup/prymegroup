@@ -14,7 +14,7 @@ export default function WhyChooseUs() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
           <div className="space-y-6 sm:space-y-8 text-center lg:text-left">
             <div className="space-y-3 sm:space-y-4">
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground leading-tight px-2 sm:px-0">
+              <h2 className="text-3xl lg:text-4xl font-bold text-foreground text-3d">
                 Why we are one of the best workforce solution providers since 2016.
               </h2>
               <p className="text-base sm:text-lg text-muted-foreground px-2 sm:px-0">

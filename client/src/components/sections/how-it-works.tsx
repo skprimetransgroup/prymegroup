@@ -24,7 +24,7 @@ export default function HowItWorks() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16">
           <div className="text-sm font-semibold text-primary mb-2">Looking for a Job?</div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-3 sm:mb-4 px-2 sm:px-0">See How it Works</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold text-foreground text-3d">See How it Works</h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4 sm:px-0">
             Our streamlined process makes finding your next opportunity simple and efficient.
           </p>
