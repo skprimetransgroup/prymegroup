@@ -3,11 +3,12 @@ import TestimonialCard from "@/components/ui/testimonial-card";
 import Carousel3D from "@/components/effects/carousel-3d";
 import type { Testimonial } from "@shared/schema";
 import { Star, Quote } from "lucide-react";
-import ryderLogo from "@assets/1_1758573580140.png";
-import timHortonsLogo from "@assets/2_1758573580139.png";
-import redGeometricLogo from "@assets/3_1758573580138.png";
-import vitranLogo from "@assets/4_1758573580138.png";
-import tforceLogo from "@assets/5_1758573580141.png";
+// Using API routes for asset serving
+const ryderLogo = "/api/public/1_1758573580140.png";
+const timHortonsLogo = "/api/public/2_1758573580139.png";
+const redGeometricLogo = "/api/public/3_1758573580138.png";
+const vitranLogo = "/api/public/4_1758573580138.png";
+const tforceLogo = "/api/public/5_1758573580141.png";
 
 const clientLogos = [
   { name: "Ryder", logo: ryderLogo },
