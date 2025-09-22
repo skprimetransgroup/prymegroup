@@ -3,9 +3,8 @@ import { Users, Truck, Building2, Handshake, Star, Award, TrendingUp } from "luc
 import { useState } from "react";
 import CinematicBusiness3D from "@/components/hero/cinematic-business-3d";
 
-// Use Vite static assets (works in both dev and published versions)
-import videoSrc from "/assets/Office_new.mp4?url";
-const heroVideoPath = videoSrc;
+// Use attached assets via @assets alias (works in published versions)
+import officeVideo from "@assets/Office_new.mp4";
 
 export default function VideoHero() {
   const [showFallback, setShowFallback] = useState(false);
@@ -31,20 +30,20 @@ export default function VideoHero() {
           data-testid="hero-video"
           onError={(e) => {
             console.log('Video failed to load:', e);
-            console.log('Video source:', heroVideoPath);
+            console.log('Video source:', officeVideo);
             setShowFallback(true);
           }}
           onLoadStart={() => {
-            console.log('Video loading started from:', heroVideoPath);
+            console.log('Video loading started from:', officeVideo);
           }}
           onCanPlay={() => {
-            console.log('Video can play:', heroVideoPath);
+            console.log('Video can play:', officeVideo);
           }}
           onLoadedData={() => {
-            console.log('Video loaded data:', heroVideoPath);
+            console.log('Video loaded data:', officeVideo);
           }}
         >
-          <source src={heroVideoPath} type="video/mp4" />
+          <source src={officeVideo} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         
