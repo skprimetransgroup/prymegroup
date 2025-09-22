@@ -1,4 +1,4 @@
-import { Users, ShoppingCart, Warehouse, Truck } from "lucide-react";
+import { Users, Warehouse, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 
@@ -10,14 +10,6 @@ const businessDivisions = [
     features: ["Expert Recruitment", "Permanent & Contract", "Payroll Management"],
     link: "/jobs",
     buttonText: "Find Jobs"
-  },
-  {
-    icon: ShoppingCart,
-    title: "E-commerce Store", 
-    description: "Browse our comprehensive product catalog featuring quality items from trusted suppliers. Shop online with confidence and convenience.",
-    features: ["Quality Products", "Trusted Suppliers", "Secure Shopping"],
-    link: "/shop",
-    buttonText: "Shop Now"
   },
   {
     icon: Warehouse,
@@ -44,11 +36,11 @@ export default function Services() {
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">Our Business Divisions</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Four specialized divisions working together to deliver comprehensive business solutions across Canada
+            Three specialized divisions working together to deliver comprehensive business solutions across Canada
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {businessDivisions.map((division, index) => {
             const Icon = division.icon;
             return (
