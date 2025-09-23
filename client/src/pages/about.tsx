@@ -65,7 +65,7 @@ export default function About() {
                   {/* Enhanced Stats */}
                   <div className="grid grid-cols-2 gap-4 mt-8">
                     <div className="text-center p-4 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl border border-primary/10">
-                      <div className="text-2xl font-bold text-primary">2018</div>
+                      <div className="text-2xl font-bold text-primary">2016</div>
                       <div className="text-sm text-muted-foreground">Founded</div>
                     </div>
                     <div className="text-center p-4 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl border border-primary/10">
