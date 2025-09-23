@@ -9,6 +9,15 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const isActive = (path: string) => location === path;
+  
+  const handleMobileNavClick = () => {
+    setIsMobileMenuOpen(false);
+    // Smooth scroll to top
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
 
   const navItems = [
     { label: "Home", path: "/" },
@@ -95,7 +104,7 @@ export default function Header() {
                   className={`block px-3 py-2 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors ${
                     isActive(item.path) ? "text-primary bg-muted" : ""
                   }`}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={handleMobileNavClick}
                   data-testid={`link-mobile-${item.label.toLowerCase()}`}
                 >
                   {item.label}
@@ -106,6 +115,7 @@ export default function Header() {
                   variant="outline"
                   size="sm"
                   className="w-full mt-4"
+                  onClick={handleMobileNavClick}
                   data-testid="button-mobile-find-job"
                 >
                   Find Job
@@ -115,6 +125,7 @@ export default function Header() {
                 <Button
                   size="sm"
                   className="w-full mt-2"
+                  onClick={handleMobileNavClick}
                   data-testid="button-mobile-post-job"
                 >
                   Post Job
