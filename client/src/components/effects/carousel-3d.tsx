@@ -1,45 +1,73 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 interface Carousel3DProps {
   children: React.ReactNode[];
   autoPlay?: boolean;
-  interval?: number;
+  speed?: number;
 }
 
-export default function Carousel3D({ children, autoPlay = true, interval = 4000 }: Carousel3DProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(autoPlay);
-  const trackRef = useRef<HTMLDivElement>(null);
+export default function Carousel3D({ children, autoPlay = true, speed = 50 }: Carousel3DProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!isPlaying) return;
+    if (!autoPlay || !scrollRef.current) return;
 
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % children.length);
-    }, interval);
-
-    return () => clearInterval(timer);
-  }, [children.length, interval, isPlaying]);
-
-  const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % children.length);
-  };
-
+    const scrollContainer = scrollRef.current;
+    let animationId: number;
+    
+    const scroll = () => {
+      if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
+        scrollContainer.scrollLeft = 0;
+      } else {
+        scrollContainer.scrollLeft += 1;
+      }
+      animationId = requestAnimationFrame(scroll);
+    };
+    
+    const startScrolling = () => {
+      animationId = requestAnimationFrame(scroll);
+    };
+    
+    // Start after a brief delay
+    const timer = setTimeout(startScrolling, 100);
+    
+    return () => {
+      clearTimeout(timer);
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
+  }, [autoPlay]);
 
   return (
     <div className="carousel-3d relative w-full h-full overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-r from-white via-transparent to-white z-10 pointer-events-none" />
       <div
-        ref={trackRef}
-        className="flex h-full transition-transform duration-1000 ease-in-out will-change-transform"
-        style={{ transform: `translate3d(${-currentIndex * 100}%, 0, 0)` }}
+        ref={scrollRef}
+        className="flex h-full overflow-hidden whitespace-nowrap"
+        style={{
+          scrollBehavior: 'auto',
+          WebkitOverflowScrolling: 'touch'
+        }}
       >
-        {children.map((child, index) => (
-          <div key={index} className="flex-none w-full h-full">
-            <div className="w-full h-full flex items-center justify-center">
-              {child}
+        <div className="flex h-full animate-marquee">
+          {/* First set of logos */}
+          {children.map((child, index) => (
+            <div key={`first-${index}`} className="flex-shrink-0 h-full px-8 flex items-center justify-center">
+              <div className="h-16 w-auto flex items-center justify-center">
+                {child}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+          {/* Duplicate set for seamless loop */}
+          {children.map((child, index) => (
+            <div key={`second-${index}`} className="flex-shrink-0 h-full px-8 flex items-center justify-center">
+              <div className="h-16 w-auto flex items-center justify-center">
+                {child}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
