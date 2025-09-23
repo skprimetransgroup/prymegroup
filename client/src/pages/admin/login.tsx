@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff, Shield, Lock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { useAdminAuth } from "@/hooks/use-admin-auth";
+import { useAdminAuth } from "@/hooks/use-admin-auth-simple";
 import primeLogoPath from "@assets/Prime Group_Final (1)_1756488511870.png";
 
 export default function AdminLoginPage() {

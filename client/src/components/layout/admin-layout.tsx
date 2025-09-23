@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { useAdminAuth } from "@/hooks/use-admin-auth";
+import { useAdminAuth } from "@/hooks/use-admin-auth-simple";
 import { Button } from "@/components/ui/button";
 import { 
   LayoutDashboard, 
