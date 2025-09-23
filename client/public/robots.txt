@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# Allow access to public assets
+Allow: /assets/
+Allow: /favicon.png
+Allow: /logo.png
+Allow: /og-image.png
+Allow: /twitter-card.png
+
+# Sitemap location
+Sitemap: https://primetransgroup.ca/sitemap.xml

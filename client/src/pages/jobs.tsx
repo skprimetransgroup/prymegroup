@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import SEOManager, { SEOConfigs } from "@/components/seo/SEOManager";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,6 +23,9 @@ const staffingVideo = "/Staffing-latest.mp4";
 export default function Jobs() {
   const [location] = useLocation();
   const videoRef = useRef<HTMLVideoElement>(null);
+  
+  // SEO Manager for Jobs page
+  const seoData = SEOConfigs.jobs;
   const [filters, setFilters] = useState<SearchFilters>({
     query: "",
     location: "",
@@ -157,6 +161,7 @@ export default function Jobs() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOManager data={seoData} />
       <Header />
 
       {/* Video Hero Section - Mobile Optimized */}

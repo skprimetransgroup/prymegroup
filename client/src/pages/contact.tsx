@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import SEOManager, { SEOConfigs } from "@/components/seo/SEOManager";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -65,6 +66,7 @@ export default function Contact() {
   if (isSubmitted) {
     return (
       <div className="min-h-screen bg-background">
+        <SEOManager data={SEOConfigs.contact} />
         <Header />
         <div className="container mx-auto px-4 py-20">
           <div className="max-w-2xl mx-auto text-center">
@@ -104,6 +106,7 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOManager data={SEOConfigs.contact} />
       <Header />
       
       {/* Enhanced Hero Section */}

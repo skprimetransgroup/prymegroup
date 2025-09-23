@@ -161,7 +161,7 @@ export const SEOConfigs = {
     title: "Prime Trans Group - Canada's Leading Business Solutions | Staffing, Warehouse & Transportation",
     description: "Prime Trans Group provides comprehensive workforce solutions across Canada. Expert staffing services, warehouse operations, and transportation logistics. Connect with Canada's most trusted business solutions provider.",
     keywords: "Prime Trans Group, staffing services Canada, warehouse solutions, transportation logistics, workforce solutions, Canadian employment, job placement, business solutions",
-    canonicalUrl: '/',
+    canonicalUrl: 'https://primetransgroup.ca/',
     ogType: 'website' as const,
     structuredData: {
       "@context": "https://schema.org",
@@ -182,7 +182,7 @@ export const SEOConfigs = {
     title: "Job Opportunities in Canada | Prime Trans Group Careers",
     description: "Find rewarding career opportunities with Prime Trans Group. Browse current job openings in staffing, warehouse operations, and transportation across Canada. Apply today!",
     keywords: "jobs Canada, employment opportunities, careers Prime Trans Group, staffing jobs, warehouse jobs, transportation careers, Canadian job market",
-    canonicalUrl: '/jobs',
+    canonicalUrl: 'https://primetransgroup.ca/jobs',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "JobPostingList",
@@ -195,7 +195,7 @@ export const SEOConfigs = {
     title: "Comprehensive Business Solutions | Prime Trans Group Services",
     description: "Discover Prime Trans Group's full range of business solutions including professional staffing, warehouse management, and transportation logistics across Canada.",
     keywords: "business solutions Canada, professional staffing services, warehouse management, transportation logistics, workforce solutions, Canadian business services",
-    canonicalUrl: '/services',
+    canonicalUrl: 'https://primetransgroup.ca/services',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "Service",
@@ -212,7 +212,7 @@ export const SEOConfigs = {
     title: "Industry Insights & Career Advice | Prime Trans Group Blog",
     description: "Stay informed with the latest industry insights, career advice, and workforce trends from Prime Trans Group's blog. Expert guidance for job seekers and employers.",
     keywords: "career advice, industry insights, workforce trends, job search tips, employment blog, Canadian job market, business insights",
-    canonicalUrl: '/blog',
+    canonicalUrl: 'https://primetransgroup.ca/blog',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "Blog",
@@ -225,7 +225,7 @@ export const SEOConfigs = {
     title: "Contact Prime Trans Group | Get in Touch with Canada's Workforce Experts",
     description: "Contact Prime Trans Group for all your workforce solution needs. Reach out to our expert team for staffing, warehouse, and transportation services across Canada.",
     keywords: "contact Prime Trans Group, workforce solutions contact, Canadian staffing services, business solutions contact, employment services",
-    canonicalUrl: '/contact',
+    canonicalUrl: 'https://primetransgroup.ca/contact',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "ContactPage",
@@ -238,12 +238,80 @@ export const SEOConfigs = {
     title: "About Prime Trans Group | Canada's Trusted Workforce Solutions Provider",
     description: "Learn about Prime Trans Group's history, mission, and commitment to providing exceptional workforce solutions across Canada. Discover why we're Canada's trusted partner.",
     keywords: "about Prime Trans Group, company history, workforce solutions provider, Canadian business, staffing company history, business mission",
-    canonicalUrl: '/about',
+    canonicalUrl: 'https://primetransgroup.ca/about',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "AboutPage",
       "name": "About Prime Trans Group",
       "description": "Learn about Canada's leading workforce solutions provider"
+    }
+  },
+
+  warehouse: {
+    title: "Warehouse Solutions & Operations | Prime Trans Group",
+    description: "Professional warehouse operations and storage solutions across Canada. Expert warehouse management, inventory control, and distribution services for businesses of all sizes.",
+    keywords: "warehouse solutions Canada, warehouse management, inventory control, distribution services, storage solutions, warehouse operations",
+    canonicalUrl: 'https://primetransgroup.ca/warehouse',
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Warehouse Solutions",
+      "description": "Professional warehouse management and distribution services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Prime Trans Group"
+      }
+    }
+  },
+
+  staffing: {
+    title: "Professional Staffing Services | Prime Trans Group Canada",
+    description: "Expert staffing and recruitment services across Canada. Find top talent for temporary, permanent, and contract positions in all industries with Prime Trans Group.",
+    keywords: "staffing services Canada, recruitment services, temporary staffing, permanent placement, contract staffing, workforce solutions",
+    canonicalUrl: 'https://primetransgroup.ca/staffing',
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Staffing Services",
+      "description": "Professional staffing and recruitment services across Canada",
+      "provider": {
+        "@type": "Organization",
+        "name": "Prime Trans Group"
+      }
+    }
+  },
+
+  transportation: {
+    title: "Transportation & Freight Services | Prime Trans Group Canada",
+    description: "Professional transportation and freight services across Canada. Full truckload, LTL, expedited shipping with verified carriers. Get instant quote - 24/7 support.",
+    keywords: "transportation services Canada, freight services, logistics, trucking, shipping, Canadian transportation",
+    canonicalUrl: 'https://primetransgroup.ca/transportation',
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "TransportService",
+      "name": "Transportation Services",
+      "description": "Professional transportation and freight services across Canada",
+      "provider": {
+        "@type": "Organization",
+        "name": "Prime Trans Group"
+      }
+    }
+  },
+
+  postJob: {
+    title: "Post a Job | Prime Trans Group - Hire Top Canadian Talent",
+    description: "Post your job openings with Prime Trans Group and connect with qualified candidates across Canada. Fast, efficient hiring solutions for all industries.",
+    keywords: "post job Canada, hire employees, job posting, recruitment services, Canadian talent, workforce hiring",
+    canonicalUrl: 'https://primetransgroup.ca/post-job',
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Post a Job",
+      "description": "Post job openings and connect with qualified candidates",
+      "provider": {
+        "@type": "Organization",
+        "name": "Prime Trans Group"
+      }
     }
   }
 };

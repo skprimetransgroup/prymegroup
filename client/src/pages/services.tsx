@@ -1,5 +1,6 @@
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import SEOManager, { SEOConfigs } from "@/components/seo/SEOManager";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Truck, Building2, Users, Calculator, CheckCircle, Star, ArrowRight, Shield, Clock, Target } from "lucide-react";
@@ -84,6 +85,7 @@ const benefits = [
 export default function Services() {
   return (
     <div className="min-h-screen bg-background">
+      <SEOManager data={SEOConfigs.services} />
       <Header />
       
       {/* Hero Section */}

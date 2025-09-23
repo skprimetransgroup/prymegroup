@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import SEOManager, { SEOConfigs } from "@/components/seo/SEOManager";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -26,6 +27,7 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOManager data={SEOConfigs.blog} />
       <Header />
       
       {/* Professional Hero Section */}

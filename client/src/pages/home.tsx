@@ -10,10 +10,12 @@ import FeaturedJobs from "@/components/sections/featured-jobs";
 import CTA from "@/components/sections/cta";
 import TrustedPartners from "@/components/sections/trusted-partners";
 import Blog from "@/components/sections/blog";
+import SEOManager, { SEOConfigs } from "@/components/seo/SEOManager";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-background relative">
+      <SEOManager data={SEOConfigs.home} />
       <Header />
       <main className="relative z-10">
         <VideoHero />

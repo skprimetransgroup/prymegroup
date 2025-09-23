@@ -1,5 +1,6 @@
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import SEOManager, { SEOConfigs } from "@/components/seo/SEOManager";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -111,9 +112,7 @@ export default function Warehouse() {
 
   return (
     <>
-      {/* SEO Meta Tags */}
-      <title>Warehouse Services - Prime Trans Group</title>
-      <meta name="description" content="Professional warehouse and distribution services across Canada. Storage solutions, inventory management, and logistics support from trusted partners." />
+      <SEOManager data={SEOConfigs.warehouse} />
       
       <div className="min-h-screen bg-background">
         <Header />
