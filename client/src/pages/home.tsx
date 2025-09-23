@@ -9,6 +9,7 @@ import Services from "@/components/sections/services";
 import FeaturedJobs from "@/components/sections/featured-jobs";
 import CTA from "@/components/sections/cta";
 import TrustedPartners from "@/components/sections/trusted-partners";
+import TechCarousel from "@/components/sections/tech-carousel";
 import Blog from "@/components/sections/blog";
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
         <HowItWorks />
         <WhyChooseUs />
         <Services />
+        <TechCarousel />
         <FeaturedJobs />
         <CTA />
         <TrustedPartners />
