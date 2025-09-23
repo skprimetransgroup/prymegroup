@@ -49,7 +49,7 @@ export default function About() {
                 <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
               </div>
               
-              <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="grid md:grid-cols-2 gap-8 items-start">
                 <div className="space-y-6">
                   <div className="group">
                     <p className="text-lg text-muted-foreground leading-relaxed group-hover:text-foreground transition-colors duration-300">
@@ -75,9 +75,9 @@ export default function About() {
                   </div>
                 </div>
                 
-                <div className="relative group">
+                <div className="relative group h-fit">
                   <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur opacity-50 group-hover:opacity-75 transition duration-500"></div>
-                  <div className="relative bg-gradient-to-br from-background via-background/90 to-background/70 p-8 rounded-2xl border border-border/50 shadow-lg">
+                  <div className="relative bg-gradient-to-br from-background via-background/90 to-background/70 p-6 rounded-2xl border border-border/50 shadow-lg">
                     <div className="flex items-center justify-center w-20 h-20 bg-gradient-to-br from-white to-gray-50 rounded-full mb-6 mx-auto shadow-lg border-2 border-primary/20 group-hover:scale-110 transition-transform duration-300">
                       <img 
                         src={primeLogoPath} 
@@ -212,7 +212,7 @@ export default function About() {
               </div>
               
               {/* Status Bar */}
-              <div className="mt-8">
+              <div className="mt-6">
                 <div className="inline-flex items-center gap-4 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full px-6 py-3 backdrop-blur-sm border border-primary/20">
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
