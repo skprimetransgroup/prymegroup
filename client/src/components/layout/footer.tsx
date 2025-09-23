@@ -12,8 +12,8 @@ export default function Footer() {
             <Link href="/" className="flex items-center space-x-3" data-testid="link-footer-logo">
               <img 
                 src={primeLogoPath} 
-                alt="Hopewell Group" 
-                className="h-12 w-auto"
+                alt="Prime Trans Group" 
+                className="h-16 w-auto"
               />
             </Link>
             <p className="text-sm text-secondary-foreground/80 max-w-xs">
