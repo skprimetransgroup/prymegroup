@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
-// Direct from client/public (same as staffing page)
+// Use same route as staffing page
 const officeVideo = "/Office-latest.mp4";
 
 export default function VideoHero() {
