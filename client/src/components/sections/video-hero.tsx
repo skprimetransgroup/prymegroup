@@ -40,7 +40,7 @@ export default function VideoHero() {
   return (
     <section className="relative overflow-hidden">
       {/* Video on Top - Mobile Optimized */}
-      <div className="relative w-full bg-gray-900 min-h-[35vh] sm:min-h-[40vh] md:min-h-[50vh] flex items-center justify-center">
+      <div className="relative w-full bg-gray-900 min-h-[25vh] sm:min-h-[30vh] md:min-h-[35vh] flex items-center justify-center">
         {/* Video element - always rendered */}
         <video
           ref={videoRef}
@@ -72,13 +72,13 @@ export default function VideoHero() {
       </div>
 
       {/* Professional Content Section */}
-      <div className="relative bg-gradient-to-br from-black via-gray-900 to-black text-white py-8 sm:py-12 lg:py-16 overflow-hidden">
+      <div className="relative bg-gradient-to-br from-black via-gray-900 to-black text-white py-6 sm:py-8 lg:py-12 overflow-hidden">
         {/* Subtle Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-secondary/5"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-6xl mx-auto space-y-6 sm:space-y-8 lg:space-y-10">
+          <div className="text-center max-w-6xl mx-auto space-y-4 sm:space-y-6 lg:space-y-8">
             {/* Professional Headline */}
             <div className="space-y-6">
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white text-3d">
