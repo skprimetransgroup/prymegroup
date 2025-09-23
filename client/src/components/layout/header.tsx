@@ -10,11 +10,14 @@ export default function Header() {
 
   const isActive = (path: string) => location === path;
   
-  const handleMobileNavClick = (targetPath: string) => {
-    setIsMobileMenuOpen(false);
+  const handleNavClick = (targetPath: string, e: React.MouseEvent, isMobile = false) => {
+    if (isMobile) {
+      setIsMobileMenuOpen(false);
+    }
     
-    // If clicking Home button while already on homepage, just scroll to top
+    // If clicking Home button while already on homepage, prevent navigation and scroll to top
     if (targetPath === '/' && location === '/') {
+      e.preventDefault();
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
@@ -22,7 +25,8 @@ export default function Header() {
       return;
     }
     
-    // For other cases, scroll to top after navigation
+    // For other pages, allow navigation to proceed normally
+    // The browser will handle the navigation, and we'll scroll after a brief delay
     setTimeout(() => {
       window.scrollTo({
         top: 0,
@@ -67,6 +71,9 @@ export default function Header() {
                 className={`nav-item-3d text-foreground hover:text-primary transition-colors font-medium ${
                   isActive(item.path) ? "text-primary" : ""
                 }`}
+                onClick={(e) => {
+                  handleNavClick(item.path, e, false);
+                }}
                 data-testid={`link-nav-${item.label.toLowerCase()}`}
               >
                 {item.label}
@@ -117,11 +124,7 @@ export default function Header() {
                     isActive(item.path) ? "text-primary bg-muted" : ""
                   }`}
                   onClick={(e) => {
-                    // If clicking Home while on homepage, prevent navigation and just scroll
-                    if (item.path === '/' && location === '/') {
-                      e.preventDefault();
-                    }
-                    handleMobileNavClick(item.path);
+                    handleNavClick(item.path, e, true);
                   }}
                   data-testid={`link-mobile-${item.label.toLowerCase()}`}
                 >
@@ -133,7 +136,15 @@ export default function Header() {
                   variant="outline"
                   size="sm"
                   className="w-full mt-4"
-                  onClick={() => handleMobileNavClick('/jobs')}
+                  onClick={(e) => {
+                    setIsMobileMenuOpen(false);
+                    setTimeout(() => {
+                      window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                      });
+                    }, 100);
+                  }}
                   data-testid="button-mobile-find-job"
                 >
                   Find Job
@@ -143,7 +154,15 @@ export default function Header() {
                 <Button
                   size="sm"
                   className="w-full mt-2"
-                  onClick={() => handleMobileNavClick('/post-job')}
+                  onClick={(e) => {
+                    setIsMobileMenuOpen(false);
+                    setTimeout(() => {
+                      window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                      });
+                    }, 100);
+                  }}
                   data-testid="button-mobile-post-job"
                 >
                   Post Job
