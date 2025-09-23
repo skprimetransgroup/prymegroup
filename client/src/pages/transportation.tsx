@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import SEOManager, { SEOConfigs } from "@/components/seo/SEOManager";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -341,6 +342,7 @@ export default function Transportation() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOManager data={SEOConfigs.transportation} />
       <Header />
       
       {/* Hero Section with Video Background - Mobile Optimized */}

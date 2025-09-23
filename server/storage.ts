@@ -61,6 +61,7 @@ export interface IStorage {
 
   // Statistics
   getStats(): Promise<{ jobs: number; employers: number; hired: number }>;
+  getDashboardStats(): Promise<{ jobs: number; blogPosts: number; testimonials: number; applications: number }>;
 }
 
 export class MemStorage implements IStorage {
@@ -1035,6 +1036,20 @@ Source: Canadian Job Bank`,
       jobs: jobs + 734, // Base number from original site
       employers: employers + 370, // Base number from original site
       hired,
+    };
+  }
+
+  async getDashboardStats(): Promise<{ jobs: number; blogPosts: number; testimonials: number; applications: number }> {
+    const jobs = Array.from(this.jobs.values()).filter(job => job.status === "approved").length;
+    const blogPosts = Array.from(this.blogPosts.values()).filter(post => post.published).length;
+    const testimonials = this.testimonials.size;
+    const applications = this.jobApplications.size;
+    
+    return {
+      jobs,
+      blogPosts,
+      testimonials,
+      applications,
     };
   }
 }

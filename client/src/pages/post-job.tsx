@@ -14,6 +14,7 @@ import primeLogoPath from "@assets/Prime Group_Final (1)_1756488511870.png";
 import { publicJobSchema } from "@shared/schema";
 import type { z } from "zod";
 import Header from "@/components/layout/header";
+import SEOManager, { SEOConfigs } from "@/components/seo/SEOManager";
 
 type JobFormData = z.infer<typeof publicJobSchema>;
 
@@ -131,6 +132,7 @@ export default function PostJobPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOManager data={SEOConfigs.postJob} />
       <Header />
       
       {/* Hero Section - Mobile Optimized */}

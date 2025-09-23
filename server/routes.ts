@@ -594,6 +594,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Dashboard stats for admin
+  app.get("/api/admin/dashboard/stats", requireAdminAuth, async (req, res) => {
+    try {
+      const stats = await storage.getDashboardStats();
+      res.json(stats);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch dashboard statistics" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

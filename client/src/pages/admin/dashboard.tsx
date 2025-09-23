@@ -6,36 +6,36 @@ import { ProtectedAdminRoute } from "@/components/admin/protected-route";
 import type { Job, JobApplication } from "@shared/schema";
 
 export default function AdminDashboard() {
-  const { data: stats } = useQuery<{jobs: number; employers: number; hired: number}>({ 
-    queryKey: ["/api/stats"]
+  const { data: dashboardStats } = useQuery<{jobs: number; blogPosts: number; testimonials: number; applications: number}>({ 
+    queryKey: ["/api/admin/dashboard/stats"]
   });
 
   const quickStats = [
     {
       title: "Total Jobs",
-      value: stats?.jobs || 0,
+      value: dashboardStats?.jobs || 0,
       description: "Active job listings",
       icon: Briefcase,
       color: "text-blue-600"
     },
     {
       title: "Blog Posts",
-      value: "12",
+      value: dashboardStats?.blogPosts || 0,
       description: "Published articles",
       icon: FileText,
       color: "text-green-600"
     },
     {
       title: "Testimonials",
-      value: "8",
+      value: dashboardStats?.testimonials || 0,
       description: "Client reviews",
       icon: MessageSquare,
       color: "text-purple-600"
     },
     {
       title: "Applications",
-      value: "156",
-      description: "This month",
+      value: dashboardStats?.applications || 0,
+      description: "Total applications",
       icon: Users,
       color: "text-orange-600"
     }
@@ -55,12 +55,12 @@ export default function AdminDashboard() {
     ...recentJobs.slice(0, 3).map(job => ({
       action: "Job posted",
       item: job.title,
-      time: formatTimeAgo(job.postedAt),
+      time: formatTimeAgo(job.postedAt || undefined),
     })),
     ...recentApplications.slice(0, 3).map(app => ({
       action: "New application",
       item: `Application for Job ID: ${app.jobId}`,
-      time: formatTimeAgo(app.appliedAt),
+      time: formatTimeAgo(app.appliedAt || undefined),
     })),
   ].sort((a, b) => {
     // Sort by most recent first
@@ -125,15 +125,22 @@ export default function AdminDashboard() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {recentActivity.map((activity, index) => (
-                  <div key={index} className="flex items-center justify-between py-2 border-b border-border last:border-0">
-                    <div>
-                      <p className="text-sm font-medium">{activity.action}</p>
-                      <p className="text-sm text-muted-foreground">{activity.item}</p>
+                {recentActivity.length > 0 ? (
+                  recentActivity.map((activity, index) => (
+                    <div key={index} className="flex items-center justify-between py-2 border-b border-border last:border-0">
+                      <div>
+                        <p className="text-sm font-medium">{activity.action}</p>
+                        <p className="text-sm text-muted-foreground">{activity.item}</p>
+                      </div>
+                      <span className="text-xs text-muted-foreground">{activity.time}</span>
                     </div>
-                    <span className="text-xs text-muted-foreground">{activity.time}</span>
+                  ))
+                ) : (
+                  <div className="text-center py-8 text-muted-foreground">
+                    <p className="text-sm">No recent activity</p>
+                    <p className="text-xs mt-1">Activity will appear here as jobs are posted and applications are received</p>
                   </div>
-                ))}
+                )}
               </div>
             </CardContent>
           </Card>
