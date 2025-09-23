@@ -25,11 +25,15 @@ export default function Header() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3" data-testid="link-logo">
+          <Link 
+            href="/" 
+            className="flex items-center space-x-3 cursor-pointer transition-all duration-300 hover:scale-105 hover:opacity-90" 
+            data-testid="link-logo"
+          >
             <img 
               src={primeLogoPath} 
-              alt="Group Workforce Solutions" 
-              className="h-12 lg:h-16 w-auto"
+              alt="Prime Trans Group - Home" 
+              className="h-12 lg:h-16 w-auto transition-transform duration-300"
             />
           </Link>
 
