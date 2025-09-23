@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AdminAuthProvider } from "@/hooks/use-admin-auth";
 import { ScrollRestoration } from "@/hooks/use-scroll-restoration";
 import MobileBottomNav from "@/components/layout/mobile-bottom-nav";
+import PWAInstallPrompt from "@/components/pwa/PWAInstallPrompt";
 import Home from "@/pages/home";
 import Jobs from "@/pages/jobs";
 import JobDetail from "@/pages/job-detail";
@@ -58,6 +59,7 @@ function Router() {
         <Route component={NotFound} />
       </Switch>
       <MobileBottomNav />
+      <PWAInstallPrompt />
     </>
   );
 }
