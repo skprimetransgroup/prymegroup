@@ -4,17 +4,18 @@ import { Download, X } from "lucide-react";
 
 interface BeforeInstallPromptEvent extends Event {
   prompt(): Promise<void>;
-  userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform: string }>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed"; platform: string }>;
 }
 
 export default function PWAInstallPrompt() {
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [deferredPrompt, setDeferredPrompt] =
+    useState<BeforeInstallPromptEvent | null>(null);
   const [showInstallPrompt, setShowInstallPrompt] = useState(false);
 
   useEffect(() => {
     // Check if device is Android
     const isAndroid = /Android/i.test(navigator.userAgent);
-    
+
     if (!isAndroid) {
       return; // Don't show on iOS or other devices
     }
@@ -28,16 +29,19 @@ export default function PWAInstallPrompt() {
       setShowInstallPrompt(true);
     };
 
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
 
     // Hide the prompt if app is already installed
-    window.addEventListener('appinstalled', () => {
+    window.addEventListener("appinstalled", () => {
       setShowInstallPrompt(false);
       setDeferredPrompt(null);
     });
 
     return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener(
+        "beforeinstallprompt",
+        handleBeforeInstallPrompt,
+      );
     };
   }, []);
 
@@ -50,10 +54,10 @@ export default function PWAInstallPrompt() {
     // Wait for the user to respond to the prompt
     const { outcome } = await deferredPrompt.userChoice;
 
-    if (outcome === 'accepted') {
-      console.log('User accepted the install prompt');
+    if (outcome === "accepted") {
+      console.log("User accepted the install prompt");
     } else {
-      console.log('User dismissed the install prompt');
+      console.log("User dismissed the install prompt");
     }
 
     // Clear the deferredPrompt
@@ -64,12 +68,12 @@ export default function PWAInstallPrompt() {
   const handleDismiss = () => {
     setShowInstallPrompt(false);
     // Set a flag to not show again for this session
-    sessionStorage.setItem('pwa-install-dismissed', 'true');
+    sessionStorage.setItem("pwa-install-dismissed", "true");
   };
 
   // Don't show if dismissed in this session
   useEffect(() => {
-    const dismissed = sessionStorage.getItem('pwa-install-dismissed');
+    const dismissed = sessionStorage.getItem("pwa-install-dismissed");
     if (dismissed) {
       setShowInstallPrompt(false);
     }
@@ -88,8 +92,12 @@ export default function PWAInstallPrompt() {
               <Download className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h3 className="text-white font-semibold text-sm">Install Prime Trans</h3>
-              <p className="text-white/80 text-xs">Get quick access to our services</p>
+              <h3 className="text-white font-semibold text-sm">
+                Install Prime Trans Group
+              </h3>
+              <p className="text-white/80 text-xs">
+                Get quick access to our services
+              </p>
             </div>
           </div>
           <button
@@ -100,7 +108,7 @@ export default function PWAInstallPrompt() {
             <X className="w-4 h-4" />
           </button>
         </div>
-        
+
         <div className="flex space-x-2">
           <Button
             onClick={handleInstallClick}
