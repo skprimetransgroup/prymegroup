@@ -10,8 +10,8 @@ import {
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
-// Use same route as staffing page
-const officeVideo = "/api/public/Office-latest.mp4";
+// Direct from client/public (same as staffing page)
+const officeVideo = "/Office-latest.mp4";
 
 export default function VideoHero() {
   const [showFallback, setShowFallback] = useState(false);
@@ -20,19 +20,19 @@ export default function VideoHero() {
   useEffect(() => {
     if (videoRef.current) {
       const video = videoRef.current;
-      
-      const handleLoadStart = () => console.log('Video loading started');
-      const handleCanPlay = () => console.log('Video can start playing');
-      const handleError = (e: Event) => console.error('Video error:', e);
-      
-      video.addEventListener('loadstart', handleLoadStart);
-      video.addEventListener('canplay', handleCanPlay);
-      video.addEventListener('error', handleError);
-      
+
+      const handleLoadStart = () => console.log("Video loading started");
+      const handleCanPlay = () => console.log("Video can start playing");
+      const handleError = (e: Event) => console.error("Video error:", e);
+
+      video.addEventListener("loadstart", handleLoadStart);
+      video.addEventListener("canplay", handleCanPlay);
+      video.addEventListener("error", handleError);
+
       return () => {
-        video.removeEventListener('loadstart', handleLoadStart);
-        video.removeEventListener('canplay', handleCanPlay);
-        video.removeEventListener('error', handleError);
+        video.removeEventListener("loadstart", handleLoadStart);
+        video.removeEventListener("canplay", handleCanPlay);
+        video.removeEventListener("error", handleError);
       };
     }
   }, []);
