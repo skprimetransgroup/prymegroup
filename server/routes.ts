@@ -400,7 +400,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/admin/blog", requireAdminAuth, async (req, res) => {
     try {
       const blogData = insertBlogPostSchema.parse(req.body);
-      const post = await storage.createBlogPost(blogData);
+      const post = await storage.createBlogPost({
+        ...blogData,
+        publishedAt: blogData.published ? new Date() : null,
+      });
       res.status(201).json(post);
     } catch (error) {
       if (error instanceof z.ZodError) {
