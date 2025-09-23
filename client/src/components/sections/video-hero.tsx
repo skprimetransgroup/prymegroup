@@ -10,8 +10,8 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-// Use public/ so the URL is stable in prod
-const officeVideo = "/Office-latest.mp4";
+// Use API route to serve video files
+const officeVideo = "/api/public/Office-latest.mp4";
 
 export default function VideoHero() {
   const [showFallback, setShowFallback] = useState(false);
