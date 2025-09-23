@@ -40,11 +40,10 @@ export default function Carousel3D({ children, autoPlay = true, speed = 50 }: Ca
   }, [autoPlay]);
 
   return (
-    <div className="carousel-3d relative w-full h-full overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-r from-white via-transparent to-white z-10 pointer-events-none" />
+    <div className="carousel-3d w-full h-full overflow-hidden">
       <div
         ref={scrollRef}
-        className="flex h-full overflow-hidden whitespace-nowrap"
+        className="flex h-full w-full overflow-hidden whitespace-nowrap"
         style={{
           scrollBehavior: 'auto',
           WebkitOverflowScrolling: 'touch'
