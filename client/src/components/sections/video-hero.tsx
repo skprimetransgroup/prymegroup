@@ -10,8 +10,8 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-// Use API route to serve video files
-const officeVideo = "/api/public/Office-latest.mp4";
+// Static file served by Vite from client/public/
+const officeVideo = "/Office-latest.mp4";
 
 export default function VideoHero() {
   const [showFallback, setShowFallback] = useState(false);
@@ -21,6 +21,7 @@ export default function VideoHero() {
       <div className="relative w-full bg-gray-900 min-h-[40vh] sm:min-h-[50vh] md:min-h-[60vh] flex items-center justify-center">
         {/* Video element - always rendered */}
         <video
+          src={`${officeVideo}?v=20250923`}
           autoPlay
           loop
           muted
@@ -49,10 +50,7 @@ export default function VideoHero() {
           onLoadedData={() => {
             console.log("Video loaded data:", officeVideo);
           }}
-        >
-          <source src={officeVideo} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        />
 
         {/* Fallback content when video fails - positioned above video */}
         {showFallback && (
