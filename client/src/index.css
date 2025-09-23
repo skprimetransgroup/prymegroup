@@ -62,36 +62,6 @@
 }
 
 @layer utilities {
-  /* Moving Carousel Animations */
-  @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
-  }
-
-  .animate-scroll-15s {
-    animation: scroll 15s linear infinite;
-  }
-
-  .animate-scroll-30s {
-    animation: scroll 30s linear infinite;
-  }
-
-  .animate-scroll-50s {
-    animation: scroll 50s linear infinite;
-  }
-
-  .animate-reverse {
-    animation-direction: reverse;
-  }
-
-  .animate-pause {
-    animation-play-state: paused;
-  }
-
   /* 3D Container Setup */
   .container-3d {
     perspective: 1200px;
