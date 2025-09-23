@@ -424,8 +424,8 @@ export default function Jobs() {
               className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
               data-testid="jobs-grid"
             >
-              {jobs.map((job) => (
-                <JobCard key={job.id} job={job} />
+              {jobs.map((job, index) => (
+                <JobCard key={job.id} job={job} isNew={index === 0} />
               ))}
             </div>
           )}

@@ -41,6 +41,19 @@ export default function AdminJobs() {
     queryKey: ["/api/jobs/pending"]
   });
 
+  // Sort jobs by newest first (client-side backup for consistency)
+  const sortedJobs = [...jobs].sort((a, b) => {
+    const aTime = a.postedAt ? new Date(a.postedAt).getTime() : 0;
+    const bTime = b.postedAt ? new Date(b.postedAt).getTime() : 0;
+    return bTime - aTime;
+  });
+
+  const sortedPendingJobs = [...pendingJobs].sort((a, b) => {
+    const aTime = a.postedAt ? new Date(a.postedAt).getTime() : 0;
+    const bTime = b.postedAt ? new Date(b.postedAt).getTime() : 0;
+    return bTime - aTime;
+  });
+
   const updateJobStatusMutation = useMutation({
     mutationFn: async ({ jobId, status }: { jobId: string; status: 'approved' | 'denied' }) => {
       const response = await fetch(`/api/jobs/${jobId}/status`, {
@@ -138,14 +151,26 @@ export default function AdminJobs() {
     }
   };
 
-  const renderJobCard = (job: Job, showActions = false) => (
+  const renderJobCard = (job: Job, showActions = false, isNew = false) => (
     <Card key={job.id} className="hover:shadow-lg transition-shadow">
       <CardHeader className="p-4 sm:p-6">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 sm:gap-4">
           <div className="flex-1 min-w-0">
-            <CardTitle className="text-lg sm:text-xl leading-tight" data-testid={`job-title-${job.id}`}>
-              {job.title}
-            </CardTitle>
+            <div className="flex items-center gap-2 mb-2">
+              <CardTitle className="text-lg sm:text-xl leading-tight" data-testid={`job-title-${job.id}`}>
+                {job.title}
+              </CardTitle>
+              {isNew && (
+                <Badge 
+                  variant="destructive" 
+                  className="bg-red-600 text-white text-xs font-bold px-2 py-1"
+                  data-testid="badge-new-admin"
+                  aria-label="New job posting"
+                >
+                  NEW
+                </Badge>
+              )}
+            </div>
             <CardDescription className="mt-2 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-0">
               <div className="flex items-center">
                 <MapPin className="h-3 w-3 sm:h-4 sm:w-4 mr-1 shrink-0" />
@@ -456,9 +481,9 @@ export default function AdminJobs() {
             </TabsList>
 
             <TabsContent value="pending" className="space-y-4 sm:space-y-6">
-              {pendingJobs.length > 0 ? (
+              {sortedPendingJobs.length > 0 ? (
                 <div className="grid gap-4 sm:gap-6">
-                  {pendingJobs.map((job) => renderJobCard(job, true))}
+                  {sortedPendingJobs.map((job, index) => renderJobCard(job, true, index === 0))}
                 </div>
               ) : (
                 <Card>
@@ -476,7 +501,7 @@ export default function AdminJobs() {
             <TabsContent value="approved" className="space-y-4 sm:space-y-6">
               {jobs.length > 0 ? (
                 <div className="grid gap-4 sm:gap-6">
-                  {jobs.map((job) => renderJobCard(job, false))}
+                  {sortedJobs.map((job, index) => renderJobCard(job, false, index === 0))}
                 </div>
               ) : (
                 <Card>
