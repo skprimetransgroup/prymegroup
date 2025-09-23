@@ -1,18 +1,44 @@
 import { Button } from "@/components/ui/button";
-import { Users, Truck, Building2, Handshake, Star, Award, TrendingUp } from "lucide-react";
-import { useState } from "react";
+import { Users, Truck, Building2, Handshake, Star, Award, TrendingUp, Play } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 
 // Use public/ so the URL is stable in prod
 const officeVideo = "/Office-latest.mp4";
 
 export default function VideoHero() {
   const [showFallback, setShowFallback] = useState(false);
+  const [userInteracted, setUserInteracted] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  
+  useEffect(() => {
+    const handleUserInteraction = () => {
+      setUserInteracted(true);
+      if (videoRef.current) {
+        videoRef.current.play().catch(error => {
+          console.log('Video autoplay failed:', error);
+          setShowFallback(true);
+        });
+      }
+    };
+    
+    // Add event listeners for user interactions
+    document.addEventListener('click', handleUserInteraction, { once: true });
+    document.addEventListener('touchstart', handleUserInteraction, { once: true });
+    document.addEventListener('keydown', handleUserInteraction, { once: true });
+    
+    return () => {
+      document.removeEventListener('click', handleUserInteraction);
+      document.removeEventListener('touchstart', handleUserInteraction);
+      document.removeEventListener('keydown', handleUserInteraction);
+    };
+  }, []);
   return (
     <section className="relative overflow-hidden">
       {/* Video on Top - Mobile Optimized */}
       <div className="relative w-full bg-gray-900 min-h-[40vh] sm:min-h-[50vh] md:min-h-[60vh] flex items-center justify-center">
         {/* Video element - always rendered */}
         <video 
+          ref={videoRef}
           autoPlay 
           loop 
           muted 
@@ -35,8 +61,16 @@ export default function VideoHero() {
           onLoadStart={() => {
             console.log('Video loading started from:', officeVideo);
           }}
-          onCanPlay={() => {
+          onCanPlay={async () => {
             console.log('Video can play:', officeVideo);
+            if (!userInteracted) {
+              try {
+                await videoRef.current?.play();
+              } catch (error) {
+                console.log('Video autoplay prevented by browser');
+                // Don't set fallback immediately, wait for user interaction
+              }
+            }
           }}
           onLoadedData={() => {
             console.log('Video loaded data:', officeVideo);
@@ -45,6 +79,22 @@ export default function VideoHero() {
           <source src={officeVideo} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
+        
+        {/* Play button overlay for when autoplay is prevented */}
+        {!userInteracted && (
+          <div className="absolute inset-0 z-20 bg-black/20 flex items-center justify-center">
+            <button 
+              onClick={() => {
+                setUserInteracted(true);
+                videoRef.current?.play().catch(() => setShowFallback(true));
+              }}
+              className="bg-white/90 hover:bg-white rounded-full p-4 transition-all duration-300 hover:scale-110"
+              aria-label="Play video"
+            >
+              <Play className="w-8 h-8 text-gray-800 ml-1" fill="currentColor" />
+            </button>
+          </div>
+        )}
         
         {/* Fallback content when video fails - positioned above video */}
         {showFallback && (
