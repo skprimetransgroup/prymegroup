@@ -70,13 +70,7 @@ export default function AdminJobs() {
 
   const createJobMutation = useMutation({
     mutationFn: async (jobData: typeof newJobData) => {
-      return apiRequest("/api/jobs", {
-        method: "POST",
-        body: JSON.stringify(jobData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      return apiRequest("POST", "/api/jobs", jobData);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/jobs"] });
