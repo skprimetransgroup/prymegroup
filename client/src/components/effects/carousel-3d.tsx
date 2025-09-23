@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -11,6 +11,12 @@ interface Carousel3DProps {
 export default function Carousel3D({ children, autoPlay = true, interval = 4000 }: Carousel3DProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
+  const [isDragging, setIsDragging] = useState(false);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const startX = useRef(0);
+  const currentX = useRef(0);
+  const dragOffset = useRef(0);
 
   useEffect(() => {
     if (!isPlaying) return;
@@ -34,35 +40,99 @@ export default function Carousel3D({ children, autoPlay = true, interval = 4000 
     setCurrentIndex((prev) => (prev + 1) % children.length);
   };
 
-  const getSlideClass = (index: number) => {
-    if (index === currentIndex) return "carousel-slide active";
-    if (index === (currentIndex - 1 + children.length) % children.length) return "carousel-slide prev";
-    if (index === (currentIndex + 1) % children.length) return "carousel-slide next";
-    return "carousel-slide";
+  const handlePointerDown = (e: React.PointerEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+    setIsPlaying(false);
+    startX.current = e.clientX;
+    currentX.current = e.clientX;
+    dragOffset.current = 0;
+    
+    // Capture pointer for better drag handling
+    e.currentTarget.setPointerCapture(e.pointerId);
+    
+    if (trackRef.current) {
+      trackRef.current.style.cursor = 'grabbing';
+      trackRef.current.style.transition = 'none';
+    }
   };
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (!isDragging || !trackRef.current || !containerRef.current) return;
+    
+    e.preventDefault();
+    currentX.current = e.clientX;
+    dragOffset.current = currentX.current - startX.current;
+    
+    // Use container width (viewport), not track width
+    const containerWidth = containerRef.current.offsetWidth;
+    const dragPercentage = (dragOffset.current / containerWidth) * 100;
+    const translateX = -currentIndex * 100 + dragPercentage;
+    
+    trackRef.current.style.transform = `translate3d(${translateX}%, 0, 0)`;
+  };
+
+  const handlePointerUp = (e: React.PointerEvent) => {
+    if (!isDragging || !trackRef.current || !containerRef.current) return;
+    
+    setIsDragging(false);
+    const containerWidth = containerRef.current.offsetWidth;
+    const threshold = containerWidth * 0.2; // 20% of container width
+    
+    // Release pointer capture
+    e.currentTarget.releasePointerCapture(e.pointerId);
+    
+    trackRef.current.style.cursor = 'grab';
+    trackRef.current.style.transition = 'transform 0.5s ease-out';
+    
+    if (Math.abs(dragOffset.current) > threshold) {
+      if (dragOffset.current > 0) {
+        goToPrevious();
+      } else {
+        goToNext();
+      }
+    } else {
+      // Snap back to current position
+      trackRef.current.style.transform = `translate3d(${-currentIndex * 100}%, 0, 0)`;
+    }
+    
+    dragOffset.current = 0;
+    
+    setTimeout(() => {
+      if (autoPlay) setIsPlaying(true);
+    }, 100);
+  };
+
+  useEffect(() => {
+    if (trackRef.current && !isDragging) {
+      trackRef.current.style.transform = `translate3d(${-currentIndex * 100}%, 0, 0)`;
+    }
+  }, [currentIndex, isDragging]);
 
   return (
     <div 
       className="carousel-3d relative w-full h-full"
-      onMouseEnter={() => setIsPlaying(false)}
-      onMouseLeave={() => setIsPlaying(autoPlay)}
+      onMouseEnter={() => !isDragging && setIsPlaying(false)}
+      onMouseLeave={() => !isDragging && setIsPlaying(autoPlay)}
     >
-      <div className="relative overflow-hidden h-full">
-        {children.map((child, index) => (
-          <div
-            key={index}
-            className={`${getSlideClass(index)} absolute inset-0 flex items-center justify-center transition-all duration-700 ease-in-out`}
-            style={{
-              zIndex: index === currentIndex ? 10 : 5,
-              opacity: index === currentIndex ? 1 : 0,
-              transform: index === currentIndex ? 'scale(1)' : 'scale(0.95)',
-            }}
-          >
-            <div className="w-full h-full flex items-center justify-center">
-              {child}
+      <div ref={containerRef} className="relative w-full h-full overflow-hidden">
+        <div
+          ref={trackRef}
+          className="flex h-full transition-transform duration-500 ease-out will-change-transform touch-pan-y cursor-grab select-none"
+          style={{ transform: `translate3d(${-currentIndex * 100}%, 0, 0)` }}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
+        >
+          {children.map((child, index) => (
+            <div key={index} className="flex-none w-full h-full">
+              <div className="w-full h-full flex items-center justify-center">
+                {child}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       {/* Professional Navigation Buttons */}
