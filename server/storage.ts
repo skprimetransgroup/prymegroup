@@ -89,6 +89,15 @@ export class MemStorage implements IStorage {
   }
 
   private seedData() {
+    // Generate realistic recent timestamps
+    const now = new Date();
+    const twoHoursAgo = new Date(now.getTime() - (2 * 60 * 60 * 1000));
+    const oneDayAgo = new Date(now.getTime() - (24 * 60 * 60 * 1000));
+    const threeDaysAgo = new Date(now.getTime() - (3 * 24 * 60 * 60 * 1000));
+    const fiveDaysAgo = new Date(now.getTime() - (5 * 24 * 60 * 60 * 1000));
+    const oneWeekAgo = new Date(now.getTime() - (7 * 24 * 60 * 60 * 1000));
+    const twoWeeksAgo = new Date(now.getTime() - (14 * 24 * 60 * 60 * 1000));
+
     // Seed jobs
     const sampleJobs: Job[] = [
       {
@@ -105,7 +114,7 @@ export class MemStorage implements IStorage {
         status: "approved",
         contactEmail: "hr@primemanufacturing.com",
         contactPhone: "+1 (555) 123-4567",
-        postedAt: new Date("2022-12-29"),
+        postedAt: twoHoursAgo,
         expiresAt: null,
       },
       {
@@ -122,7 +131,7 @@ export class MemStorage implements IStorage {
         status: "approved",
         contactEmail: "jobs@logisticsplus.com",
         contactPhone: "+1 (555) 234-5678",
-        postedAt: new Date("2022-12-29"),
+        postedAt: oneDayAgo,
         expiresAt: null,
       },
       {
@@ -139,7 +148,7 @@ export class MemStorage implements IStorage {
         status: "approved",
         contactEmail: "careers@expressdelivery.com",
         contactPhone: "+1 (555) 345-6789",
-        postedAt: new Date("2022-12-29"),
+        postedAt: threeDaysAgo,
         expiresAt: null,
       },
       {
@@ -156,7 +165,7 @@ export class MemStorage implements IStorage {
         status: "approved",
         contactEmail: "hiring@freshbake.com",
         contactPhone: "+1 (555) 456-7890",
-        postedAt: new Date("2022-12-29"),
+        postedAt: fiveDaysAgo,
         expiresAt: null,
       },
       {
@@ -173,7 +182,7 @@ export class MemStorage implements IStorage {
         status: "approved",
         contactEmail: "talent@techinnovations.com",
         contactPhone: "+1 (555) 567-8901",
-        postedAt: new Date("2022-12-27"),
+        postedAt: oneWeekAgo,
         expiresAt: null,
       },
       {
@@ -190,7 +199,7 @@ export class MemStorage implements IStorage {
         status: "approved",
         contactEmail: "admin@corpsolutions.com",
         contactPhone: "+1 (555) 678-9012",
-        postedAt: new Date("2022-12-26"),
+        postedAt: twoWeeksAgo,
         expiresAt: null,
       },
     ];
