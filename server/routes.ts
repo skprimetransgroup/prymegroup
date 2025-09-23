@@ -243,6 +243,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
 
+  // Update job (admin only)
+  app.put("/api/jobs/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const jobData = insertJobSchema.parse(req.body);
+      const job = await storage.updateJob(req.params.id, jobData);
+      if (!job) {
+        return res.status(404).json({ message: "Job not found" });
+      }
+      res.json(job);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid job data", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to update job" });
+    }
+  });
+
+  // Delete job (admin only)
+  app.delete("/api/jobs/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const deleted = await storage.deleteJob(req.params.id);
+      if (!deleted) {
+        return res.status(404).json({ message: "Job not found" });
+      }
+      res.json({ message: "Job deleted successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to delete job" });
+    }
+  });
+
   // Approve/Deny job (admin only)
   app.patch("/api/jobs/:id/status", requireAdminAuth, async (req, res) => {
     try {
