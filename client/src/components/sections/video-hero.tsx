@@ -11,7 +11,7 @@ import {
 import { useState } from "react";
 
 // Use public/ so the URL is stable in prod
-const officeVideo = "/Office-latests.mp4";
+const officeVideo = "/Office-latest.mp4";
 
 export default function VideoHero() {
   const [showFallback, setShowFallback] = useState(false);
