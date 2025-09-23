@@ -54,7 +54,7 @@ export default function TrustedPartners() {
         {/* Trust Indicators */}
         <div className="mt-16 grid md:grid-cols-3 gap-8 text-center">
           <div className="space-y-2">
-            <div className="text-2xl font-bold text-primary">15+</div>
+            <div className="text-2xl font-bold text-primary">9+</div>
             <div className="text-base text-muted-foreground font-medium">Years of Partnership</div>
           </div>
           <div className="space-y-2">
