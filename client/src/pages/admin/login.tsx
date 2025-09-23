@@ -6,11 +6,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff, Shield, Lock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAdminAuth } from "@/hooks/use-admin-auth";
 import primeLogoPath from "@assets/Prime Group_Final (1)_1756488511870.png";
 
 export default function AdminLoginPage() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
+  const { login } = useAdminAuth();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -38,29 +40,16 @@ export default function AdminLoginPage() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/admin/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
+      const success = await login(formData.username, formData.password);
+      
+      if (success) {
         toast({
           title: "Login successful",
-          description: `Welcome back, ${data.username}!`,
+          description: `Welcome back, ${formData.username}!`,
         });
         setLocation("/admin");
-      } else {
-        toast({
-          title: "Login failed",
-          description: data.message || "Invalid credentials",
-          variant: "destructive",
-        });
       }
+      // Error handling is done within the login function from useAdminAuth
     } catch (error) {
       toast({
         title: "Connection error",
