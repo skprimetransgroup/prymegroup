@@ -210,26 +210,6 @@ export default function About() {
                   View Our Services
                 </Button>
               </div>
-              
-              {/* Status Bar */}
-              <div className="mt-6">
-                <div className="inline-flex items-center gap-4 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full px-6 py-3 backdrop-blur-sm border border-primary/20">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="text-sm font-medium text-foreground">Available Now</span>
-                  </div>
-                  <div className="w-px h-4 bg-border"></div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-500"></div>
-                    <span className="text-sm font-medium text-foreground">Free Consultation</span>
-                  </div>
-                  <div className="w-px h-4 bg-border"></div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse delay-1000"></div>
-                    <span className="text-sm font-medium text-foreground">Quick Response</span>
-                  </div>
-                </div>
-              </div>
             </div>
           </section>
 
