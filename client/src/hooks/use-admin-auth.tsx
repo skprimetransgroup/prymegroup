@@ -13,13 +13,14 @@ type AdminAuthContextType = {
   checkAuth: () => Promise<void>;
 };
 
-export const AdminAuthContext = createContext<AdminAuthContextType | undefined>(undefined);
+const AdminAuthContext = createContext<AdminAuthContextType | null>(null);
 
 export function AdminAuthProvider({ children }: { children: ReactNode }) {
   const [adminUser, setAdminUser] = useState<AdminUser>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const checkAuth = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch("/api/admin/me", {
         credentials: 'include',
@@ -58,11 +59,9 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
         });
         return true;
       } else {
-        console.error("Login failed:", data.message || "Invalid credentials");
         return false;
       }
     } catch (error) {
-      console.error("Connection error: Unable to connect to server");
       return false;
     }
   };
@@ -77,7 +76,6 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
       console.error("Logout error:", error);
     } finally {
       setAdminUser(null);
-      console.log("Successfully logged out");
     }
   };
 
@@ -101,7 +99,9 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
 }
 
 export function useAdminAuth() {
-  const ctx = useContext(AdminAuthContext);
-  if (!ctx) throw new Error('useAdminAuth must be used within AdminAuthProvider');
-  return ctx;
+  const context = useContext(AdminAuthContext);
+  if (!context) {
+    throw new Error('useAdminAuth must be used within AdminAuthProvider');
+  }
+  return context;
 }

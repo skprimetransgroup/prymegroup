@@ -3,7 +3,7 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { AdminAuthProvider } from "@/hooks/use-admin-auth-simple";
+import { AdminAuthProvider } from "@/hooks/use-admin-auth";
 import { ScrollRestoration } from "@/hooks/use-scroll-restoration";
 import MobileBottomNav from "@/components/layout/mobile-bottom-nav";
 import PWAInstallPrompt from "@/components/pwa/PWAInstallPrompt";

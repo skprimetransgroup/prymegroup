@@ -12,7 +12,7 @@ import { Settings as SettingsIcon, User, Bell, Shield, Database, Mail, Globe, Sa
 import { useToast } from "@/hooks/use-toast";
 import AdminLayout from "@/components/layout/admin-layout";
 import { ProtectedAdminRoute } from "@/components/admin/protected-route";
-import { useAdminAuth } from "@/hooks/use-admin-auth-simple";
+import { useAdminAuth } from "@/hooks/use-admin-auth";
 
 export default function AdminSettings() {
   const { toast } = useToast();

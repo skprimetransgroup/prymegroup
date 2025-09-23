@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "wouter";
-import { useAdminAuth } from "@/hooks/use-admin-auth-simple";
+import { useAdminAuth } from "@/hooks/use-admin-auth";
 import { Loader2 } from "lucide-react";
 
 interface ProtectedAdminRouteProps {
