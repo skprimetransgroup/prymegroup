@@ -10,13 +10,25 @@ export default function Header() {
 
   const isActive = (path: string) => location === path;
   
-  const handleMobileNavClick = () => {
+  const handleMobileNavClick = (targetPath: string) => {
     setIsMobileMenuOpen(false);
-    // Smooth scroll to top
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    
+    // If clicking Home button while already on homepage, just scroll to top
+    if (targetPath === '/' && location === '/') {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      return;
+    }
+    
+    // For other cases, scroll to top after navigation
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }, 100);
   };
 
   const navItems = [
@@ -104,7 +116,13 @@ export default function Header() {
                   className={`block px-3 py-2 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors ${
                     isActive(item.path) ? "text-primary bg-muted" : ""
                   }`}
-                  onClick={handleMobileNavClick}
+                  onClick={(e) => {
+                    // If clicking Home while on homepage, prevent navigation and just scroll
+                    if (item.path === '/' && location === '/') {
+                      e.preventDefault();
+                    }
+                    handleMobileNavClick(item.path);
+                  }}
                   data-testid={`link-mobile-${item.label.toLowerCase()}`}
                 >
                   {item.label}
@@ -115,7 +133,7 @@ export default function Header() {
                   variant="outline"
                   size="sm"
                   className="w-full mt-4"
-                  onClick={handleMobileNavClick}
+                  onClick={() => handleMobileNavClick('/jobs')}
                   data-testid="button-mobile-find-job"
                 >
                   Find Job
@@ -125,7 +143,7 @@ export default function Header() {
                 <Button
                   size="sm"
                   className="w-full mt-2"
-                  onClick={handleMobileNavClick}
+                  onClick={() => handleMobileNavClick('/post-job')}
                   data-testid="button-mobile-post-job"
                 >
                   Post Job
