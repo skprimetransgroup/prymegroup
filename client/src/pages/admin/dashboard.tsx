@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Briefcase, FileText, MessageSquare, Users, TrendingUp, Eye } from "lucide-react";
 import AdminLayout from "@/components/layout/admin-layout";
@@ -6,6 +7,7 @@ import { ProtectedAdminRoute } from "@/components/admin/protected-route";
 import type { Job, JobApplication } from "@shared/schema";
 
 export default function AdminDashboard() {
+  const [, setLocation] = useLocation();
   const { data: dashboardStats } = useQuery<{jobs: number; blogPosts: number; testimonials: number; applications: number}>({ 
     queryKey: ["/api/admin/dashboard/stats"]
   });
@@ -152,50 +154,53 @@ export default function AdminDashboard() {
               <CardDescription>Common management tasks</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
-              <a 
-                href="/admin/jobs/new" 
+              <div 
+                onClick={() => setLocation("/admin/jobs")} 
                 className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer"
+                data-testid="button-post-job"
               >
                 <div className="flex items-center">
                   <Briefcase className="h-4 w-4 mr-3 text-primary" />
-                  <span className="font-medium">Post New Job</span>
+                  <span className="font-medium">Manage Jobs</span>
                 </div>
                 <span className="text-sm text-muted-foreground">→</span>
-              </a>
+              </div>
               
-              <a 
-                href="/admin/blog/new" 
+              <div 
+                onClick={() => setLocation("/admin/blog")} 
                 className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer"
+                data-testid="button-write-blog"
               >
                 <div className="flex items-center">
                   <FileText className="h-4 w-4 mr-3 text-primary" />
-                  <span className="font-medium">Write Blog Post</span>
+                  <span className="font-medium">Manage Blog Posts</span>
                 </div>
                 <span className="text-sm text-muted-foreground">→</span>
-              </a>
+              </div>
               
-              <a 
-                href="/admin/testimonials/new" 
+              <div 
+                onClick={() => setLocation("/admin/testimonials")} 
                 className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer"
+                data-testid="button-add-testimonial"
               >
                 <div className="flex items-center">
                   <MessageSquare className="h-4 w-4 mr-3 text-primary" />
-                  <span className="font-medium">Add Testimonial</span>
+                  <span className="font-medium">Manage Testimonials</span>
                 </div>
                 <span className="text-sm text-muted-foreground">→</span>
-              </a>
+              </div>
 
-              <a 
-                href="/" 
-                target="_blank"
+              <div 
+                onClick={() => window.open("/", "_blank")} 
                 className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer"
+                data-testid="button-view-site"
               >
                 <div className="flex items-center">
                   <Eye className="h-4 w-4 mr-3 text-primary" />
                   <span className="font-medium">View Live Site</span>
                 </div>
                 <span className="text-sm text-muted-foreground">↗</span>
-              </a>
+              </div>
             </CardContent>
           </Card>
         </div>
