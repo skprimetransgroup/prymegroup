@@ -5,6 +5,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { Plus, Edit, Trash2, Eye, Calendar, FileText, Users } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
@@ -18,6 +22,8 @@ export default function AdminBlog() {
   const queryClient = useQueryClient();
   const [, setLocation] = useLocation();
   const [deleteDialogOpen, setDeleteDialogOpen] = useState<string | null>(null);
+  const [editDialogOpen, setEditDialogOpen] = useState<string | null>(null);
+  const [editFormData, setEditFormData] = useState<Partial<BlogPost>>({});
   
   const { data: blogPosts = [] } = useQuery<BlogPost[]>({ 
     queryKey: ["/api/admin/blog"]
@@ -46,17 +52,57 @@ export default function AdminBlog() {
     },
   });
 
+  const updateMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: string; data: Partial<BlogPost> }) => {
+      return apiRequest(`/api/admin/blog/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/blog"] });
+      toast({
+        title: "Success",
+        description: "Blog post updated successfully",
+      });
+      setEditDialogOpen(null);
+      setEditFormData({});
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to update blog post",
+        variant: "destructive",
+      });
+    },
+  });
+
   const handleView = (post: BlogPost) => {
     window.open(`/blog/${post.slug}`, "_blank");
   };
 
   const handleEdit = (post: BlogPost) => {
-    // For now, we'll just show a message. In a full implementation, 
-    // you'd navigate to an edit form or open a modal
-    toast({
-      title: "Edit Feature",
-      description: "Edit functionality would open here for: " + post.title,
+    setEditFormData({
+      title: post.title,
+      excerpt: post.excerpt,
+      content: post.content,
+      imageUrl: post.imageUrl || "",
+      slug: post.slug,
+      published: post.published || false,
     });
+    setEditDialogOpen(post.id);
+  };
+
+  const handleSaveEdit = () => {
+    if (editDialogOpen && editFormData) {
+      updateMutation.mutate({ 
+        id: editDialogOpen, 
+        data: editFormData 
+      });
+    }
   };
 
   const handleDelete = (id: string) => {
@@ -103,15 +149,94 @@ export default function AdminBlog() {
             <Eye className="h-4 w-4 mr-1" />
             View
           </Button>
-          <Button 
-            size="sm" 
-            variant="outline" 
-            onClick={() => handleEdit(post)}
-            data-testid={`button-edit-${post.id}`}
-          >
-            <Edit className="h-4 w-4 mr-1" />
-            Edit
-          </Button>
+          <Dialog open={editDialogOpen === post.id} onOpenChange={(open) => setEditDialogOpen(open ? post.id : null)}>
+            <DialogTrigger asChild>
+              <Button 
+                size="sm" 
+                variant="outline" 
+                data-testid={`button-edit-${post.id}`}
+              >
+                <Edit className="h-4 w-4 mr-1" />
+                Edit
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>Edit Blog Post</DialogTitle>
+                <DialogDescription>
+                  Update the blog post details below.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="space-y-4 py-4">
+                <div className="space-y-2">
+                  <Label htmlFor="title">Title</Label>
+                  <Input
+                    id="title"
+                    value={editFormData.title || ""}
+                    onChange={(e) => setEditFormData(prev => ({ ...prev, title: e.target.value }))}
+                    placeholder="Enter blog post title"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="slug">Slug</Label>
+                  <Input
+                    id="slug"
+                    value={editFormData.slug || ""}
+                    onChange={(e) => setEditFormData(prev => ({ ...prev, slug: e.target.value }))}
+                    placeholder="enter-blog-post-slug"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="excerpt">Excerpt</Label>
+                  <Textarea
+                    id="excerpt"
+                    value={editFormData.excerpt || ""}
+                    onChange={(e) => setEditFormData(prev => ({ ...prev, excerpt: e.target.value }))}
+                    placeholder="Brief description of the blog post"
+                    rows={3}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="content">Content</Label>
+                  <Textarea
+                    id="content"
+                    value={editFormData.content || ""}
+                    onChange={(e) => setEditFormData(prev => ({ ...prev, content: e.target.value }))}
+                    placeholder="Full blog post content"
+                    rows={8}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="imageUrl">Image URL</Label>
+                  <Input
+                    id="imageUrl"
+                    value={editFormData.imageUrl || ""}
+                    onChange={(e) => setEditFormData(prev => ({ ...prev, imageUrl: e.target.value }))}
+                    placeholder="https://example.com/image.jpg"
+                  />
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    id="published"
+                    checked={editFormData.published || false}
+                    onCheckedChange={(checked) => setEditFormData(prev => ({ ...prev, published: checked }))}
+                  />
+                  <Label htmlFor="published">Published</Label>
+                </div>
+              </div>
+              <DialogFooter>
+                <Button variant="outline" onClick={() => setEditDialogOpen(null)}>
+                  Cancel
+                </Button>
+                <Button 
+                  onClick={handleSaveEdit}
+                  disabled={updateMutation.isPending}
+                >
+                  {updateMutation.isPending ? "Saving..." : "Save Changes"}
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
           <Dialog open={deleteDialogOpen === post.id} onOpenChange={(open) => setDeleteDialogOpen(open ? post.id : null)}>
             <DialogTrigger asChild>
               <Button size="sm" variant="destructive" data-testid={`button-delete-${post.id}`}>
