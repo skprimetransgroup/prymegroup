@@ -10,8 +10,8 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-// Static file served by Vite from client/public/
-const officeVideo = "/Office-latest.mp4";
+// Use same route as staffing page
+const officeVideo = "/api/public/Office-latest.mp4";
 
 export default function VideoHero() {
   const [showFallback, setShowFallback] = useState(false);
