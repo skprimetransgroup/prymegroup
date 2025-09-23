@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -13,14 +14,31 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import AdminLayout from "@/components/layout/admin-layout";
 import { ProtectedAdminRoute } from "@/components/admin/protected-route";
+import { useLocation } from "wouter";
 import type { Job } from "@shared/schema";
 import { useState } from "react";
 
 export default function AdminJobs() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const [, setLocation] = useLocation();
   const [newJobDialogOpen, setNewJobDialogOpen] = useState(false);
+  const [editJobDialogOpen, setEditJobDialogOpen] = useState(false);
+  const [deleteJobDialogOpen, setDeleteJobDialogOpen] = useState(false);
+  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [newJobData, setNewJobData] = useState({
+    title: "",
+    description: "",
+    location: "",
+    company: "",
+    type: "",
+    category: "",
+    requirements: "",
+    salary: "",
+    contactEmail: "",
+    contactPhone: "",
+  });
+  const [editJobData, setEditJobData] = useState({
     title: "",
     description: "",
     location: "",
@@ -115,12 +133,96 @@ export default function AdminJobs() {
     },
   });
 
+  const deleteJobMutation = useMutation({
+    mutationFn: async (jobId: string) => {
+      return apiRequest("DELETE", `/api/jobs/${jobId}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/jobs"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/jobs/pending"] });
+      toast({
+        title: "Success",
+        description: "Job deleted successfully.",
+      });
+      setDeleteJobDialogOpen(false);
+      setSelectedJob(null);
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to delete job. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const updateJobMutation = useMutation({
+    mutationFn: async ({ jobId, jobData }: { jobId: string; jobData: typeof editJobData }) => {
+      return apiRequest("PUT", `/api/jobs/${jobId}`, jobData);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/jobs"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/jobs/pending"] });
+      toast({
+        title: "Success",
+        description: "Job updated successfully.",
+      });
+      setEditJobDialogOpen(false);
+      setSelectedJob(null);
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to update job. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
   const handleJobAction = (jobId: string, status: 'approved' | 'denied') => {
     updateJobStatusMutation.mutate({ jobId, status });
   };
 
   const handleCreateJob = () => {
     createJobMutation.mutate(newJobData);
+  };
+
+  const handleViewJob = (job: Job) => {
+    setLocation(`/jobs/${job.id}`);
+  };
+
+  const handleEditJob = (job: Job) => {
+    setSelectedJob(job);
+    setEditJobData({
+      title: job.title,
+      description: job.description,
+      location: job.location,
+      company: job.company,
+      type: job.type,
+      category: job.category,
+      requirements: job.requirements || "",
+      salary: job.salary || "",
+      contactEmail: job.contactEmail || "",
+      contactPhone: job.contactPhone || "",
+    });
+    setEditJobDialogOpen(true);
+  };
+
+  const handleDeleteJob = (job: Job) => {
+    setSelectedJob(job);
+    setDeleteJobDialogOpen(true);
+  };
+
+  const confirmDeleteJob = () => {
+    if (selectedJob) {
+      deleteJobMutation.mutate(selectedJob.id);
+    }
+  };
+
+  const handleUpdateJob = () => {
+    if (selectedJob) {
+      updateJobMutation.mutate({ jobId: selectedJob.id, jobData: editJobData });
+    }
   };
 
   const resetForm = () => {
@@ -235,16 +337,34 @@ export default function AdminJobs() {
               </div>
             )}
             <div className="flex gap-2">
-              <Button variant="outline" size="sm" className="flex-1 h-12 py-2" data-testid={`button-view-${job.id}`}>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="flex-1 h-12 py-2" 
+                onClick={() => handleViewJob(job)}
+                data-testid={`button-view-${job.id}`}
+              >
                 <Eye className="h-4 w-4 mr-1" />
                 View
               </Button>
-              <Button variant="outline" size="sm" className="flex-1 h-12 py-2" data-testid={`button-edit-${job.id}`}>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="flex-1 h-12 py-2" 
+                onClick={() => handleEditJob(job)}
+                data-testid={`button-edit-${job.id}`}
+              >
                 <Edit className="h-4 w-4 mr-1" />
                 Edit
               </Button>
             </div>
-            <Button variant="outline" size="sm" className="text-destructive hover:text-destructive w-full h-12 py-2" data-testid={`button-delete-${job.id}`}>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="text-destructive hover:text-destructive w-full h-12 py-2" 
+              onClick={() => handleDeleteJob(job)}
+              data-testid={`button-delete-${job.id}`}
+            >
               <Trash2 className="h-4 w-4 mr-1" />
               Delete
             </Button>
@@ -276,15 +396,31 @@ export default function AdminJobs() {
                 </Button>
               </>
             )}
-            <Button variant="outline" size="sm" data-testid={`button-view-${job.id}`}>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => handleViewJob(job)}
+              data-testid={`button-view-${job.id}`}
+            >
               <Eye className="h-4 w-4 mr-1" />
               View
             </Button>
-            <Button variant="outline" size="sm" data-testid={`button-edit-${job.id}`}>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => handleEditJob(job)}
+              data-testid={`button-edit-${job.id}`}
+            >
               <Edit className="h-4 w-4 mr-1" />
               Edit
             </Button>
-            <Button variant="outline" size="sm" className="text-destructive hover:text-destructive" data-testid={`button-delete-${job.id}`}>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="text-destructive hover:text-destructive" 
+              onClick={() => handleDeleteJob(job)}
+              data-testid={`button-delete-${job.id}`}
+            >
               <Trash2 className="h-4 w-4 mr-1" />
               Delete
             </Button>
@@ -463,6 +599,175 @@ export default function AdminJobs() {
               </DialogContent>
             </Dialog>
           </div>
+
+          {/* Edit Job Dialog */}
+          <Dialog open={editJobDialogOpen} onOpenChange={setEditJobDialogOpen}>
+            <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>Edit Job</DialogTitle>
+                <DialogDescription>
+                  Update the job listing details.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="space-y-4 py-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="edit-title">Job Title *</Label>
+                    <Input
+                      id="edit-title"
+                      value={editJobData.title}
+                      onChange={(e) => setEditJobData(prev => ({ ...prev, title: e.target.value }))}
+                      placeholder="e.g. Software Engineer"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="edit-company">Company *</Label>
+                    <Input
+                      id="edit-company"
+                      value={editJobData.company}
+                      onChange={(e) => setEditJobData(prev => ({ ...prev, company: e.target.value }))}
+                      placeholder="e.g. Prime Trans Group"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="edit-location">Location *</Label>
+                    <Input
+                      id="edit-location"
+                      value={editJobData.location}
+                      onChange={(e) => setEditJobData(prev => ({ ...prev, location: e.target.value }))}
+                      placeholder="e.g. Toronto, ON"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="edit-salary">Salary</Label>
+                    <Input
+                      id="edit-salary"
+                      value={editJobData.salary}
+                      onChange={(e) => setEditJobData(prev => ({ ...prev, salary: e.target.value }))}
+                      placeholder="e.g. $50,000 - $70,000"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="edit-type">Job Type *</Label>
+                    <Select value={editJobData.type} onValueChange={(value) => setEditJobData(prev => ({ ...prev, type: value }))}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select job type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Full-Time">Full-Time</SelectItem>
+                        <SelectItem value="Part-Time">Part-Time</SelectItem>
+                        <SelectItem value="Contract">Contract</SelectItem>
+                        <SelectItem value="Remote">Remote</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="edit-category">Category *</Label>
+                    <Select value={editJobData.category} onValueChange={(value) => setEditJobData(prev => ({ ...prev, category: value }))}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select category" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Transportation">Transportation</SelectItem>
+                        <SelectItem value="Manufacturing">Manufacturing</SelectItem>
+                        <SelectItem value="Warehouse">Warehouse</SelectItem>
+                        <SelectItem value="Administrative">Administrative</SelectItem>
+                        <SelectItem value="Construction">Construction</SelectItem>
+                        <SelectItem value="Healthcare">Healthcare</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="edit-description">Job Description *</Label>
+                  <Textarea
+                    id="edit-description"
+                    value={editJobData.description}
+                    onChange={(e) => setEditJobData(prev => ({ ...prev, description: e.target.value }))}
+                    placeholder="Describe the job responsibilities, requirements, and benefits..."
+                    rows={4}
+                    required
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="edit-requirements">Requirements</Label>
+                  <Textarea
+                    id="edit-requirements"
+                    value={editJobData.requirements}
+                    onChange={(e) => setEditJobData(prev => ({ ...prev, requirements: e.target.value }))}
+                    placeholder="List the required skills, experience, and qualifications..."
+                    rows={3}
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="edit-contactEmail">Contact Email</Label>
+                    <Input
+                      id="edit-contactEmail"
+                      type="email"
+                      value={editJobData.contactEmail}
+                      onChange={(e) => setEditJobData(prev => ({ ...prev, contactEmail: e.target.value }))}
+                      placeholder="hr@company.com"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="edit-contactPhone">Contact Phone</Label>
+                    <Input
+                      id="edit-contactPhone"
+                      value={editJobData.contactPhone}
+                      onChange={(e) => setEditJobData(prev => ({ ...prev, contactPhone: e.target.value }))}
+                      placeholder="(555) 123-4567"
+                    />
+                  </div>
+                </div>
+              </div>
+              <DialogFooter>
+                <Button variant="outline" onClick={() => setEditJobDialogOpen(false)}>
+                  Cancel
+                </Button>
+                <Button 
+                  onClick={handleUpdateJob}
+                  disabled={updateJobMutation.isPending || !editJobData.title || !editJobData.company || !editJobData.location || !editJobData.type || !editJobData.category || !editJobData.description}
+                >
+                  {updateJobMutation.isPending ? "Updating..." : "Update Job"}
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+
+          {/* Delete Confirmation Dialog */}
+          <AlertDialog open={deleteJobDialogOpen} onOpenChange={setDeleteJobDialogOpen}>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Delete Job</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Are you sure you want to delete "{selectedJob?.title}"? This action cannot be undone.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction 
+                  onClick={confirmDeleteJob}
+                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                  disabled={deleteJobMutation.isPending}
+                >
+                  {deleteJobMutation.isPending ? "Deleting..." : "Delete"}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
 
           <Tabs defaultValue="pending" className="space-y-4 sm:space-y-6">
             <TabsList className="grid w-full grid-cols-2 sm:w-auto sm:grid-cols-none sm:flex">
