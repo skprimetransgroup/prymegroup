@@ -702,7 +702,12 @@ Source: Canadian Job Bank`,
       }
     }
     
-    return jobs.sort((a, b) => (b.postedAt?.getTime() || 0) - (a.postedAt?.getTime() || 0));
+    // Sort by newest first: postedAt desc, fallback to createdAt desc
+    return jobs.sort((a, b) => {
+      const aTime = a.postedAt?.getTime() || 0;
+      const bTime = b.postedAt?.getTime() || 0;
+      return bTime - aTime;
+    });
   }
 
   async getJob(id: string): Promise<Job | undefined> {
@@ -718,7 +723,11 @@ Source: Canadian Job Bank`,
   async getPendingJobs(): Promise<Job[]> {
     return Array.from(this.jobs.values())
       .filter(job => job.status === 'pending')
-      .sort((a, b) => (b.postedAt?.getTime() || 0) - (a.postedAt?.getTime() || 0));
+      .sort((a, b) => {
+        const aTime = a.postedAt?.getTime() || 0;
+        const bTime = b.postedAt?.getTime() || 0;
+        return bTime - aTime;
+      });
   }
 
   async getJobsByCategory(): Promise<{ category: string; count: number }[]> {
@@ -767,6 +776,12 @@ Source: Canadian Job Bank`,
     if (!job) return undefined;
     
     const updatedJob = { ...job, status };
+    
+    // Set postedAt when approving a job if not already set
+    if (status === 'approved' && !job.postedAt) {
+      updatedJob.postedAt = new Date();
+    }
+    
     this.jobs.set(id, updatedJob);
     return updatedJob;
   }

@@ -1,12 +1,14 @@
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
 import type { Job } from "@shared/schema";
 
 interface JobCardProps {
   job: Job;
+  isNew?: boolean;
 }
 
-export default function JobCard({ job }: JobCardProps) {
+export default function JobCard({ job, isNew = false }: JobCardProps) {
   const formatDate = (date: Date | null) => {
     if (!date) return "";
     return new Intl.DateTimeFormat("en-US", {
@@ -39,12 +41,24 @@ export default function JobCard({ job }: JobCardProps) {
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-4 space-y-3 sm:space-y-0">
         <div className="flex-1 min-w-0">
           <Link href={`/jobs/${job.id}`} className="block nav-item-3d">
-            <h3 
-              className="text-base sm:text-lg font-semibold text-foreground mb-2 hover:text-primary transition-colors text-3d leading-tight"
-              data-testid={`job-title-${job.id}`}
-            >
-              {job.title}
-            </h3>
+            <div className="flex items-center gap-2 mb-2">
+              <h3 
+                className="text-base sm:text-lg font-semibold text-foreground hover:text-primary transition-colors text-3d leading-tight"
+                data-testid={`job-title-${job.id}`}
+              >
+                {job.title}
+              </h3>
+              {isNew && (
+                <Badge 
+                  variant="destructive" 
+                  className="bg-red-600 text-white text-xs font-bold px-2 py-1"
+                  data-testid="badge-new"
+                  aria-label="New job posting"
+                >
+                  NEW
+                </Badge>
+              )}
+            </div>
           </Link>
           <p 
             className="text-sm text-muted-foreground mb-1 sm:mb-2"
