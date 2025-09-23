@@ -1,0 +1,83 @@
+Quick fixes (do these in order)
+
+Check imports in use-admin-auth.tsx:
+
+import { useState, ReactNode } from 'react';
+// (and any other hooks from 'react')
+
+
+Make sure you’re not doing import React from 'react' and then calling React.useState while React is shadowed or null, and that there’s no local file named react.ts / react.js.
+
+Look for bad aliases:
+
+vite.config.ts → resolve.alias must not alias "react" or "react-dom" to anything custom/null.
+
+tsconfig.json / jsconfig.json → compilerOptions.paths must not map "react" or "react-dom".
+
+Ensure one copy of React:
+
+npm ls react react-dom
+
+
+You should see a single version for both and they should match (e.g., 18.x). If there are duplicates, align versions or hoist.
+
+Reinstall clean:
+
+rm -rf node_modules package-lock.json pnpm-lock.yaml yarn.lock
+npm install
+
+
+Verify package.json:
+
+"dependencies": {
+  "react": "^18.2.0",
+  "react-dom": "^18.2.0"
+}
+
+
+(Or matching versions you intend to use.)
+
+Rule out shadowing:
+Search the repo for const React =, window.React, or anything that sets React to null.
+
+Restart Vite:
+Stop dev server and start again after the above.
+
+Bonus: a safe provider skeleton (imports included)
+// hooks/use-admin-auth.tsx
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+
+type AdminUser = { id: string; email: string } | null;
+
+type Ctx = {
+  adminUser: AdminUser;
+  isLoading: boolean;
+  setAdminUser: (u: AdminUser) => void;
+};
+
+const AdminAuthContext = createContext<Ctx | undefined>(undefined);
+
+export function AdminAuthProvider({ children }: { children: ReactNode }) {
+  const [adminUser, setAdminUser] = useState<AdminUser>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // init/auth check...
+    setIsLoading(false);
+  }, []);
+
+  return (
+    <AdminAuthContext.Provider value={{ adminUser, isLoading, setAdminUser }}>
+      {children}
+    </AdminAuthContext.Provider>
+  );
+}
+
+export function useAdminAuth() {
+  const ctx = useContext(AdminAuthContext);
+  if (!ctx) throw new Error('useAdminAuth must be used within AdminAuthProvider');
+  return ctx;
+}
+
+
+If you try the list above and it still crashes, paste your vite.config.ts and tsconfig.json (especially any alias/paths) and I’ll pinpoint the culprit.

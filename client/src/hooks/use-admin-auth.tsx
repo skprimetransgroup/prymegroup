@@ -1,23 +1,23 @@
-import { useState, useEffect, useContext, createContext } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useToast } from "@/hooks/use-toast";
 
 type AdminUser = {
   id: string;
   username: string;
-};
+} | null;
 
 type AdminAuthContextType = {
-  adminUser: AdminUser | null;
+  adminUser: AdminUser;
   isLoading: boolean;
   login: (username: string, password: string) => Promise<boolean>;
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
 };
 
-export const AdminAuthContext = createContext<AdminAuthContextType | null>(null);
+const AdminAuthContext = createContext<AdminAuthContextType | undefined>(undefined);
 
-export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
-  const [adminUser, setAdminUser] = useState<AdminUser | null>(null);
+export function AdminAuthProvider({ children }: { children: ReactNode }) {
+  const [adminUser, setAdminUser] = useState<AdminUser>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
 
@@ -114,9 +114,7 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useAdminAuth() {
-  const context = useContext(AdminAuthContext);
-  if (!context) {
-    throw new Error("useAdminAuth must be used within an AdminAuthProvider");
-  }
-  return context;
+  const ctx = useContext(AdminAuthContext);
+  if (!ctx) throw new Error('useAdminAuth must be used within AdminAuthProvider');
+  return ctx;
 }
