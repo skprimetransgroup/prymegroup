@@ -3,10 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Eye, Download, Search, Filter, User as UserIcon, Briefcase, Calendar, Phone, Mail, FileText } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
 import AdminLayout from "@/components/layout/admin-layout";
 import { ProtectedAdminRoute } from "@/components/admin/protected-route";
 import type { JobApplication, Job, User as UserType } from "@shared/schema";
@@ -26,9 +28,31 @@ export default function AdminApplications() {
   const queryClient = useQueryClient();
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [selectedApplication, setSelectedApplication] = useState<JobApplicationWithDetails | null>(null);
+  const [viewDetailsOpen, setViewDetailsOpen] = useState(false);
   
   const { data: applications = [] } = useQuery<JobApplicationWithDetails[]>({ 
     queryKey: ["/api/applications"]
+  });
+
+  const updateStatusMutation = useMutation({
+    mutationFn: async ({ applicationId, status }: { applicationId: string; status: string }) => {
+      return apiRequest("PATCH", `/api/applications/${applicationId}/status`, { status });
+    },
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["/api/applications"] });
+      toast({
+        title: "Status Updated",
+        description: `Application status updated to ${variables.status.replace('_', ' ')}.`,
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to update application status. Please try again.",
+        variant: "destructive",
+      });
+    },
   });
 
   const getStatusColor = (status: string) => {
@@ -53,6 +77,39 @@ export default function AdminApplications() {
       default:
         return status.charAt(0).toUpperCase() + status.slice(1);
     }
+  };
+
+  const handleViewDetails = (application: JobApplicationWithDetails) => {
+    setSelectedApplication(application);
+    setViewDetailsOpen(true);
+  };
+
+  const handleResumeDownload = (application: JobApplicationWithDetails) => {
+    if (application.resume) {
+      // Create a blob URL and trigger download
+      const link = document.createElement('a');
+      link.href = application.resume;
+      link.download = `${application.applicantName || 'resume'}_resume.pdf`;
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      toast({
+        title: "Resume Download",
+        description: `Resume for ${application.applicantName} opened in new tab.`,
+      });
+    } else {
+      toast({
+        title: "No Resume",
+        description: "No resume available for this application.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleStatusChange = (applicationId: string, newStatus: string) => {
+    updateStatusMutation.mutate({ applicationId, status: newStatus });
   };
 
   const filteredApplications = applications.filter(app => {
@@ -144,19 +201,76 @@ export default function AdminApplications() {
           </Select>
         </div>
 
+        {/* Mobile Action Layout */}
+        <div className="sm:hidden flex flex-col gap-2">
+          <div className="flex gap-2">
+            <Button 
+              size="sm" 
+              variant="outline" 
+              className="flex-1" 
+              onClick={() => handleViewDetails(application)}
+              data-testid={`button-view-mobile-${application.id}`}
+            >
+              <Eye className="h-4 w-4 mr-1" />
+              View Details
+            </Button>
+            {application.resume && (
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="flex-1"
+                onClick={() => handleResumeDownload(application)}
+                data-testid={`button-download-mobile-${application.id}`}
+              >
+                <Download className="h-4 w-4 mr-1" />
+                Resume
+              </Button>
+            )}
+          </div>
+          <Select 
+            defaultValue={application.status || 'submitted'} 
+            onValueChange={(value) => handleStatusChange(application.id, value)}
+            disabled={updateStatusMutation.isPending}
+          >
+            <SelectTrigger className="w-full" data-testid={`status-select-mobile-${application.id}`}>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="submitted">Submitted</SelectItem>
+              <SelectItem value="under_review">Under Review</SelectItem>
+              <SelectItem value="accepted">Accepted</SelectItem>
+              <SelectItem value="rejected">Rejected</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
         {/* Desktop Action Layout */}
         <div className="hidden sm:flex items-center gap-2">
-          <Button size="sm" variant="outline" data-testid={`button-view-${application.id}`}>
+          <Button 
+            size="sm" 
+            variant="outline" 
+            onClick={() => handleViewDetails(application)}
+            data-testid={`button-view-${application.id}`}
+          >
             <Eye className="h-4 w-4 mr-1" />
             View Details
           </Button>
           {application.resume && (
-            <Button size="sm" variant="outline" data-testid={`button-download-${application.id}`}>
+            <Button 
+              size="sm" 
+              variant="outline" 
+              onClick={() => handleResumeDownload(application)}
+              data-testid={`button-download-${application.id}`}
+            >
               <Download className="h-4 w-4 mr-1" />
               Resume
             </Button>
           )}
-          <Select defaultValue={application.status || 'submitted'} onValueChange={(value) => console.log('Status change:', value)}>
+          <Select 
+            defaultValue={application.status || 'submitted'} 
+            onValueChange={(value) => handleStatusChange(application.id, value)}
+            disabled={updateStatusMutation.isPending}
+          >
             <SelectTrigger className="w-32" data-testid={`status-select-${application.id}`}>
               <SelectValue />
             </SelectTrigger>
@@ -362,6 +476,101 @@ export default function AdminApplications() {
               </div>
             </TabsContent>
           </Tabs>
+
+          {/* View Details Dialog */}
+          <Dialog open={viewDetailsOpen} onOpenChange={setViewDetailsOpen}>
+            <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>Application Details</DialogTitle>
+                <DialogDescription>
+                  Complete application information for {selectedApplication?.applicantName}
+                </DialogDescription>
+              </DialogHeader>
+              {selectedApplication && (
+                <div className="space-y-6 py-4">
+                  {/* Applicant Information */}
+                  <div>
+                    <h3 className="text-lg font-semibold mb-3">Applicant Information</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-sm font-medium text-muted-foreground">Name</label>
+                        <p className="text-sm mt-1">{selectedApplication.applicantName || 'Not provided'}</p>
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-muted-foreground">Email</label>
+                        <p className="text-sm mt-1">{selectedApplication.applicantEmail || 'Not provided'}</p>
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-muted-foreground">Phone</label>
+                        <p className="text-sm mt-1">{selectedApplication.applicantPhone || 'Not provided'}</p>
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-muted-foreground">Status</label>
+                        <Badge className={`mt-1 ${getStatusColor(selectedApplication.status || 'submitted')}`}>
+                          {getStatusLabel(selectedApplication.status || 'submitted')}
+                        </Badge>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Job Information */}
+                  <div>
+                    <h3 className="text-lg font-semibold mb-3">Job Information</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-sm font-medium text-muted-foreground">Position</label>
+                        <p className="text-sm mt-1">{selectedApplication.jobTitle || 'Not specified'}</p>
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-muted-foreground">Applied On</label>
+                        <p className="text-sm mt-1">
+                          {selectedApplication.appliedAt 
+                            ? new Date(selectedApplication.appliedAt).toLocaleDateString()
+                            : 'Not specified'
+                          }
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Experience */}
+                  {selectedApplication.experience && (
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Experience</h3>
+                      <p className="text-sm whitespace-pre-wrap bg-muted p-3 rounded-md">
+                        {selectedApplication.experience}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Cover Letter */}
+                  {selectedApplication.coverLetter && (
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Cover Letter</h3>
+                      <p className="text-sm whitespace-pre-wrap bg-muted p-3 rounded-md">
+                        {selectedApplication.coverLetter}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Resume */}
+                  {selectedApplication.resume && (
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Resume</h3>
+                      <Button 
+                        variant="outline" 
+                        onClick={() => handleResumeDownload(selectedApplication)}
+                        className="w-full"
+                      >
+                        <Download className="h-4 w-4 mr-2" />
+                        View Resume
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              )}
+            </DialogContent>
+          </Dialog>
         </div>
       </AdminLayout>
     </ProtectedAdminRoute>

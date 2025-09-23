@@ -334,6 +334,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Update application status (admin only)
+  app.patch("/api/applications/:id/status", requireAdminAuth, async (req, res) => {
+    try {
+      const { status } = req.body;
+      if (!['submitted', 'under_review', 'accepted', 'rejected'].includes(status)) {
+        return res.status(400).json({ message: "Status must be 'submitted', 'under_review', 'accepted', or 'rejected'" });
+      }
+      
+      const application = await storage.updateJobApplicationStatus(req.params.id, status);
+      if (!application) {
+        return res.status(404).json({ message: "Application not found" });
+      }
+      
+      res.json({ message: `Application status updated to ${status}`, application });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update application status" });
+    }
+  });
+
   // Blog API
   app.get("/api/blog", async (req, res) => {
     try {
