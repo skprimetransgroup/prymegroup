@@ -131,6 +131,22 @@ export default function Jobs() {
 
   const { data: jobs = [], isLoading } = useQuery<Job[]>({
     queryKey: ["/api/jobs", filters],
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      if (filters.query) params.append('query', filters.query);
+      if (filters.location) params.append('location', filters.location);
+      if (filters.type) params.append('type', filters.type);
+      if (filters.category) params.append('category', filters.category);
+      
+      const url = `/api/jobs${params.toString() ? `?${params.toString()}` : ''}`;
+      const response = await fetch(url, { credentials: 'include' });
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch jobs');
+      }
+      
+      return response.json();
+    },
     enabled: true,
   });
 
