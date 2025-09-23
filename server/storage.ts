@@ -34,6 +34,9 @@ export interface IStorage {
   getBlogPosts(published?: boolean): Promise<BlogPost[]>;
   getBlogPost(id: string): Promise<BlogPost | undefined>;
   getBlogPostBySlug(slug: string): Promise<BlogPost | undefined>;
+  createBlogPost(post: Omit<BlogPost, 'id'>): Promise<BlogPost>;
+  updateBlogPost(id: string, post: Partial<BlogPost>): Promise<BlogPost | undefined>;
+  deleteBlogPost(id: string): Promise<boolean>;
 
   // Testimonials
   getTestimonials(featured?: boolean): Promise<Testimonial[]>;
@@ -826,6 +829,30 @@ Source: Canadian Job Bank`,
 
   async getBlogPostBySlug(slug: string): Promise<BlogPost | undefined> {
     return Array.from(this.blogPosts.values()).find(post => post.slug === slug);
+  }
+
+  async createBlogPost(postData: Omit<BlogPost, 'id'>): Promise<BlogPost> {
+    const post: BlogPost = {
+      id: randomUUID(),
+      ...postData,
+    };
+    this.blogPosts.set(post.id, post);
+    return post;
+  }
+
+  async updateBlogPost(id: string, updates: Partial<BlogPost>): Promise<BlogPost | undefined> {
+    const existingPost = this.blogPosts.get(id);
+    if (!existingPost) {
+      return undefined;
+    }
+    
+    const updatedPost = { ...existingPost, ...updates };
+    this.blogPosts.set(id, updatedPost);
+    return updatedPost;
+  }
+
+  async deleteBlogPost(id: string): Promise<boolean> {
+    return this.blogPosts.delete(id);
   }
 
   // Testimonial methods

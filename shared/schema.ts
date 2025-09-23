@@ -152,6 +152,14 @@ export const insertBlogPostSchema = createInsertSchema(blogPosts).pick({
   content: true,
   imageUrl: true,
   slug: true,
+  published: true,
+  publishedAt: true,
+});
+
+export const updateBlogPostSchema = insertBlogPostSchema.partial();
+  content: true,
+  imageUrl: true,
+  slug: true,
 });
 
 export const insertTestimonialSchema = createInsertSchema(testimonials).pick({
