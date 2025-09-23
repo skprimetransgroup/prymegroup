@@ -80,3 +80,8 @@ Preferred communication style: Simple, everyday language.
 - PostgreSQL database with connection via environment variable `DATABASE_URL`
 - Schema migrations managed through Drizzle Kit
 - Session storage using connect-pg-simple for PostgreSQL sessions
+
+### Admin Access
+- Admin credentials: username: `primeadmin`, password: `PrimeAdmin2024!@#`
+- Admin panel accessible at `/admin` route
+- Authentication required for all admin operations including job management, blog posting, and application reviews
