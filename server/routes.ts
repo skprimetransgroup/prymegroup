@@ -37,9 +37,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const filePath = req.path.replace("/api/public/", "");
     
     // Try to serve from local assets first (for development)
-    const localPath = path.join(__dirname, '../client/public/assets', filePath);
+    const assetsPath = path.join(__dirname, '../client/public/assets', filePath);
+    const publicPath = path.join(__dirname, '../client/public', filePath);
     
-    if (fs.existsSync(localPath)) {
+    let localPath: string | null = null;
+    
+    // Check assets folder first, then root public folder
+    if (fs.existsSync(assetsPath)) {
+      localPath = assetsPath;
+    } else if (fs.existsSync(publicPath)) {
+      localPath = publicPath;
+    }
+    
+    if (localPath) {
       // Set proper headers for video files
       const extension = path.extname(filePath).toLowerCase();
       if (extension === '.mp4' || extension === '.webm' || extension === '.gif') {
