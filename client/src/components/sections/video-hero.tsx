@@ -8,49 +8,52 @@ import {
   Award,
   TrendingUp,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 // Use same route as staffing page
 const officeVideo = "/api/public/Office-latest.mp4";
 
 export default function VideoHero() {
   const [showFallback, setShowFallback] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      const video = videoRef.current;
+      
+      const handleLoadStart = () => console.log('Video loading started');
+      const handleCanPlay = () => console.log('Video can start playing');
+      const handleError = (e: Event) => console.error('Video error:', e);
+      
+      video.addEventListener('loadstart', handleLoadStart);
+      video.addEventListener('canplay', handleCanPlay);
+      video.addEventListener('error', handleError);
+      
+      return () => {
+        video.removeEventListener('loadstart', handleLoadStart);
+        video.removeEventListener('canplay', handleCanPlay);
+        video.removeEventListener('error', handleError);
+      };
+    }
+  }, []);
+
   return (
     <section className="relative overflow-hidden">
       {/* Video on Top - Mobile Optimized */}
       <div className="relative w-full bg-gray-900 min-h-[40vh] sm:min-h-[50vh] md:min-h-[60vh] flex items-center justify-center">
         {/* Video element - always rendered */}
         <video
-          src={`${officeVideo}?v=20250923`}
+          ref={videoRef}
           autoPlay
-          loop
           muted
+          loop
           playsInline
-          controls={false}
-          preload="auto"
-          disablePictureInPicture
-          disableRemotePlayback
-          controlsList="nodownload nofullscreen noplaybackrate"
-          aria-hidden="true"
-          tabIndex={-1}
           className="w-full h-full object-cover"
-          style={{ minHeight: "40vh" }}
           data-testid="hero-video"
-          onError={(e) => {
-            console.log("Video failed to load:", e);
-            console.log("Video source:", officeVideo);
-            setShowFallback(true);
-          }}
-          onLoadStart={() => {
-            console.log("Video loading started from:", officeVideo);
-          }}
-          onCanPlay={() => {
-            console.log("Video can play:", officeVideo);
-          }}
-          onLoadedData={() => {
-            console.log("Video loaded data:", officeVideo);
-          }}
-        />
+        >
+          <source src={officeVideo} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
 
         {/* Fallback content when video fails - positioned above video */}
         {showFallback && (
