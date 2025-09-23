@@ -1,26 +1,25 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React from 'react';
 
-type AdminUser = {
+interface AdminUser {
   id: string;
   username: string;
-} | null;
+}
 
-type AdminAuthContextType = {
-  adminUser: AdminUser;
+interface AdminAuthContextType {
+  adminUser: AdminUser | null;
   isLoading: boolean;
   login: (username: string, password: string) => Promise<boolean>;
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
-};
+}
 
-const AdminAuthContext = createContext<AdminAuthContextType | null>(null);
+const AdminAuthContext = React.createContext<AdminAuthContextType | null>(null);
 
-export function AdminAuthProvider({ children }: { children: ReactNode }) {
-  const [adminUser, setAdminUser] = useState<AdminUser>(null);
-  const [isLoading, setIsLoading] = useState(false);
+export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
+  const [adminUser, setAdminUser] = React.useState<AdminUser | null>(null);
+  const [isLoading, setIsLoading] = React.useState(true);
 
-  const checkAuth = async () => {
-    setIsLoading(true);
+  const checkAuth = React.useCallback(async () => {
     try {
       const response = await fetch("/api/admin/me", {
         credentials: 'include',
@@ -37,10 +36,11 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
-  const login = async (username: string, password: string): Promise<boolean> => {
+  const login = React.useCallback(async (username: string, password: string): Promise<boolean> => {
     try {
+      setIsLoading(true);
       const response = await fetch("/api/admin/login", {
         method: "POST",
         headers: {
@@ -54,7 +54,7 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
 
       if (response.ok) {
         setAdminUser({
-          id: data.id,
+          id: data.id || 'admin',
           username: data.username,
         });
         return true;
@@ -63,10 +63,12 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
       }
     } catch (error) {
       return false;
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, []);
 
-  const logout = async (): Promise<void> => {
+  const logout = React.useCallback(async (): Promise<void> => {
     try {
       await fetch("/api/admin/logout", {
         method: "POST",
@@ -77,29 +79,29 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
     } finally {
       setAdminUser(null);
     }
-  };
-
-  useEffect(() => {
-    checkAuth();
   }, []);
 
+  React.useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  const contextValue = React.useMemo(() => ({
+    adminUser,
+    isLoading,
+    login,
+    logout,
+    checkAuth,
+  }), [adminUser, isLoading, login, logout, checkAuth]);
+
   return (
-    <AdminAuthContext.Provider
-      value={{
-        adminUser,
-        isLoading,
-        login,
-        logout,
-        checkAuth,
-      }}
-    >
+    <AdminAuthContext.Provider value={contextValue}>
       {children}
     </AdminAuthContext.Provider>
   );
 }
 
 export function useAdminAuth() {
-  const context = useContext(AdminAuthContext);
+  const context = React.useContext(AdminAuthContext);
   if (!context) {
     throw new Error('useAdminAuth must be used within AdminAuthProvider');
   }

@@ -1,0 +1,89 @@
+If you’re using React
+
+Remove any Preact aliases
+
+vite.config.ts → delete lines like:
+
+alias: {
+  react: 'preact/compat',
+  'react-dom/test-utils': 'preact/test-utils',
+  'react-dom': 'preact/compat',
+}
+
+
+Use the React plugin (exactly one)
+
+Install and configure:
+
+npm i -D @vitejs/plugin-react
+
+// vite.config.ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { fileURLToPath, URL } from 'node:url';
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } }
+});
+
+
+Do not also use @vitejs/plugin-react-swc at the same time. Pick one.
+
+Don’t import react-refresh manually
+
+Remove any import 'react-refresh', virtual:react-refresh, or custom refresh code.
+
+Clean install
+
+rm -rf node_modules package-lock.json pnpm-lock.yaml yarn.lock
+npm install
+
+
+Run dev normally (no prod env)
+
+npm run dev
+
+If you’re intentionally using Preact
+
+React Refresh won’t work with React plugins while React is aliased to Preact.
+
+Keep the preact aliases (or remove them—see below)
+
+Use the Preact preset instead of the React plugin
+
+npm i -D @preact/preset-vite
+
+import { defineConfig } from 'vite';
+import preact from '@preact/preset-vite';
+import { fileURLToPath, URL } from 'node:url';
+
+export default defineConfig({
+  plugins: [preact()],
+  resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } }
+});
+
+Version sanity (common cause)
+
+Make sure these align (example):
+
+"devDependencies": {
+  "vite": "^5.4.0",
+  "@vitejs/plugin-react": "^4.3.0"   // or @preact/preset-vite (not both)
+},
+"dependencies": {
+  "react": "^18.2.0",
+  "react-dom": "^18.2.0"
+}
+
+
+If you see duplicates or mismatches:
+
+npm ls react react-dom react-refresh
+
+
+Then pin to compatible versions and reinstall.
+
+Why App.tsx:12 is highlighted
+
+When the refresh runtime fails to register a module, the overlay blames the module being loaded at that moment (here, the file with import JobDetail …). Fixing the runtime mismatch removes this error and your imports will load fine.
