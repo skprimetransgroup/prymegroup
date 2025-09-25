@@ -4,7 +4,7 @@ import SEOManager, { SEOConfigs } from "@/components/seo/SEOManager";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Users, Target, CheckCircle, Building2 } from "lucide-react";
-import primeLogoPath from "@assets/Gold and White Real Estate Agency Logo Template (160 x 160 px) (2)_1758637013194.png";
+import primeLogoPath from "@assets/Prime Group_icon black_1756488515057.png";
 
 export default function About() {
   return (
