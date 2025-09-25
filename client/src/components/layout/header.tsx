@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import primeLogoPath from "@assets/GROUP (500 x 300 px) (500 x 200 px)_1757610842620.png";
+import logoPath from "@assets/targeted_element_1758815042125.png";
 
 export default function Header() {
   const [location] = useLocation();
@@ -56,8 +56,8 @@ export default function Header() {
             data-testid="link-logo"
           >
             <img 
-              src={primeLogoPath} 
-              alt="Prime Trans Group - Home" 
+              src={logoPath} 
+              alt="CRQUE - Home" 
               className="h-12 lg:h-16 w-auto transition-transform duration-300"
             />
           </Link>
