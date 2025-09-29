@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Briefcase, FileText, MessageSquare, Users, TrendingUp, Eye } from "lucide-react";
+import { Briefcase, FileText, MessageSquare, Users, TrendingUp, Eye, RefreshCw } from "lucide-react";
+import CacheControl from "@/components/admin/cache-control";
 import AdminLayout from "@/components/layout/admin-layout";
 import { ProtectedAdminRoute } from "@/components/admin/protected-route";
 import type { Job, JobApplication } from "@shared/schema";
@@ -118,7 +119,7 @@ export default function AdminDashboard() {
           })}
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 lg:grid-cols-2">
           {/* Recent Activity */}
           <Card>
             <CardHeader>
@@ -191,6 +192,18 @@ export default function AdminDashboard() {
               </div>
 
               <div 
+                onClick={() => setLocation("/admin/settings")} 
+                className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer"
+                data-testid="button-cache-management"
+              >
+                <div className="flex items-center">
+                  <RefreshCw className="h-4 w-4 mr-3 text-primary" />
+                  <span className="font-medium">Cache Management</span>
+                </div>
+                <span className="text-sm text-muted-foreground">→</span>
+              </div>
+              
+              <div 
                 onClick={() => window.open("/", "_blank")} 
                 className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer"
                 data-testid="button-view-site"
@@ -203,6 +216,11 @@ export default function AdminDashboard() {
               </div>
             </CardContent>
           </Card>
+        </div>
+        
+        {/* Auto Cache Refresher Section */}
+        <div className="mt-8">
+          <CacheControl />
         </div>
       </div>
       </AdminLayout>
