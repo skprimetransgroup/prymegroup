@@ -4,6 +4,7 @@ import SEOManager, { SEOConfigs } from "@/components/seo/SEOManager";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Truck, Building2, Users, Calculator, CheckCircle, Star, ArrowRight, Shield, Clock, Target } from "lucide-react";
+import { useLocation } from "wouter";
 
 const services = [
   {
@@ -83,6 +84,8 @@ const benefits = [
 ];
 
 export default function Services() {
+  const [, setLocation] = useLocation();
+  
   return (
     <div className="min-h-screen bg-background">
       <SEOManager data={SEOConfigs.services} />
@@ -253,6 +256,7 @@ export default function Services() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 size="lg" 
+                onClick={() => setLocation("/contact")}
                 className="bg-white text-primary hover:bg-gray-100 font-semibold"
                 data-testid="button-get-started"
               >
@@ -261,8 +265,8 @@ export default function Services() {
               </Button>
               <Button 
                 size="lg" 
-                variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-primary font-semibold"
+                onClick={() => setLocation("/contact")}
+                className="bg-white/10 backdrop-blur-sm border-2 border-white text-white hover:bg-white hover:text-primary font-semibold transition-all duration-300"
                 data-testid="button-contact-us"
               >
                 Contact Us
