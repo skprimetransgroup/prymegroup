@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clear Cache - Prime Trans Group</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .btn {
+            background: #edc247;
+            color: #0b0d1e;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #d4a934;
+            transform: translateY(-2px);
+        }
+        
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .success {
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid rgba(34, 197, 94, 0.5);
+        }
+        
+        .loading {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.5);
+        }
+        
+        .error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+        }
+        
+        h1 {
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        
+        p {
+            margin-bottom: 30px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .steps {
+            text-align: left;
+            margin: 30px 0;
+        }
+        
+        .steps li {
+            margin: 10px 0;
+            padding: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 Cache Clearing Tool</h1>
+        <p>If you're seeing a blank page or outdated content, this tool will clear your browser's cache for Prime Trans Group.</p>
+        
+        <button class="btn" onclick="clearAllCache()">Clear Cache Now</button>
+        <button class="btn" onclick="forceRefresh()">Force Page Refresh</button>
+        <button class="btn" onclick="goHome()">Go to Homepage</button>
+        
+        <div id="status" class="status"></div>
+        
+        <div class="steps">
+            <h3>Manual Steps (if needed):</h3>
+            <ol>
+                <li><strong>Safari (iPhone):</strong> Settings → Safari → Clear History and Website Data</li>
+                <li><strong>Chrome (Mobile):</strong> Menu → Settings → Privacy → Clear Browsing Data</li>
+                <li><strong>After clearing:</strong> Force close your browser app and reopen it</li>
+                <li><strong>Then visit:</strong> <a href="https://primetransgroup.ca" style="color: #edc247;">primetransgroup.ca</a></li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = `status ${type}`;
+            status.style.display = 'block';
+        }
+        
+        async function clearAllCache() {
+            showStatus('Clearing cache...', 'loading');
+            
+            try {
+                // Clear service worker caches
+                if ('caches' in window) {
+                    const cacheNames = await caches.keys();
+                    const deletePromises = cacheNames.map(name => {
+                        console.log('Deleting cache:', name);
+                        return caches.delete(name);
+                    });
+                    await Promise.all(deletePromises);
+                }
+                
+                // Unregister service workers
+                if ('serviceWorker' in navigator) {
+                    const registrations = await navigator.serviceWorker.getRegistrations();
+                    const unregisterPromises = registrations.map(reg => {
+                        console.log('Unregistering SW:', reg.scope);
+                        return reg.unregister();
+                    });
+                    await Promise.all(unregisterPromises);
+                }
+                
+                // Clear local storage
+                localStorage.clear();
+                sessionStorage.clear();
+                
+                showStatus('✅ Cache cleared successfully! Please close and reopen your browser app, then visit the website again.', 'success');
+                
+                // Automatically redirect after 3 seconds
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 3000);
+                
+            } catch (error) {
+                console.error('Cache clearing error:', error);
+                showStatus('⚠️ Some caches cleared. Please manually clear your browser cache in Settings.', 'error');
+            }
+        }
+        
+        function forceRefresh() {
+            showStatus('Force refreshing...', 'loading');
+            
+            // Clear current page cache
+            if ('caches' in window) {
+                caches.delete(window.location.origin).then(() => {
+                    // Force reload without cache
+                    window.location.reload(true);
+                });
+            } else {
+                window.location.reload(true);
+            }
+        }
+        
+        function goHome() {
+            // Clear and go to homepage
+            window.location.href = '/?v=' + Date.now();
+        }
+        
+        // Auto-clear cache when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show instructions immediately
+            showStatus('Click "Clear Cache Now" to fix blank page issues', 'loading');
+        });
+    </script>
+</body>
+</html>
