@@ -9,6 +9,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import { useLocation } from "wouter";
 
 // Use same route as staffing page
 const officeVideo = "/Office-latest.mp4";
@@ -16,6 +17,7 @@ const officeVideo = "/Office-latest.mp4";
 export default function VideoHero() {
   const [showFallback, setShowFallback] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [, setLocation] = useLocation();
 
   useEffect(() => {
     if (videoRef.current) {
@@ -153,6 +155,7 @@ export default function VideoHero() {
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center px-4 sm:px-0">
               <Button
                 size="lg"
+                onClick={() => setLocation("/contact")}
                 className="w-full sm:w-auto bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg shadow-xl hover:shadow-primary/25 transition-all duration-300 hover:scale-105"
                 data-testid="button-contact-us"
               >
@@ -161,6 +164,7 @@ export default function VideoHero() {
               <Button
                 variant="outline"
                 size="lg"
+                onClick={() => setLocation("/services")}
                 className="w-full sm:w-auto border-2 border-primary text-primary hover:bg-primary hover:text-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold transition-all duration-300 hover:scale-105 bg-white/5 backdrop-blur-sm"
                 data-testid="button-learn-more"
               >
