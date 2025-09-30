@@ -33,7 +33,7 @@ export default function Hero() {
             <div className="space-y-3 sm:space-y-4">
               <h1 className="text-3xl lg:text-4xl font-bold text-foreground text-3d">
                 Discover Solutions for{" "}
-                <span className="text-gradient-3d">Every</span>{" "}
+                <span className="text-red-600 font-bold">Every</span>{" "}
                 Business Need.
               </h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0">
