@@ -1,0 +1,57 @@
+# Vercel Environment Variables Setup
+# Copy and paste these into your Vercel project settings
+# Go to: Project Settings > Environment Variables
+
+# ==================================================
+# REQUIRED ENVIRONMENT VARIABLES
+# ==================================================
+
+# 1. DATABASE_URL (Required)
+# Your PostgreSQL connection string from Neon or other provider
+# Format: postgresql://username:password@host/database?sslmode=require
+# Example: postgresql://user:pass@ep-example-123456.us-east-2.aws.neon.tech/neondb?sslmode=require
+DATABASE_URL=
+
+# 2. SESSION_SECRET (Required)
+# A strong random string for session encryption (minimum 32 characters)
+# Generate using: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+SESSION_SECRET=
+
+# 3. NODE_ENV (Required)
+# Set to production for Vercel deployment
+NODE_ENV=production
+
+# ==================================================
+# OPTIONAL - Usually auto-populated from DATABASE_URL
+# ==================================================
+
+PGHOST=
+PGDATABASE=
+PGUSER=
+PGPASSWORD=
+PGPORT=5432
+
+# ==================================================
+# QUICK SETUP INSTRUCTIONS
+# ==================================================
+# 
+# 1. Go to Vercel Dashboard > Your Project > Settings > Environment Variables
+# 2. Add each variable above (one at a time):
+#    - Name: DATABASE_URL
+#    - Value: [paste your Neon connection string]
+#    - Environment: Production, Preview, Development (select all)
+# 3. Click "Save"
+# 4. Repeat for SESSION_SECRET and NODE_ENV
+# 5. Redeploy your application
+#
+# ==================================================
+
+# Need help generating SESSION_SECRET?
+# Run this command in your terminal:
+# node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+
+# Where to get DATABASE_URL?
+# 1. Neon Dashboard: https://console.neon.tech
+# 2. Go to your project > Connection Details
+# 3. Copy the connection string
+# 4. Make sure it includes ?sslmode=require at the end

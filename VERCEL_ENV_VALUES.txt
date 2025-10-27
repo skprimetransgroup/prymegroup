@@ -1,0 +1,69 @@
+# ============================================
+# COPY THESE TO VERCEL ENVIRONMENT VARIABLES
+# ============================================
+
+# Go to: Vercel Dashboard > Your Project > Settings > Environment Variables
+# Add each variable below (copy the value after the = sign)
+
+# --------------------------------------------
+# Variable 1: DATABASE_URL
+# --------------------------------------------
+DATABASE_URL=postgresql://neondb_owner:npg_B6Kj8pxvdbOJ@ep-bitter-mud-a4oudeyq.us-east-1.aws.neon.tech/neondb?sslmode=require
+
+# --------------------------------------------
+# Variable 2: SESSION_SECRET
+# --------------------------------------------
+SESSION_SECRET=46330d1a48cca528c8211e196607cbe2a324f836028c5150e9f5dd3b17883dfa
+
+# --------------------------------------------
+# Variable 3: NODE_ENV
+# --------------------------------------------
+NODE_ENV=production
+
+# ============================================
+# HOW TO ADD TO VERCEL
+# ============================================
+
+# Method 1: Using Vercel Dashboard (Recommended)
+# ------------------------------------------------
+# 1. Go to https://vercel.com/dashboard
+# 2. Select your project
+# 3. Click "Settings" tab
+# 4. Click "Environment Variables" in sidebar
+# 5. For each variable above:
+#    - Click "Add New"
+#    - Name: [copy the variable name, e.g., DATABASE_URL]
+#    - Value: [copy the value after the = sign]
+#    - Select: Production, Preview, Development (all three)
+#    - Click "Save"
+# 6. Redeploy your application
+
+# Method 2: Using Vercel CLI
+# ------------------------------------------------
+# If you have Vercel CLI installed, run these commands:
+
+vercel env add DATABASE_URL
+# Then paste: postgresql://neondb_owner:npg_B6Kj8pxvdbOJ@ep-bitter-mud-a4oudeyq.us-east-1.aws.neon.tech/neondb?sslmode=require
+
+vercel env add SESSION_SECRET
+# Then paste: 46330d1a48cca528c8211e196607cbe2a324f836028c5150e9f5dd3b17883dfa
+
+vercel env add NODE_ENV
+# Then paste: production
+
+# ============================================
+# IMPORTANT NOTES
+# ============================================
+
+# ✅ These values are ready to use - no changes needed
+# ✅ Your DATABASE_URL is from your existing Neon database
+# ✅ SESSION_SECRET is cryptographically secure (generated fresh)
+# ⚠️  Make sure to select all three environments when adding each variable
+# ⚠️  After adding all variables, trigger a new deployment for changes to take effect
+
+# ============================================
+# ADMIN CREDENTIALS
+# ============================================
+# After deployment, login to admin panel at: https://your-domain.vercel.app/admin
+# Username: primeadmin
+# Password: PrimeAdmin2024!@#
