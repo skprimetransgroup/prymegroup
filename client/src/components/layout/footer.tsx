@@ -10,11 +10,13 @@ export default function Footer() {
           {/* Company Info */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-3" data-testid="link-footer-logo">
-              <img 
-                src={primeLogoPath} 
-                alt="Prime Trans Group" 
-                className="h-16 w-auto"
-              />
+              <div className="bg-gradient-to-r from-white via-gray-100 to-white p-3 rounded-lg">
+                <img 
+                  src={primeLogoPath} 
+                  alt="Prime Trans Group" 
+                  className="h-16 w-auto"
+                />
+              </div>
             </Link>
             <p className="text-sm text-secondary-foreground/80 max-w-xs">
               Canada's premier workforce solutions provider, connecting talent with opportunity since 2016.
