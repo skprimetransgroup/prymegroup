@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { Facebook, Linkedin, MessageCircle, MapPin, Phone, Mail, Clock } from "lucide-react";
-import primeLogoPath from "@assets/Prime Trans Group - Black_1761575865289.png";
+import primeLogoPath from "@assets/Gold and White Real Estate Agency Logo Template (160 x 160 px) (2)_1758637013194.png";
 
 export default function Footer() {
   return (

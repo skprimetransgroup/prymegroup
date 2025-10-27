@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import primeLogoPath from "@assets/Prime Trans Group - Black_1761575865289.png";
+import primeLogoPath from "@assets/GROUP (500 x 300 px) (500 x 200 px)_1757610842620.png";
 
 export default function Header() {
   const [location] = useLocation();
