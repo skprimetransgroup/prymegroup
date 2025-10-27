@@ -3,26 +3,47 @@ import session from "express-session";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import MemoryStore from "memorystore";
+import ConnectPgSimple from "connect-pg-simple";
 
 const app = express();
+
+// Trust proxy for secure cookies when behind reverse proxy (e.g., Vercel)
+app.set('trust proxy', 1);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Session configuration with MemoryStore
-const MemoryStoreSession = MemoryStore(session);
+// Use PostgreSQL session store in production or when USE_DB is true, otherwise use memory store
+const isProduction = process.env.NODE_ENV === 'production';
+const useDbSessions = isProduction || process.env.USE_DB === 'true';
+
+let sessionStore;
+
+if (useDbSessions && process.env.DATABASE_URL) {
+  const PgStore = ConnectPgSimple(session);
+  sessionStore = new PgStore({
+    conString: process.env.DATABASE_URL,
+    createTableIfMissing: true,
+  });
+  log('Using PostgreSQL session store');
+} else {
+  const MemoryStoreSession = MemoryStore(session);
+  sessionStore = new MemoryStoreSession({
+    checkPeriod: 86400000 // prune expired entries every 24h
+  });
+  log('Using memory session store');
+}
 
 app.use(session({
   secret: process.env.SESSION_SECRET || 'your-strong-secret-key-change-in-production',
-  store: new MemoryStoreSession({
-    checkPeriod: 86400000 // prune expired entries every 24h
-  }),
+  store: sessionStore,
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: false, // Set to false for development
+    secure: isProduction,
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
-    sameSite: 'lax' // Important for CSRF protection while allowing same-origin requests
+    sameSite: isProduction ? 'none' : 'lax',
   }
 }));
 

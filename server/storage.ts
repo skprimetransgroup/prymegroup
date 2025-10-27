@@ -1,5 +1,10 @@
 import { type User, type InsertUser, type Job, type InsertJob, type JobApplication, type InsertJobApplication, type BlogPost, type Testimonial, type AdminUser, type InsertAdminUser, type Product, type InsertProduct, type Order, type InsertOrder, type WarehouseRequest, type InsertWarehouseRequest, type OrderItem } from "@shared/schema";
 import { randomUUID } from "crypto";
+import { neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
+import { eq, and, like, or, desc } from "drizzle-orm";
+import * as schema from "@shared/schema";
+import bcrypt from "bcryptjs";
 
 export interface IStorage {
   // Users
@@ -1139,4 +1144,471 @@ Source: Canadian Job Bank`,
   }
 }
 
-export const storage = new MemStorage();
+// Database Storage Implementation
+export class DbStorage implements IStorage {
+  private db: ReturnType<typeof drizzle>;
+
+  constructor() {
+    if (!process.env.DATABASE_URL) {
+      throw new Error("DATABASE_URL environment variable is required");
+    }
+    const sql = neon(process.env.DATABASE_URL);
+    this.db = drizzle(sql, { schema });
+  }
+
+  // Users
+  async getUser(id: string): Promise<User | undefined> {
+    const results = await this.db.select().from(schema.users).where(eq(schema.users.id, id));
+    return results[0];
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const results = await this.db.select().from(schema.users).where(eq(schema.users.username, username));
+    return results[0];
+  }
+
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    const results = await this.db.select().from(schema.users).where(eq(schema.users.email, email));
+    return results[0];
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const results = await this.db.insert(schema.users).values(insertUser).returning();
+    return results[0];
+  }
+
+  // Admin Users
+  async getAdminUser(id: string): Promise<AdminUser | undefined> {
+    const results = await this.db.select().from(schema.adminUsers).where(eq(schema.adminUsers.id, id));
+    return results[0];
+  }
+
+  async getAdminUserByUsername(username: string): Promise<AdminUser | undefined> {
+    const results = await this.db.select().from(schema.adminUsers).where(eq(schema.adminUsers.username, username));
+    return results[0];
+  }
+
+  async createAdminUser(insertUser: InsertAdminUser): Promise<AdminUser> {
+    const results = await this.db.insert(schema.adminUsers).values(insertUser).returning();
+    return results[0];
+  }
+
+  async updateAdminUserLastLogin(id: string): Promise<AdminUser | undefined> {
+    const results = await this.db
+      .update(schema.adminUsers)
+      .set({ lastLoginAt: new Date() })
+      .where(eq(schema.adminUsers.id, id))
+      .returning();
+    return results[0];
+  }
+
+  // Jobs
+  async getJobs(filters?: { type?: string; category?: string; location?: string; query?: string; status?: string }): Promise<Job[]> {
+    let conditions = [];
+    
+    if (filters?.type) {
+      conditions.push(eq(schema.jobs.type, filters.type));
+    }
+    if (filters?.category) {
+      conditions.push(eq(schema.jobs.category, filters.category));
+    }
+    if (filters?.location && filters.location !== "Anywhere") {
+      conditions.push(eq(schema.jobs.location, filters.location));
+    }
+    if (filters?.status) {
+      conditions.push(eq(schema.jobs.status, filters.status));
+    }
+    if (filters?.query) {
+      const searchPattern = `%${filters.query}%`;
+      conditions.push(
+        or(
+          like(schema.jobs.title, searchPattern),
+          like(schema.jobs.description, searchPattern),
+          like(schema.jobs.company, searchPattern)
+        )
+      );
+    }
+
+    const query = conditions.length > 0
+      ? this.db.select().from(schema.jobs).where(and(...conditions)).orderBy(desc(schema.jobs.postedAt))
+      : this.db.select().from(schema.jobs).orderBy(desc(schema.jobs.postedAt));
+    
+    return await query;
+  }
+
+  async getJob(id: string): Promise<Job | undefined> {
+    const results = await this.db.select().from(schema.jobs).where(eq(schema.jobs.id, id));
+    return results[0];
+  }
+
+  async getFeaturedJobs(): Promise<Job[]> {
+    return await this.db.select().from(schema.jobs)
+      .where(and(eq(schema.jobs.featured, true), eq(schema.jobs.status, "approved")))
+      .orderBy(desc(schema.jobs.postedAt))
+      .limit(6);
+  }
+
+  async getJobsByCategory(): Promise<{ category: string; count: number }[]> {
+    const jobs = await this.db.select().from(schema.jobs).where(eq(schema.jobs.status, "approved"));
+    const categoryCounts = new Map<string, number>();
+    
+    jobs.forEach(job => {
+      categoryCounts.set(job.category, (categoryCounts.get(job.category) || 0) + 1);
+    });
+
+    return Array.from(categoryCounts.entries()).map(([category, count]) => ({ category, count }));
+  }
+
+  async getPendingJobs(): Promise<Job[]> {
+    return await this.db.select().from(schema.jobs)
+      .where(eq(schema.jobs.status, "pending"))
+      .orderBy(desc(schema.jobs.postedAt));
+  }
+
+  async createJob(insertJob: InsertJob): Promise<Job> {
+    const results = await this.db.insert(schema.jobs).values(insertJob).returning();
+    return results[0];
+  }
+
+  async updateJob(id: string, updateData: Partial<Job>): Promise<Job | undefined> {
+    const results = await this.db.update(schema.jobs)
+      .set(updateData)
+      .where(eq(schema.jobs.id, id))
+      .returning();
+    return results[0];
+  }
+
+  async updateJobStatus(id: string, status: string): Promise<Job | undefined> {
+    const results = await this.db.update(schema.jobs)
+      .set({ status })
+      .where(eq(schema.jobs.id, id))
+      .returning();
+    return results[0];
+  }
+
+  async deleteJob(id: string): Promise<boolean> {
+    const results = await this.db.delete(schema.jobs).where(eq(schema.jobs.id, id)).returning();
+    return results.length > 0;
+  }
+
+  // Job Applications
+  async getJobApplications(jobId?: string, userId?: string): Promise<JobApplication[]> {
+    let conditions = [];
+    
+    if (jobId) {
+      conditions.push(eq(schema.jobApplications.jobId, jobId));
+    }
+    if (userId) {
+      conditions.push(eq(schema.jobApplications.userId, userId));
+    }
+
+    const query = conditions.length > 0
+      ? this.db.select().from(schema.jobApplications).where(and(...conditions)).orderBy(desc(schema.jobApplications.appliedAt))
+      : this.db.select().from(schema.jobApplications).orderBy(desc(schema.jobApplications.appliedAt));
+    
+    return await query;
+  }
+
+  async createJobApplication(insertApplication: InsertJobApplication): Promise<JobApplication> {
+    const results = await this.db.insert(schema.jobApplications).values(insertApplication).returning();
+    return results[0];
+  }
+
+  async updateJobApplicationStatus(id: string, status: string): Promise<JobApplication | undefined> {
+    const results = await this.db.update(schema.jobApplications)
+      .set({ status })
+      .where(eq(schema.jobApplications.id, id))
+      .returning();
+    return results[0];
+  }
+
+  // Blog Posts
+  async getBlogPosts(published?: boolean): Promise<BlogPost[]> {
+    const query = published !== undefined
+      ? this.db.select().from(schema.blogPosts).where(eq(schema.blogPosts.published, published)).orderBy(desc(schema.blogPosts.publishedAt))
+      : this.db.select().from(schema.blogPosts).orderBy(desc(schema.blogPosts.publishedAt));
+    
+    return await query;
+  }
+
+  async getBlogPost(id: string): Promise<BlogPost | undefined> {
+    const results = await this.db.select().from(schema.blogPosts).where(eq(schema.blogPosts.id, id));
+    return results[0];
+  }
+
+  async getBlogPostBySlug(slug: string): Promise<BlogPost | undefined> {
+    const results = await this.db.select().from(schema.blogPosts).where(eq(schema.blogPosts.slug, slug));
+    return results[0];
+  }
+
+  async createBlogPost(post: Omit<BlogPost, 'id'>): Promise<BlogPost> {
+    const results = await this.db.insert(schema.blogPosts).values(post).returning();
+    return results[0];
+  }
+
+  async updateBlogPost(id: string, updateData: Partial<BlogPost>): Promise<BlogPost | undefined> {
+    const results = await this.db.update(schema.blogPosts)
+      .set(updateData)
+      .where(eq(schema.blogPosts.id, id))
+      .returning();
+    return results[0];
+  }
+
+  async deleteBlogPost(id: string): Promise<boolean> {
+    const results = await this.db.delete(schema.blogPosts).where(eq(schema.blogPosts.id, id)).returning();
+    return results.length > 0;
+  }
+
+  // Testimonials
+  async getTestimonials(featured?: boolean): Promise<Testimonial[]> {
+    const query = featured !== undefined
+      ? this.db.select().from(schema.testimonials).where(eq(schema.testimonials.featured, featured))
+      : this.db.select().from(schema.testimonials);
+    
+    return await query;
+  }
+
+  // Products
+  async getProducts(filters?: { category?: string; featured?: boolean; published?: boolean }): Promise<Product[]> {
+    let conditions = [];
+    
+    if (filters?.category) {
+      conditions.push(eq(schema.products.category, filters.category));
+    }
+    if (filters?.featured !== undefined) {
+      conditions.push(eq(schema.products.featured, filters.featured));
+    }
+    if (filters?.published !== undefined) {
+      conditions.push(eq(schema.products.published, filters.published));
+    }
+
+    const query = conditions.length > 0
+      ? this.db.select().from(schema.products).where(and(...conditions)).orderBy(desc(schema.products.createdAt))
+      : this.db.select().from(schema.products).orderBy(desc(schema.products.createdAt));
+    
+    return await query;
+  }
+
+  async getProduct(id: string): Promise<Product | undefined> {
+    const results = await this.db.select().from(schema.products).where(eq(schema.products.id, id));
+    return results[0];
+  }
+
+  async getFeaturedProducts(): Promise<Product[]> {
+    return await this.db.select().from(schema.products)
+      .where(and(eq(schema.products.featured, true), eq(schema.products.published, true)))
+      .orderBy(desc(schema.products.createdAt))
+      .limit(6);
+  }
+
+  async getProductsByCategory(): Promise<{ category: string; count: number }[]> {
+    const products = await this.db.select().from(schema.products).where(eq(schema.products.published, true));
+    const categoryCounts = new Map<string, number>();
+    
+    products.forEach(product => {
+      categoryCounts.set(product.category, (categoryCounts.get(product.category) || 0) + 1);
+    });
+
+    return Array.from(categoryCounts.entries()).map(([category, count]) => ({ category, count }));
+  }
+
+  async createProduct(insertProduct: InsertProduct): Promise<Product> {
+    const results = await this.db.insert(schema.products).values(insertProduct).returning();
+    return results[0];
+  }
+
+  async updateProduct(id: string, updateData: Partial<Product>): Promise<Product | undefined> {
+    const results = await this.db.update(schema.products)
+      .set(updateData)
+      .where(eq(schema.products.id, id))
+      .returning();
+    return results[0];
+  }
+
+  async deleteProduct(id: string): Promise<boolean> {
+    const results = await this.db.delete(schema.products).where(eq(schema.products.id, id)).returning();
+    return results.length > 0;
+  }
+
+  // Orders
+  async getOrders(filters?: { status?: string }): Promise<Order[]> {
+    const query = filters?.status
+      ? this.db.select().from(schema.orders).where(eq(schema.orders.status, filters.status)).orderBy(desc(schema.orders.createdAt))
+      : this.db.select().from(schema.orders).orderBy(desc(schema.orders.createdAt));
+    
+    return await query;
+  }
+
+  async getOrder(id: string): Promise<Order | undefined> {
+    const results = await this.db.select().from(schema.orders).where(eq(schema.orders.id, id));
+    return results[0];
+  }
+
+  async createOrder(insertOrder: InsertOrder): Promise<Order> {
+    // Validate order items, check stock, and calculate server-side prices
+    let serverCalculatedTotal = 0;
+    const validatedItems: OrderItem[] = [];
+    
+    for (const item of insertOrder.items) {
+      const product = await this.getProduct(item.productId);
+      if (!product) {
+        throw new Error(`Product with ID ${item.productId} not found`);
+      }
+      
+      const availableStock = product.stock ?? 0;
+      if (availableStock < item.quantity) {
+        throw new Error(`Insufficient stock for ${product.name}. Available: ${availableStock}, Requested: ${item.quantity}`);
+      }
+      
+      // Use server-side pricing for security
+      const serverPrice = parseFloat(product.price);
+      const itemTotal = serverPrice * item.quantity;
+      serverCalculatedTotal += itemTotal;
+      
+      validatedItems.push({
+        productId: item.productId,
+        quantity: item.quantity,
+        price: product.price,
+        name: product.name,
+      });
+    }
+    
+    // Reduce stock levels
+    for (const item of insertOrder.items) {
+      const product = await this.getProduct(item.productId);
+      if (product) {
+        const currentStock = product.stock ?? 0;
+        await this.updateProduct(item.productId, {
+          stock: currentStock - item.quantity,
+        });
+      }
+    }
+    
+    const results = await this.db.insert(schema.orders).values({
+      items: validatedItems,
+      total: serverCalculatedTotal.toFixed(2),
+      customerName: insertOrder.customerName,
+      customerEmail: insertOrder.customerEmail,
+      customerPhone: insertOrder.customerPhone || null,
+      shippingAddress: insertOrder.shippingAddress,
+    }).returning();
+    return results[0];
+  }
+
+  async updateOrderStatus(id: string, status: string): Promise<Order | undefined> {
+    const results = await this.db.update(schema.orders)
+      .set({ status })
+      .where(eq(schema.orders.id, id))
+      .returning();
+    return results[0];
+  }
+
+  // Warehouse Requests
+  async getWarehouseRequests(filters?: { status?: string }): Promise<WarehouseRequest[]> {
+    const query = filters?.status
+      ? this.db.select().from(schema.warehouseRequests).where(eq(schema.warehouseRequests.status, filters.status)).orderBy(desc(schema.warehouseRequests.createdAt))
+      : this.db.select().from(schema.warehouseRequests).orderBy(desc(schema.warehouseRequests.createdAt));
+    
+    return await query;
+  }
+
+  async getWarehouseRequest(id: string): Promise<WarehouseRequest | undefined> {
+    const results = await this.db.select().from(schema.warehouseRequests).where(eq(schema.warehouseRequests.id, id));
+    return results[0];
+  }
+
+  async createWarehouseRequest(insertRequest: InsertWarehouseRequest): Promise<WarehouseRequest> {
+    const results = await this.db.insert(schema.warehouseRequests).values(insertRequest).returning();
+    return results[0];
+  }
+
+  async updateWarehouseRequestStatus(id: string, status: string): Promise<WarehouseRequest | undefined> {
+    const results = await this.db.update(schema.warehouseRequests)
+      .set({ status })
+      .where(eq(schema.warehouseRequests.id, id))
+      .returning();
+    return results[0];
+  }
+
+  // Statistics
+  async getStats(): Promise<{ jobs: number; employers: number; hired: number }> {
+    const jobs = await this.db.select().from(schema.jobs);
+    const applications = await this.db.select().from(schema.jobApplications);
+    
+    const employers = new Set(jobs.map(job => job.company)).size;
+    const hired = applications.filter(app => app.status === "hired").length + 1485;
+    
+    return {
+      jobs: jobs.length + 734,
+      employers: employers + 370,
+      hired,
+    };
+  }
+
+  async getDashboardStats(): Promise<{ jobs: number; blogPosts: number; testimonials: number; applications: number }> {
+    const jobs = await this.db.select().from(schema.jobs).where(eq(schema.jobs.status, "approved"));
+    const blogPosts = await this.db.select().from(schema.blogPosts).where(eq(schema.blogPosts.published, true));
+    const testimonials = await this.db.select().from(schema.testimonials);
+    const applications = await this.db.select().from(schema.jobApplications);
+    
+    return {
+      jobs: jobs.length,
+      blogPosts: blogPosts.length,
+      testimonials: testimonials.length,
+      applications: applications.length,
+    };
+  }
+}
+
+// Seed function for initial data
+export async function seedDatabase() {
+  const dbStorage = new DbStorage();
+  
+  // Check if admin user exists
+  const existingAdmin = await dbStorage.getAdminUserByUsername("primeadmin");
+  if (!existingAdmin) {
+    const hashedPassword = await bcrypt.hash("PrimeAdmin2024!@#", 10);
+    await dbStorage.createAdminUser({
+      username: "primeadmin",
+      password: hashedPassword,
+    });
+    console.log("Admin user created");
+  }
+  
+  // Seed blog posts if none exist
+  const existingBlogPosts = await dbStorage.getBlogPosts();
+  if (existingBlogPosts.length === 0) {
+    const sampleBlogPosts = [
+      {
+        title: "Job Document Checklist in Canada",
+        excerpt: "In order to find a job in Canada, there are specific documents required to submit to potential employers before you are considered for a particular position.",
+        content: `In order to find a job in Canada, there are specific documents required...`,
+        imageUrl: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&w=800&h=600",
+        slug: "job-document-checklist-canada",
+        published: true,
+        publishedAt: new Date("2024-01-15"),
+      },
+      {
+        title: "Why Cover Letters Still Matter in Today's Job Market",
+        excerpt: "Searching for a new job is a time-consuming endeavor...",
+        content: `Searching for a new job is a time-consuming endeavor...`,
+        imageUrl: "/api/public/Professional_cover_letter_guide_poster_5671271f.png",
+        slug: "why-cover-letters-still-matter",
+        published: true,
+        publishedAt: new Date("2024-01-10"),
+      },
+    ];
+    
+    for (const post of sampleBlogPosts) {
+      await dbStorage.createBlogPost(post);
+    }
+    console.log("Blog posts seeded");
+  }
+  
+  console.log("Database seeding completed");
+}
+
+// Use database storage for production, memory storage for development
+export const storage = process.env.NODE_ENV === 'production' || process.env.USE_DB === 'true'
+  ? new DbStorage()
+  : new MemStorage();

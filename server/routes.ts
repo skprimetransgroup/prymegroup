@@ -402,6 +402,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const blogData = insertBlogPostSchema.parse(req.body);
       const post = await storage.createBlogPost({
         ...blogData,
+        imageUrl: blogData.imageUrl || null,
+        published: blogData.published ?? false,
         publishedAt: blogData.published ? new Date() : null,
       });
       res.status(201).json(post);
