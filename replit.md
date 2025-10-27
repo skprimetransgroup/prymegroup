@@ -23,9 +23,11 @@ Preferred communication style: Simple, everyday language.
 - **Runtime**: Node.js with Express.js server
 - **Language**: TypeScript with ES modules
 - **API Design**: RESTful API with structured endpoint organization
-- **Storage Interface**: Abstract storage layer (IStorage) with in-memory implementation
+- **Storage Interface**: Abstract storage layer (IStorage) with both in-memory and database implementations
+- **Storage Type**: DbStorage (PostgreSQL via Drizzle ORM) for production, MemStorage for development
 - **Development Server**: Integrated Vite development server for SSR support
-- **Middleware**: Custom logging, JSON parsing, and error handling
+- **Middleware**: Custom logging, JSON parsing, error handling, and session management
+- **Deployment**: Vercel-ready with serverless function support
 
 ### Data Layer
 - **ORM**: Drizzle ORM with PostgreSQL dialect
@@ -77,9 +79,33 @@ Preferred communication style: Simple, everyday language.
 - **date-fns**: Date manipulation library
 
 ### Database Configuration
-- PostgreSQL database with connection via environment variable `DATABASE_URL`
-- Schema migrations managed through Drizzle Kit
-- Session storage using connect-pg-simple for PostgreSQL sessions
+- **Database**: PostgreSQL (Neon) with connection via environment variable `DATABASE_URL`
+- **Migrations**: Schema changes managed through Drizzle Kit (`npm run db:push`)
+- **Session Storage**: 
+  - Development: In-memory session store (MemoryStore)
+  - Production: Database-backed sessions (connect-pg-simple)
+- **Seeding**: Initial data seeded via `npm run seed` (admin user, jobs, blog posts, testimonials)
+
+## Deployment
+
+### Vercel Deployment
+The application is fully configured for Vercel deployment with serverless functions:
+
+- **Serverless API**: `/api/index.ts` wraps Express app for Vercel Functions
+- **Configuration**: `vercel.json` handles routing and build settings
+- **Trust Proxy**: Configured for secure cookies behind Vercel's TLS termination
+- **Session Persistence**: PostgreSQL session store ensures sessions survive across serverless invocations
+- **Environment Variables Required**:
+  - `DATABASE_URL`: PostgreSQL connection string (Neon)
+  - `SESSION_SECRET`: Strong secret for session encryption
+  - `NODE_ENV`: Set to `production` for production deployments
+
+For detailed deployment instructions, see `VERCEL_DEPLOYMENT.md`.
+
+### Local Development
+- Run `npm run dev` to start the development server (port 5000)
+- Uses in-memory storage by default
+- Set `USE_DB=true` to test with database storage locally
 
 ### Admin Access
 - Admin credentials: username: `primeadmin`, password: `PrimeAdmin2024!@#`
