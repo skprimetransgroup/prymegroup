@@ -4,7 +4,7 @@ import SEOManager, { SEOConfigs } from "@/components/seo/SEOManager";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Users, Target, CheckCircle, Building2 } from "lucide-react";
-import primeLogoPath from "@assets/GROUP (500 x 300 px) (500 x 200 px)_1757610842620.png";
+import primeLogoPath from "@assets/Prime Trans Group - Black_1761575997152.png";
 
 export default function About() {
   return (
