@@ -147,7 +147,7 @@ export default function CinematicBusiness3D({ className = "" }: CinematicBusines
       case 0: return { title: "Expert Staffing", subtitle: "Connecting Talent", icon: "👥" };
       case 1: return { title: "Warehouse Solutions", subtitle: "Logistics Excellence", icon: "📦" };
       case 2: return { title: "Transportation", subtitle: "Delivery Network", icon: "🚛" };
-      default: return { title: "Business Solutions", subtitle: "Prime Trans Group", icon: "💼" };
+      default: return { title: "Business Solutions", subtitle: "Pryme Group", icon: "💼" };
     }
   };
 

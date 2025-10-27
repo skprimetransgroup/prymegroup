@@ -64,7 +64,7 @@ export default function VideoHero() {
               <div className="w-16 h-16 mx-auto mb-4 bg-[#edc247] rounded-full flex items-center justify-center">
                 <Truck className="w-8 h-8 text-[#0b0d1e]" />
               </div>
-              <h2 className="text-2xl font-bold mb-2">Prime Trans Group</h2>
+              <h2 className="text-2xl font-bold mb-2">Pryme Group</h2>
               <p className="text-gray-300">
                 Canada's Leading Business Solutions
               </p>

@@ -93,7 +93,7 @@ export default function PWAInstallPrompt() {
             </div>
             <div>
               <h3 className="text-white font-semibold text-sm">
-                Install Prime Trans Group
+                Install Pryme Group
               </h3>
               <p className="text-white/80 text-xs">
                 Get quick access to our services

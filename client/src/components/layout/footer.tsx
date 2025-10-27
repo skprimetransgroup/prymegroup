@@ -13,7 +13,7 @@ export default function Footer() {
               <div className="bg-gradient-to-r from-white via-gray-100 to-white p-3 rounded-lg">
                 <img 
                   src={primeLogoPath} 
-                  alt="Prime Trans Group" 
+                  alt="Pryme Group" 
                   className="h-16 w-auto"
                 />
               </div>
@@ -169,7 +169,7 @@ export default function Footer() {
 
         <div className="border-t border-secondary-foreground/20 mt-12 pt-8 text-center">
           <p className="text-sm text-secondary-foreground/60 mb-2">
-            © 2025 Prime Trans Group. All rights reserved. | <Link href="/privacy-policy" className="hover:text-primary transition-colors" data-testid="link-footer-privacy">Privacy Policy</Link> | <Link href="/terms-conditions" className="hover:text-primary transition-colors" data-testid="link-footer-terms">Terms of Service</Link>
+            © 2025 Pryme Group. All rights reserved. | <Link href="/privacy-policy" className="hover:text-primary transition-colors" data-testid="link-footer-privacy">Privacy Policy</Link> | <Link href="/terms-conditions" className="hover:text-primary transition-colors" data-testid="link-footer-terms">Terms of Service</Link>
           </p>
           <p className="text-xs text-secondary-foreground/50">
             Designed by <a href="https://www.timgrow.com/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors font-medium" data-testid="link-footer-designer">TimGrow</a> | Designer: Sameer Khan

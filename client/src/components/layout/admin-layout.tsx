@@ -45,7 +45,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           <div className="flex h-16 items-center border-b border-border px-6">
             <img 
               src={primeLogoPath} 
-              alt="Prime Trans Group" 
+              alt="Pryme Group" 
               className="h-8 w-auto"
             />
             <div className="ml-2">

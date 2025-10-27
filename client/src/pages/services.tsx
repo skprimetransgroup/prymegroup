@@ -183,7 +183,7 @@ export default function Services() {
           {/* Why Choose Us */}
           <section className="mb-20 bg-muted/30 rounded-2xl p-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-foreground mb-4">Why Choose Prime Trans Group</h2>
+              <h2 className="text-3xl font-bold text-foreground mb-4">Why Choose Pryme Group</h2>
               <div className="w-24 h-1 bg-primary mx-auto mb-6"></div>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Our commitment to excellence and proven track record make us Ontario's trusted workforce partner.

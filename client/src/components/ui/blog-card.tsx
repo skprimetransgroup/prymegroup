@@ -57,7 +57,7 @@ export default function BlogCard({ post }: BlogCardProps) {
           <div className="flex items-center mb-4 text-sm">
             <div className="flex items-center bg-primary/10 text-primary px-3 py-1 rounded-full font-semibold">
               <User className="w-3 h-3 mr-2" />
-              <span>Prime Trans Group</span>
+              <span>Pryme Group</span>
             </div>
           </div>
           

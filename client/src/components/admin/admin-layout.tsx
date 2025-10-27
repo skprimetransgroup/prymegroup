@@ -45,7 +45,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         <div className="fixed inset-0 bg-background/80 backdrop-blur-sm" onClick={() => setSidebarOpen(false)} />
         <div className="fixed inset-y-0 left-0 w-64 bg-card border-r border-border">
           <div className="flex items-center justify-between h-16 px-4 border-b border-border">
-            <img src={primeLogoPath} alt="Prime Trans Group" className="h-8 w-auto" />
+            <img src={primeLogoPath} alt="Pryme Group" className="h-8 w-auto" />
             <Button variant="ghost" size="sm" onClick={() => setSidebarOpen(false)}>
               <X className="h-5 w-5" />
             </Button>
@@ -77,7 +77,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
         <div className="flex min-h-0 flex-1 flex-col bg-card border-r border-border">
           <div className="flex items-center h-16 px-4 border-b border-border">
-            <img src={primeLogoPath} alt="Prime Trans Group" className="h-8 w-auto" />
+            <img src={primeLogoPath} alt="Pryme Group" className="h-8 w-auto" />
             <span className="ml-2 text-lg font-semibold">Admin Panel</span>
           </div>
           <div className="flex-1 flex flex-col overflow-y-auto">
@@ -125,7 +125,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             </Button>
             <div className="flex items-center space-x-4">
               <div className="text-sm text-muted-foreground">
-                Welcome to Prime Trans Group Admin
+                Welcome to Pryme Group Admin
               </div>
             </div>
           </div>

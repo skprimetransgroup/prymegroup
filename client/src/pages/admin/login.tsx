@@ -68,7 +68,7 @@ export default function AdminLoginPage() {
           <div className="flex justify-center">
             <img 
               src={primeLogoPath} 
-              alt="Prime Trans Group" 
+              alt="Pryme Group" 
               className="h-12 w-auto"
             />
           </div>
@@ -157,7 +157,7 @@ export default function AdminLoginPage() {
 
           <div className="mt-6 text-center">
             <p className="text-sm text-muted-foreground">
-              Secured admin access for Prime Trans Group
+              Secured admin access for Pryme Group
             </p>
           </div>
         </CardContent>

@@ -476,7 +476,7 @@ export default function AdminJobs() {
                         id="company"
                         value={newJobData.company}
                         onChange={(e) => setNewJobData(prev => ({ ...prev, company: e.target.value }))}
-                        placeholder="e.g. Prime Trans Group"
+                        placeholder="e.g. Pryme Group"
                         required
                       />
                     </div>
@@ -627,7 +627,7 @@ export default function AdminJobs() {
                       id="edit-company"
                       value={editJobData.company}
                       onChange={(e) => setEditJobData(prev => ({ ...prev, company: e.target.value }))}
-                      placeholder="e.g. Prime Trans Group"
+                      placeholder="e.g. Pryme Group"
                       required
                     />
                   </div>

@@ -21,7 +21,7 @@ export default function WhyChooseUs() {
                 Just give us a few details, and let us get to work — with matching technology that instantly identifies the best available local and national talent, and staffing specialists that help you quickly close the deal.
               </p>
               <p className="text-lg font-semibold text-foreground">
-                Find the best talent, in the right location, at the right cost with Prime Trans Group.
+                Find the best talent, in the right location, at the right cost with Pryme Group.
               </p>
             </div>
 

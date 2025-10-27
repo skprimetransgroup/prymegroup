@@ -78,7 +78,7 @@ export default function Contact() {
                 Message Sent Successfully!
               </h1>
               <p className="text-lg text-secondary/80 mb-8">
-                Thank you for reaching out to Prime Trans Group. Our team will review your message 
+                Thank you for reaching out to Pryme Group. Our team will review your message 
                 and get back to you within 24 hours during business days.
               </p>
               <div className="space-y-4">
@@ -371,7 +371,7 @@ export default function Contact() {
               <CardHeader className="bg-gradient-to-r from-secondary/5 to-primary/5">
                 <CardTitle className="text-xl font-bold text-secondary flex items-center">
                   <Building2 className="w-5 h-5 mr-3 text-primary" />
-                  Why Choose Prime Trans Group?
+                  Why Choose Pryme Group?
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-6 space-y-4">

@@ -57,7 +57,7 @@ export default function Header() {
           >
             <img 
               src={primeLogoPath} 
-              alt="Prime Trans Group - Home" 
+              alt="Pryme Group - Home" 
               className="h-12 lg:h-16 w-auto transition-transform duration-300"
             />
           </Link>

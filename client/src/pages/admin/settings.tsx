@@ -29,7 +29,7 @@ export default function AdminSettings() {
   });
 
   const [siteSettings, setSiteSettings] = useState({
-    siteName: "Prime Trans Group",
+    siteName: "Pryme Group",
     siteDescription: "Canada's workforce solutions provider",
     contactEmail: "jobs@primetransgroup.ca",
     contactPhone: "249-444-0004",

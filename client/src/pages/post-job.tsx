@@ -104,7 +104,7 @@ export default function PostJobPage() {
               Job Posted Successfully!
             </h1>
             <p className="text-muted-foreground mb-6 sm:mb-8 text-base sm:text-lg px-4 sm:px-0">
-              Thank you for posting with Prime Trans Group. Your job listing is now under review 
+              Thank you for posting with Pryme Group. Your job listing is now under review 
               and will be published on our website once approved by our team.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:justify-center">
@@ -142,7 +142,7 @@ export default function PostJobPage() {
             <div className="mx-auto mb-4 sm:mb-6 flex items-center justify-center">
               <img 
                 src={primeLogoPath} 
-                alt="Prime Trans Group" 
+                alt="Pryme Group" 
                 className="h-12 sm:h-16 w-auto max-w-[180px] sm:max-w-[200px]"
               />
             </div>
@@ -150,7 +150,7 @@ export default function PostJobPage() {
               Post a Job Opening
             </h1>
             <p className="text-base sm:text-lg lg:text-xl text-muted-foreground px-4 sm:px-0">
-              Connect with talented candidates through Prime Trans Group's extensive network. 
+              Connect with talented candidates through Pryme Group's extensive network. 
               Post your job today and find the perfect fit for your team.
             </p>
           </div>

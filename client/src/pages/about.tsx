@@ -17,7 +17,7 @@ export default function About() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6">
-              About Prime Trans Group
+              About Pryme Group
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               One of the fastest growing staffing firms in Ontario, pioneering innovative recruitment methodologies to connect top talent with exceptional opportunities.
@@ -55,12 +55,12 @@ export default function About() {
                 <div className="space-y-6">
                   <div className="group">
                     <p className="text-lg text-muted-foreground leading-relaxed group-hover:text-foreground transition-colors duration-300">
-                      Prime Trans Group is one of the fastest growing staffing firm in Ontario. We endeavor to be industry pioneers by our remarkable and inventive methodology at enrolling top ability. We invest wholeheartedly in having the right blend among customary and imaginative approaches to obtaining competitors.
+                      Pryme Group is one of the fastest growing staffing firm in Ontario. We endeavor to be industry pioneers by our remarkable and inventive methodology at enrolling top ability. We invest wholeheartedly in having the right blend among customary and imaginative approaches to obtaining competitors.
                     </p>
                   </div>
                   <div className="group">
                     <p className="text-lg text-muted-foreground leading-relaxed group-hover:text-foreground transition-colors duration-300">
-                      The labor force is changing, organizations and workers have various necessities, and we comprehend those needs. Finding quality job candidates is difficult when there are so many to choose from. With Prime Trans Group by your side, finding the right candidate is no problem.
+                      The labor force is changing, organizations and workers have various necessities, and we comprehend those needs. Finding quality job candidates is difficult when there are so many to choose from. With Pryme Group by your side, finding the right candidate is no problem.
                     </p>
                   </div>
 
@@ -83,11 +83,11 @@ export default function About() {
                     <div className="flex items-center justify-center w-20 h-20 bg-gradient-to-br from-white to-gray-50 rounded-full mb-6 mx-auto shadow-lg border-2 border-primary/20 group-hover:scale-110 transition-transform duration-300">
                       <img 
                         src={primeLogoPath} 
-                        alt="Prime Trans Group Logo" 
+                        alt="Pryme Group Logo" 
                         className="h-12 w-auto"
                       />
                     </div>
-                    <h3 className="text-xl font-bold text-center mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Prime Trans Group Toronto</h3>
+                    <h3 className="text-xl font-bold text-center mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Pryme Group Toronto</h3>
                     <p className="text-muted-foreground text-center leading-relaxed">
                       Our essential objective is to make solid associations between excellent ability & opportunity.
                     </p>
@@ -128,7 +128,7 @@ export default function About() {
                     </div>
                     <h3 className="text-lg font-bold mb-4 group-hover:text-red-600 transition-colors duration-300">Problem</h3>
                     <p className="text-muted-foreground leading-relaxed group-hover:text-foreground transition-colors duration-300">
-                      Finding quality job candidates is difficult when there are so many to choose from. With Prime Trans Group by your side, finding the right candidate is no problem.
+                      Finding quality job candidates is difficult when there are so many to choose from. With Pryme Group by your side, finding the right candidate is no problem.
                     </p>
                   </CardContent>
                 </Card>
@@ -143,7 +143,7 @@ export default function About() {
                     </div>
                     <h3 className="text-lg font-bold mb-4 group-hover:text-yellow-600 transition-colors duration-300">Agitate</h3>
                     <p className="text-muted-foreground leading-relaxed group-hover:text-foreground transition-colors duration-300">
-                      Prime Trans Group has an extensive network of single professionals, graduates, and apprentices looking for temporary or full-time opportunities in one of their many offices in Ontario.
+                      Pryme Group has an extensive network of single professionals, graduates, and apprentices looking for temporary or full-time opportunities in one of their many offices in Ontario.
                     </p>
                   </CardContent>
                 </Card>
@@ -158,7 +158,7 @@ export default function About() {
                     </div>
                     <h3 className="text-lg font-bold mb-4 group-hover:text-green-600 transition-colors duration-300">Solve</h3>
                     <p className="text-muted-foreground leading-relaxed group-hover:text-foreground transition-colors duration-300">
-                      Don't worry about hiring the wrong person. Contact Prime Trans Group today to find out more about how they can help you fill your open positions with qualified applicants in Ontario!
+                      Don't worry about hiring the wrong person. Contact Pryme Group today to find out more about how they can help you fill your open positions with qualified applicants in Ontario!
                     </p>
                   </CardContent>
                 </Card>
@@ -201,7 +201,7 @@ export default function About() {
                 Ready to Find Your <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Perfect Match?</span>
               </h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Whether you're an employer looking for qualified candidates or a job seeker searching for the right opportunity, Prime Trans Group is here to help.
+                Whether you're an employer looking for qualified candidates or a job seeker searching for the right opportunity, Pryme Group is here to help.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">

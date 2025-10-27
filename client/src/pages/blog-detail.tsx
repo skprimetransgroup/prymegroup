@@ -222,7 +222,7 @@ export default function BlogDetail() {
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8 bg-gradient-to-r from-primary/5 to-secondary/5 p-8 rounded-2xl">
               <div>
                 <p className="text-sm text-secondary/70 mb-2 font-medium">Published by</p>
-                <p className="font-bold text-2xl text-secondary mb-1">Prime Trans Group</p>
+                <p className="font-bold text-2xl text-secondary mb-1">Pryme Group</p>
                 <p className="text-base text-primary font-semibold">Canada's Leading Workforce Solutions Provider</p>
               </div>
               

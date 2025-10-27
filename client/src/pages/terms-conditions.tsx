@@ -19,7 +19,7 @@ export default function TermsConditions() {
 
           <div className="prose prose-lg max-w-none space-y-6">
             <p>
-              Welcome to our website which is operated by Prime Trans Group. If you continue to browse and use this website, you are agreeing to comply with and be bound by the following terms and conditions of use, which together with our privacy policy govern our relationship with you in relation to this website. If you disagree with any part of these terms and conditions, please do not use our website.
+              Welcome to our website which is operated by Pryme Group. If you continue to browse and use this website, you are agreeing to comply with and be bound by the following terms and conditions of use, which together with our privacy policy govern our relationship with you in relation to this website. If you disagree with any part of these terms and conditions, please do not use our website.
             </p>
 
             <p>
